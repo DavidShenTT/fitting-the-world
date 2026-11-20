@@ -38,11 +38,11 @@ class Seeder:
 
 # ------------------------------------------------------------------ shared pieces
 
-def setup(seed, geom):
+def setup(seed, geom, lam=None):
     W.set_geometry(GEOM[geom])
     r = rng(seed, "world")
     nat = W.World(r, n_items=C.N_ITEMS, delta=C.DELTA, drift_a=C.DRIFT_A, drift_u=C.DRIFT_U, noise=C.NOISE)
-    B = W.make_bodies(r, C.BODY_TYPES, C.LAM[geom])
+    B = W.make_bodies(r, C.BODY_TYPES, C.LAM[geom] if lam is None else lam)
     test = W.natural_test_set(rng(seed, "test"))
     return nat, B, test
 
@@ -490,10 +490,11 @@ def run_task(exp, t):
 
 # ------------------------------------------------------------------ stage-2 tuning and sanity tasks (seeds 7000-7099)
 
-def tune_leg(seed, geom, width):
+def tune_leg(seed, geom, width, lam=None):
     """Legibility and exploration check: a lone wild agent, skip rule, 60k steps (wild agents only)."""
-    nat, B, test = setup(seed, geom)
-    key = (seed, "tune_leg", geom, width)
+    nat, B, test = setup(seed, geom, lam)
+    lam = C.LAM[geom] if lam is None else lam
+    key = (seed, "tune_leg", geom, width) if lam == 0.4 else (seed, "tune_leg", geom, width, lam)
     ag = W.make_agents(rng(*key), 1, width, 0); w = nat.copy(); sd = Seeder(*key)
     comp, reached = [], np.nan
     for s in range(5000, 60001, 5000):
@@ -504,7 +505,7 @@ def tune_leg(seed, geom, width):
             reached = s
     row = score(B, ag, w, test, (*key, "score"))
     W.set_geometry(W.UNEQUAL)
-    return {"leg": [dict(seed=seed, geom=geom, width=width, lam=C.LAM[geom], steps_to_comp=reached,
+    return {"leg": [dict(seed=seed, geom=geom, width=width, lam=lam, steps_to_comp=reached,
                          comp_60k=comp[-1], **row)]}
 
 
@@ -524,11 +525,29 @@ def tune_epsr(seed, kind, cond, grid=tuple(round(0.01 * i, 2) for i in range(21)
     return {"epsr": rows}
 
 
+def tune_leg_diag(seed, geom, lam, j):
+    """Diagnostic for the legibility check: agent j on map 0, scored at 60k and 120k steps (wild agents only)."""
+    nat, B, test = setup(seed, geom, lam)
+    key = (seed, "tune_leg_diag", geom, lam, j)
+    ag = W.make_agents(rng(*key), 1, C.BASE_WIDTH, 0); w = nat.copy(); sd = Seeder(*key)
+    rows = []
+    for s in (60000, 120000):
+        live(w, B, ag, None, {}, 60000, sd())
+        rows.append(dict(seed=seed, geom=geom, lam=lam, j=j, steps=s, **score(B, ag, w, test, (*key, "score", s))))
+    W.set_geometry(W.UNEQUAL)
+    return {"diag": rows}
+
+
 def tasks_tuning(exp, seeds):
     T = []
     for s in seeds:
         if exp == "tune_leg":
             T += [(s, "symmetric", 32)] + [(s, "unequal", wd) for wd in (4, 8, 16, 32)]
+        elif exp == "tune_leg_lam":
+            T += [(s, g, wd, lam) for lam in (0.35, 0.3, 0.25, 0.2, 0.15, 0.1)
+                  for g, wd in [("symmetric", 32)] + [("unequal", w_) for w_ in (4, 8, 16, 32)]]
+        elif exp == "tune_leg_diag":
+            T += [(s, g, lam, j) for g in ("symmetric", "unequal") for lam in (0.4, 0.3, 0.2) for j in range(3)]
         elif exp == "tune_epsr":
             T += [(s, k, c) for k in ("wild", "wear", "eye1") for c in ("skip", "passive")]
         elif exp == "tune_e2":
@@ -547,10 +566,12 @@ def tasks(exp, seeds):  # noqa: F811
 
 
 def run_task(exp, t):  # noqa: F811
-    if exp == "tune_leg":
+    if exp in ("tune_leg", "tune_leg_lam"):
         return tune_leg(*t)
     if exp == "tune_epsr":
         return tune_epsr(*t)
+    if exp == "tune_leg_diag":
+        return tune_leg_diag(*t)
     if exp == "tune_e2":
         return e2(*t)
     if exp == "sanity_wear":
