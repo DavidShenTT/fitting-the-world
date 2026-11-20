@@ -1,0 +1,7 @@
+D3: share of acceptances among the labels each agent learned from (60k steps, width 32, mean of 3 agents)
+window = 35-65 degrees from a wide centre, where the built worlds are empty (D2a)
+regime   kind             updates           pos_wide         pos_narrow  win_per_1000_wide win_per_1000_narrow       pos_win_wide     pos_win_narrow         shift_wide       shift_narrow
+skip     wild           17386.333              0.923              0.845            243.314            120.137              0.912              0.710             -1.300              1.864
+skip     wear           15902.667              0.953              0.877             30.819              4.964              0.972              0.116             -4.074              5.929
+passive  wild           60000.000              0.347              0.184            157.633            157.628              0.428              0.171              1.367              1.060
+passive  wear           60000.000              0.342              0.161             15.067             15.472              0.486              0.016              3.006              0.331

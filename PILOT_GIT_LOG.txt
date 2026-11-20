@@ -1,0 +1,59 @@
+19ad0de Brief version 7.2: frozen, L10-shift at 2.5 degrees, manifestation framing
+4e09024 Update git log copy
+6642bf8 Brief version 7.1, the freeze candidate, after Neon's sixth review
+76d40d7 Update git log copy
+ae14a98 Pilot 6 report and reproducibility rerun; brief marked freeze pending David
+f4cc0b1 Fix erratum figure
+fbc6259 Pilot 6: design flaw D1 logged; correction to pilot 5's power estimate
+bfc4c60 Pilot 6 first run and verify script
+c95b5db Pilot 6 world, tests and runner, before the first full run
+914893a Brief version 7 and pilot 6 spec, before any pilot 6 code
+eca7550 Update git log copy
+9d7897e Pilot 5 report, reproducibility rerun; brief marked pending version 7
+277d407 Pilot 5 first run and verify script
+22eba8f Pilot 5 world, tests, dose tuning and runner, before the first full run
+7366d1c Brief version 6 and pilot 5 spec, before any pilot 5 code
+c14d957 Update git log copy
+fdaadbe Pilot 4 report; brief marked pending version 6
+95501fe Pilot 4: reproducibility rerun, saved diagnostic outputs, D3 label balance
+9919b3c Pilot 4 first run and verify script
+108e43d Pilot 4 runner, before its first run
+eb3cae8 D2 result: the direction of the boundary error depends on the feedback regime
+18d1063 S4-S6 results; D2 logged before running
+7331f0a Step 2 result, D1, design checks S4-S6 logged before running
+ddfe00c Step 1 result; building sweep logged before running
+4fd2f49 Pilot 4 world (version 5 rules) and tests; legibility tuning logged before running
+7ba268b Brief v5 after Neon's third review, and pilot 4 spec, committed before any pilot 4 code
+8426822 Pre-v5 checks: pilots 1-2 rechecked with split calibration (false refusal, not false acceptance); errata; 45-degree claim checked against pilot 3
+66e5cc0 Commit log refreshed
+d3c0abb PILOT3.md; tuning scripts pinned to the exploration they ran with; brief marked pending version 5
+4c2f514 Edge-curve diagnostic saved as a script and logged
+38d848d Pilot 3 first run and verify script
+57fda62 Pilot 3 runner, before its first run
+f79be02 Step 3 result and chosen building strengths
+2e04586 Step 2 result; building sweep logged before running
+1621c28 D1 result, D2 budgets, exploration tuning logged before running
+a1571d1 Step 1 result; D1 logged before the widened legibility search
+bfa964b Pilot 3 world (version 4 rules) and tests; legibility tuning logged before running
+3737e15 Brief v4 after Neon's second review, and pilot 3 spec, committed before any pilot 3 code
+6dd351f Inline checks saved as scripts and rerun with identical output; rerun of pilot 2 reproduces exactly
+515523e Brief: mark version 3 as pending version 4
+d1b8d89 PILOT2.md; brief's random-refusal remark corrected by pilot 2 (no threshold changed)
+96055fc D5 check result
+e5be830 Pilot 2 first run, verify script; D5 logged before the legibility check
+82055e2 Pilot 2 runner and Q4 result, before the first run
+b6e1322 Log D3 result and D4 before the regime re-sweep
+d66e7ad Log first tuning pass and D3 before the exploration tuning
+4ede043 Pilot 2 world (version 3 rules), tests, log
+a1cbe3a Brief v3 after Neon's review, and pilot 2 spec, committed before any pilot 2 code
+70aae7d Brief: note the CLAUDE.md addition
+52badce Brief: reuse the Convergence venv read-only through a .pth overlay; nothing outside the folder changes
+f47ce9e Brief: correct the list of what changed from version 1
+5af1b6e Brief: folder name, environment and E_K source
+d2138cc Rerun confirms pilot results reproduce exactly
+c1d8471 Pilot run, verify script and PILOT.md; brief updated with design fix D1 (no threshold changed)
+f3e0505 Pilot runner, before its first run
+0faf6f9 Log C1 result and D2 before writing the pilot runner
+c8099c0 D1 logged and implemented: two offers per turn; edge measures read the model's prediction for the boundary action; wear test made deterministic
+81c920e Pilot world, numba core, sanity tests (drift noise set to 0.05 so the natural band stays narrow; no outcome measure seen)
+5d1a1dc Layer 2 brief v2 and pilot spec, committed before any pilot code

@@ -1,0 +1,24 @@
+# Pilot 3 log and deviations
+
+Every change below is logged before the runs it affects.
+
+## 20 Nov
+
+- **Tests.** All eleven sanity tests in `pilot3/test_world3.py` pass on the first run.
+- **Tuning step 1, legibility (seed 3000, wild agents only).** Script `pilot3/tune3_lambda.py`. For λ in {0.25, 0.4, 0.6, 1.0} and four bodies (two maps of each type): a lone width-32 wild agent learns for 20,000 steps with the default exploration (m = 0.2, ε_m = 0.3, ε_min = 0.02, learning rate 0.05). Recorded: edge accuracy, decisive ratio, and steps to competence 0.9 with appearance active and with appearance held at 0. Rule: the largest λ meeting R1 for both types.
+- **Step 1 result.** R1 fails at every λ. Edge accuracy is 0.75–0.77 at λ = 1, 0.71–0.77 at 0.6, 0.72–0.82 at 0.4 and 0.73–0.85 at 0.25. Decisive ratio is 0.24–0.62. The appearance slow-down is 0.8–2.6×: below 2× for most bodies. Competence 0.9 now takes 1,250–7,500 steps, so the new exploration works.
+- **D1, legibility search widened (wild agents only, seed 3000).** Script `pilot3/tune3_noise.py`. λ in {0.25, 0.4} × observation noise in {0.05, 0.02, 0.01} × 60,000 steps; edge accuracy and decisive ratio at 20k, 40k and 60k for one map of each type, and the slow-down at each setting. If nothing reaches R1, pilot 3 continues at the best setting found, and the shortfall is reported as a design finding.
+- **D1 result.** Only λ = 0.4 with observation noise 0.01 reaches R1's accuracy targets for both types, and only after 40,000–60,000 steps. At 60k: type 1 edge accuracy 0.865 and decisive ratio 0.661; type 2 0.865 and 0.623. Edge accuracy fluctuates between checks: it isn't monotone under constant-rate SGD. The slow-down from appearance is 1.6× and 1.5× there, below R1's 2×. **Chosen: λ = 0.4, noise 0.01.** R1 counts as a partial pass: accuracy targets met, slow-down not.
+- **D2, budgets (pilot 3).** Edge knowledge needs about 40–60k steps. Raising budgets become 30,000 and 60,000 steps; E8 pretraining is capped at 80,000 and T2 is 30,000.
+- **Tuning step 2, exploration (seed 3000, competence only).** Script `pilot3/tune3_explore.py`. m in {0.1, 0.2} × ε_m in {0.3, 0.6} × learning rate in {0.05, 0.1}; median steps to competence 0.9 over the four bodies (cap 20,000). Rule: the fastest; if within 20% of the default (m 0.2, ε_m 0.3, learning rate 0.05), keep the default, since the legibility check used it.
+- **Step 2 result.** The fastest is m = 0.2, ε_m = 0.6, learning rate 0.05: median 3,375 steps against 4,875 for the default, 31% faster. **Chosen**, and set as the default in `world3.py`. R2 passes: every setting reaches competence 0.9 within 8,750 steps.
+- **Tuning step 3, building (seed 3000; built share, edge share and appearance movement only).** Script `pilot3/tune3_build.py`. Six learning type-1 builders from random initialisation, 30,000 steps. Wear η in {0.05, 0.15}; shaping by eye s_u in {0.1, 0.3} at κ = 1 and κ = 0.25. Also recorded: movement of the unread coordinate (R4) and the builders' appearance gradient every 5,000 steps.
+- **Step 3 result.**
+  - Wear: built share 0.22 at η = 0.05 and 0.85 at η = 0.15.
+  - Shaping by eye at κ = 1: built share 0.36 at s_u = 0.1 and 0.97 at s_u = 0.3.
+  - Shaping by eye at κ = 0.25: built share 0.08 and 0.31; the builders' u1 moved 0.38 and 0.80 from home.
+  - Under every rule the unread u2 moved 0.049–0.052. That is the natural drift band (wear, which never touches appearance, also gives 0.050–0.052), so the threshold of 0.05 in R4 was set at the band itself. **R4 passes in substance:** shaping never moves u2 beyond drift, and u1 moves 0.80. The builders' appearance gradient stays at 0.012–0.036 throughout the warm-up.
+  - **Chosen:** wear η = 0.15; shaping by eye s_u = 0.3 at both κ.
+- **First run done (seeds 3000–3002, about 245 s per seed).** Results in `pilot3/results/`, figures from `pilot3/verify3.py`.
+- **Diagnostic after the run (not a prediction test).** L10a came out reversed: built-raised agents are less falsely confident on refused edges than wild agents and much more underconfident on accepted edges. To check that this is real, `pilot3/diag_edge_curve.py` plots the predicted acceptance of the boundary action against signed distance from the arc edge, for one wild and one built-raised (wear) agent on seed 3000. Built-raised predictions fall off earlier, inside the arc: 0.71 against 0.91 at 5–10° inside, and 0.48 against 0.70 at 0–5° inside.
+- **Reproducibility.** A second full run of `pilot3.py` gives identical results, and `diag_edge_curve.py` reproduces its table. `tune3_lambda.py` and `tune3_noise.py` first failed to reproduce, because they used the default exploration, and that default changed after they ran (step 2). Both now pin the setting they ran with (m = 0.2, ε_m = 0.3) and reproduce their logged output exactly.

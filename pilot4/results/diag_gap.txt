@@ -1,0 +1,12 @@
+(a) share of items per 5-degree bin of the angle within each quarter (0 = a wide centre, 90 = a narrow centre)
+  natural  0.060 0.065 0.070 0.058 0.075 0.050 0.047 0.053 0.052 0.055 0.047 0.067 0.043 0.060 0.067 0.038 0.040 0.053
+  wear     0.120 0.110 0.112 0.077 0.078 0.110 0.055 0.015 0.003 0.000 0.000 0.000 0.000 0.010 0.040 0.100 0.077 0.093
+  eye1     0.120 0.143 0.168 0.095 0.077 0.045 0.017 0.010 0.007 0.003 0.000 0.000 0.002 0.008 0.063 0.075 0.102 0.065
+  bins:        0     5    10    15    20    25    30    35    40    45    50    55    60    65    70    75    80    85
+(b) mean boundary shift toward 45 over five agents (wide, narrow) [sd]
+  passive=False wild : wide  -0.1 [1.5]  narrow   2.3 [0.9]
+  passive=False wear : wide  -3.1 [0.5]  narrow   6.2 [0.7]
+  passive=False eye1 : wide  -5.7 [1.8]  narrow   6.2 [1.0]
+  passive=True  wild : wide  -0.1 [0.9]  narrow   0.7 [1.1]
+  passive=True  wear : wide   3.3 [0.4]  narrow   0.0 [0.6]
+  passive=True  eye1 : wide   3.4 [1.2]  narrow  -1.8 [1.4]

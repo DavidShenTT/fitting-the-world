@@ -1,0 +1,11 @@
+S4: second-task competence after 30k steps (wild, kind-B at 30% of offers)
+  body 0: {8: -0.011, 32: 0.113, 128: 0.079}
+  body 4: {8: 0.044, 32: 0.007, 128: 0.044}
+S5: ensemble member spread in the wear world (60k), edges vs centres
+  standard: spread edges 0.027, centres 0.014, ratio 1.96
+  prior b=1: spread edges 0.029, centres 0.012, ratio 2.32
+  prior b=3: spread edges 0.030, centres 0.016, ratio 1.83
+  prior b=10: spread edges 0.047, centres 0.013, ratio 3.60
+S6: boundary shift (toward 45) after 60k steps, skip rule vs passive feedback
+  passive=False: wild (wide, narrow) (2.8, 5.5), built (-2.2, 7.0), built minus wild (-5.0, 1.5)
+  passive=True: wild (wide, narrow) (0.2, -0.0), built (4.2, -0.2), built minus wild (4.0, -0.2)

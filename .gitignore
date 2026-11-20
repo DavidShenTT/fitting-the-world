@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.cache/
+.venv/
+.pytest_cache/
+# large or derived artefacts: checkpoints, cached arrays, model weights
+checkpoints/
+*.npz
+*.npy
+*.pt
+*.pth
+*.ckpt
+# archive supplied with the folder (duplicates files already here); kept untracked
+_incoming_layer2.zip
