@@ -1,5 +1,7 @@
 # PLAN.md: learning agents in a world they can shape
 
+> **Amended by REVIEW_1.md (approved 20 Nov).** Where this plan differs from REVIEW_1 or PREREGISTRATION.md, they win. Main changes: E1, E2, E4, E5 and E6 run in the symmetric world with version 1's built share; L10-dose uses pilot 5's levels (s_u = 0.03, 0.1, 0.3); E4 uses version 1's definitions (Cohen's κ agreement, E_K on the hidden layer); the section-9 decisions are otherwise approved. PREREGISTRATION.md is the authoritative specification.
+
 Written 20 Nov 2026 against BRIEF.md version 7.2 (frozen). This is deliverable 1; work stops here for David's review. Nothing below has been run on real seeds. Thresholds are the brief's unless a section says otherwise; every place where I propose a change or an interpretation is marked **[decision]** and collected in section 9.
 
 ## 1. Environment (done, verified 20 Nov)
@@ -65,7 +67,7 @@ Each runner uses `multiprocessing.Pool` over seeds (16 cores; I'll use 14 worker
 | Drift | δ = 0.0005, angle noise 0.05°/step, appearance noise 0.002/step | pilots 4–6 |
 | Bodies per world | 8 maps: 4 of type 1, 4 of type 2; observation dim 16 | pilots 4–6, brief E3 |
 | λ, observation noise | 0.4, 0.01: **re-checked**, not retuned, on tuning seeds (section 5) | pilots 4–6 |
-| Agent network | one hidden layer, ReLU, plain SGD on BCE, zero output bias, lr 0.05 | pilots |
+| Agent network | one hidden layer, tanh, plain SGD on BCE, zero output bias, lr 0.05 | pilots |
 | Base width | 32 | pilots 5–6 |
 | E8/E10 widths | narrowest width meeting legibility, then ×2 up to ×16 (expected 8, 16, 32, 64, 128) | brief E8 |
 | Budgets (E10) | 30,000 and 60,000 steps | pilot 4 |
