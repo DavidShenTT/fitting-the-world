@@ -117,4 +117,24 @@ After E1 (stage 2), after E8–E10 (stage 3), and before REPORT.md (stage 4), wo
 
 ## 11. Frozen settings (addendum, filled before the first real seed)
 
-*To be completed after tuning and the smoke test, and committed before seed 0 runs.*
+Completed 20 Nov 2026 after tuning (seeds 7000–7032) and the smoke test (seed 7010); committed before any real seed runs. **Frozen code: commit `de619a5`** (`src/world.py`, `src/config.py`, `src/exps.py`, `runs/run.py`). Any later code change that touches a real run goes in DEVIATIONS.md first.
+
+**Tuned or confirmed values.**
+- **λ = 0.4 in both worlds; raising budget 60k:** kept by David's decision although the legibility check isn't met on every tuning seed (DEVIATIONS.md D1; 3-agent seed means pass on 4/5 seeds in the unequal world, 2/5 in the symmetric world; half-widths within ±3° on every seed mean).
+- **E8 width ladder: 4, 8, 16, 32, 64** (DEVIATIONS.md D1, width-ladder note). L8a's narrowest width is 4; L8b compares 4 with 64.
+- **Exploration unchanged** (m = 0.2, ε_m = 0.6, ε_min = 0.02): a lone wild agent reached competence ≥ 0.9 within 60k on every tuning seed (by 10k in the symmetric world, by 35k in the unequal world at any width; `results/tuning/leg/leg.csv`).
+- **ε_r for L10a-matched** (home log loss only; `results/tuning/epsr_summary.csv`): wear 0.01 (skip), 0.02 (passive); shaping by eye 0.01 (skip), 0.02 (passive). Built ÷ wild home log loss at those values: 0.93, 1.18, 0.87, 1.18, all within ±20%.
+- **E2's test range: not set.** No cell block satisfies section 5's rule, even after the preregistered extension (s_u 0.003, δ 0.008): the cells in [0.1, 0.9] lie on a diagonal band where built share tracks M/δ (and s_u), so no 3 × 3 rectangle of M × δ levels fits inside the band on the power-of-2 grid (`results/tuning/e2/cells.csv`). The code refuses to run real E2 seeds until a range is set. E2 runs in stage 4; the range is a decision for the E1 check-in, logged in DEVIATIONS.md before any real E2 seed.
+
+**Sanity checks (all passed).** (a) Wear minus control at M = 6: built share +0.86. (b) Wear's built share falls monotonically with δ: 0.99, 0.91, 0.54, 0.29, 0.17 at δ = 0.00025 … 0.004 (`results/tuning/sanity_wear/summary.csv`). (c) Half-time after abandonment 1,358–1,387 steps against ln 2 / δ = 1,386. (d) Frozen builders keep the built share within 3.5–8.1% of its start (`results/smoke/e4/decay_sanity.csv`; seed 7010).
+
+**Smoke test.** Seed 7010 through E1, E2 (code-check range only), E3, E4/E5, E6, E8, E9 and E10 at full size: every table and column filled. The one column with gaps is `target_edge_share` in E8, empty by design outside the filtered arms (`results/smoke/smoke_check.txt`). Wall time on 14 workers: E10 about 2.5 min per seed, the rest under 3 min each.
+
+**Implementation details fixed here (no change to any criterion).**
+- Pooled unsigned shift per agent = ½(|shift_wide| + |shift_narrow|), each the mean signed toward-45° shift of its two actions, as in pilot 6.
+- E10's primary cell (width 32, 60k) has 4 agents per seed for every kind and main condition, so wild agents serve as L10a-matched's comparator (40 per kind); other grid widths, mechanism and dose arms have 3.
+- E4: same-world and natural pairs are raised together in one copy of their world (newborns don't shape, so they meet only through what they see); different-world partners are raised in separate copies of A and B.
+- E6: 5 pairs per kind; cross-type pairs use maps (0,4), (1,5), (2,6), (3,7), (0,5); same-map (0,0) … (4,4); same-type (0,1), (1,2), (2,3), (3,0), (4,5).
+- E8: the filtered arm's target is the treatment arm's realised offered-edge share for the same agent and rule.
+- E3: one newborn per (map, j) provides the early area, steps to criterion and the 2,000-step home log loss; code length uses a fresh newborn with the same initial weights.
+- Sanity (c) uses the signed displacement projected on its sign at abandonment, whose expectation decays exactly as (1 − δ)^t.
