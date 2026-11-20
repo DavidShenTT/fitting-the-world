@@ -12,3 +12,5 @@ checkpoints/
 *.ckpt
 # archive supplied with the folder (duplicates files already here); kept untracked
 _incoming_layer2.zip
+# per-task pickles (merged CSVs are kept)
+results/**/parts/
