@@ -31,3 +31,9 @@
 - Smoke test, seed 7010, all experiments at full size: every column filled (`results/smoke/smoke_check.txt`). CPU per seed: E10 ≈ 1,540 s, E8 ≈ 220 s, E4/E5 ≈ 320 s.
 - Froze code at de619a5; PREREGISTRATION §11 committed (032ba80) before any real seed.
 - **E1 on seeds 0–9** (`python runs/run.py e1 0-9`, then `python analysis/e1.py e1`): L1 passes at every M under κ = 1 and κ = 0.25. Results in `results/e1/summary.csv`. Stopped for the E1 check-in.
+
+## 20–21 Nov 2026: E2 decision and stage 3
+- David approved E1 and chose the joint OLS on all eligible E2 cells; logged as DEVIATIONS D2 (29 cells, s_u covariate, sensitivity subset of 15 cells in [0.2, 0.8], corr(log M, log 1/δ) −0.34 overall). Config loads `results/tuning/e2/range.json`; only E2's task list changed from the frozen code.
+- Wrote `analysis/common.py`, `analysis/e10.py` (E9 inside), `analysis/e8.py`; tested on the smoke data.
+- Ran `bash runs/stage3.sh` (E10 then E8, seeds 0–9): finished without errors. Analysed into `results/e10/analysis_output.txt` and `results/e8/analysis_output.txt`.
+- Results and surprises are in CHECKIN_3.md. Main surprise checked for bugs: E8 shows no forgetting because the preregistered plateau rule ends pretraining at a median of 11–16k steps (edge accuracy 0.70–0.80). That is the code doing what the rule says, not a bug; the pilots saw the same. Stopped for the stage 3 check-in.

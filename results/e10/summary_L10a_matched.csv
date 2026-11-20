@@ -1,0 +1,7 @@
+rule,cond,eps_r,n_bins,runnable,bin,n_built,n_wild,home_ll_built,home_ll_wild,conf_ratio,edge_ll_ratio,bin_ok,verdict
+wear,skip,0.01,2,False,0,12,28,0.03150432854865515,0.028256193449296665,1.6821317714229178,1.763025658667534,True,not runnable (< 3 bins with >= 10 of each kind)
+wear,skip,0.01,2,False,1,28,12,0.036616335811620646,0.036390769012971017,1.6892737075852744,1.6741139027498746,True,not runnable (< 3 bins with >= 10 of each kind)
+wear,passive,0.02,1,False,0,40,40,0.027550210884872472,0.018714276922826206,2.6501289453247523,2.361507879252185,False,not runnable (< 3 bins with >= 10 of each kind)
+eye1,skip,0.01,2,False,0,17,23,0.03014651828124236,0.027484633570383502,2.7369537303640925,2.1979440532603163,True,not runnable (< 3 bins with >= 10 of each kind)
+eye1,skip,0.01,2,False,1,23,17,0.03495491444126258,0.035042121918655196,2.7474968469108263,2.1480552039041947,True,not runnable (< 3 bins with >= 10 of each kind)
+eye1,passive,0.02,1,False,0,40,40,0.027125098667671925,0.018714276922826206,2.9710738783333412,2.734361619844932,False,not runnable (< 3 bins with >= 10 of each kind)
