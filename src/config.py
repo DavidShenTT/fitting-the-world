@@ -27,7 +27,9 @@ STEADY_WINDOW, STEADY_TOL, STEADY_TAIL = 5000, 0.02, 10000
 
 # E2 (symmetric, shaping by eye kappa = 1)
 E2_SWEEP = dict(M=(1, 2, 4, 8, 16), s_u=(0.01, 0.03, 0.1, 0.3), delta=(0.0005, 0.001, 0.002, 0.004))
-E2_RANGE = None                  # TUNED: chosen from the sweep by the rule in PREREGISTRATION.md section 5 (open)
+import json as _json, os as _os
+_E2 = _os.path.join(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))), "results", "tuning", "e2", "range.json")
+E2_RANGE = _json.load(open(_E2)) if _os.path.exists(_E2) else None   # DEVIATIONS D2: all eligible cells (analysis/e2_range.py)
 # Code check only, never for real seeds: lets the smoke test run E2 end to end before the range is settled.
 E2_SMOKE_RANGE = dict(M=(2, 4, 8), s_u=(0.3,), delta=(0.001, 0.002, 0.004), M_mid=4, s_u_mid=0.3, delta_mid=0.002)
 E2_EXTEND = dict(M=(1, 2, 4, 8, 16), s_u=(0.003,), delta=(0.0005, 0.001, 0.002, 0.004, 0.008))

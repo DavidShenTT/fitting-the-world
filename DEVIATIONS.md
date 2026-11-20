@@ -18,3 +18,16 @@ Each entry is logged before the runs it affects.
 **What the check is for, and what the shortfall affects.** The legibility criterion guards against floor effects: wild agents must read the edges well enough for edge knowledge to matter (pilot 2's failure). This mainly concerns E8–E10, whose measures read edge accuracy, decisive payoff and boundary location, and where the unequal world is 4/5 with means above target. The boundary-shift measure still starts unbiased (half-widths within ±3°). The symmetric-world experiments (E1, E2, E4–E6) don't use edge measures for their predictions; there the shortfall bears only on how sharply newborns separate the arcs. The report will give the legibility numbers beside every E8–E10 result.
 
 **Width ladder for E8 (same yardstick, logged before any E8 run).** No candidate width passes on every seed either. Judged on means over the five tuning seeds (one agent each, λ = 0.4, 60k; `results/tuning/leg/leg.csv`), width 4 meets every target: edge accuracy 0.864 / 0.883, decisive ratio 0.637 / 0.680, half-widths 61.4° / 35.2°. Widths 8, 16 and 32 are similar. So the ladder is 4, 8, 16, 32, 64, and L8a's narrowest width is 4 (the pilots' narrowest was 8).
+
+## D2 (20 Nov 2026): E2 fits the joint OLS on all eligible cells, not on a 3 × 3 block (David's decision; logged before any real E2 seed)
+
+**Preregistered (PREREGISTRATION.md §5):** the test range is the largest full factorial block (≥ 3 levels of M and of δ, ≥ 1 of s_u) of cells with tuning-seed mean built share in [0.1, 0.9] and no tuning seed above 0.95; if none exists, extend the grid (s_u 0.003, δ 0.008).
+
+**What happened.** No block exists, even after the extension (PREREGISTRATION.md §11). The eligible cells form a diagonal band in (M, δ): a diagonal band is what the law predicts when built share depends on M/δ, so a rectangle of M × δ levels can't fit inside the unsaturated range.
+
+**Change.** Every eligible cell enters the fit (29 cells: s_u 0.01 to 0.3; `results/tuning/e2/cells.csv`, `range.json`, from `python analysis/e2_range.py`). The eligibility rule itself is unchanged.
+- **Primary fit:** OLS of log(built count) on log M, log(1/δ) and log(width), world-level points (seed × cell means), with log(s_u) as a nuisance covariate, because cells now differ in s_u and leaving it out would bias the M and δ slopes. L2's criteria are unchanged: slopes on M and 1/δ in [0.75, 1.25], slope on width within ±0.25. The fit without the s_u term is reported beside it.
+- **Width:** varied (16, 32, 64) at the eligible cell whose tuning mean is closest to 0.5: M = 4, s_u = 0.3, δ = 0.001 (tuning mean 0.496).
+- **Collinearity, reported:** corr(log M, log 1/δ) among the chosen cells is −0.34 over all 29, and −0.69, −0.66 within s_u = 0.1 and 0.3 (`results/tuning/e2/range_summary.txt`). The slope intervals will reflect it.
+- **Sensitivity fit:** the same OLS restricted to the 15 eligible cells with tuning-seed mean built share in [0.2, 0.8] (corr −0.50 among them).
+- A finer re-sweep is optional and would only add cells to the band; not run.

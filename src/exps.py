@@ -453,8 +453,12 @@ def tasks(exp, seeds):
             if rg is None:
                 assert 7000 <= s <= 7099, "E2_RANGE is not set: real E2 seeds cannot run"
                 rg = C.E2_SMOKE_RANGE
-            T += [(s, M, su, d, 32) for M in rg["M"] for su in rg["s_u"] for d in rg["delta"]]
-            T += [(s, rg["M_mid"], rg["s_u_mid"], rg["delta_mid"], wd) for wd in C.E2_WIDTHS if wd != 32]
+            if "cells" in rg:   # DEVIATIONS D2: every eligible cell, plus widths at the width cell
+                T += [(s, M, su, d, 32) for M, su, d in rg["cells"]]
+                T += [(s, *rg["width_cell"], wd) for wd in C.E2_WIDTHS if wd != 32]
+            else:
+                T += [(s, M, su, d, 32) for M in rg["M"] for su in rg["s_u"] for d in rg["delta"]]
+                T += [(s, rg["M_mid"], rg["s_u_mid"], rg["delta_mid"], wd) for wd in C.E2_WIDTHS if wd != 32]
         elif exp == "e3":
             T += [(s, r) for r in ("eye025", "wear")]
         elif exp == "e4":

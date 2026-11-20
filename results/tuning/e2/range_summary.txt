@@ -1,0 +1,6 @@
+eligible cells: 29 (s_u levels [np.float64(0.01), np.float64(0.03), np.float64(0.1), np.float64(0.3)]); sensitivity subset: 15
+corr(log M, log 1/delta): all eligible -0.338; sensitivity subset -0.500
+  within s_u = 0.03: n = 3, corr = -0.500
+  within s_u = 0.1: n = 9, corr = -0.688
+  within s_u = 0.3: n = 16, corr = -0.664
+width cell (M, s_u, delta): [4, 0.3, 0.001] tuning mean 0.496
