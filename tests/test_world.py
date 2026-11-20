@@ -227,6 +227,17 @@ def test_thompson_sampling_and_bootstrap_mask():
     assert not np.allclose(ens["W1"][0], ens["W1"][1])             # ... diverge under the bootstrap mask
 
 
+def test_ensemble_passive_learns_without_acting():
+    rng, w, B = setup(50)
+    ens = W.make_ensemble(rng, 3, [16] * 3, body=0)
+    ens["W2"][:] = 0.0; ens["b2"][:] = -10.0
+    W1 = ens["W1"].copy()
+    W.step_ens(w.copy(), B, ens, None, 500, seed=51, eps_min=0.0)
+    assert np.array_equal(W1, ens["W1"])
+    W.step_ens(w.copy(), B, ens, None, 500, seed=51, eps_min=0.0, passive=True)
+    assert not np.allclose(W1, ens["W1"])
+
+
 # ------------------------------------------------------------------ measures
 
 def test_half_width_measure_recovers_known_boundaries():

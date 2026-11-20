@@ -354,8 +354,9 @@ def run_steps_ens(alpha, u, home_a, home_u, kind, Win, bin_, Wout, gamma, noise,
                   EW1, Eb1, EW2, Eb2, P1, Pb1, P2, Pb2, beta, ebody,
                   FW1, Fb1, FW2, Fb2, Fbody, idxL_A, idxF,
                   rule, eta, s_u, kappa, delta, drift_a, drift_u, eps_min, lr, steps, pay_out, act_out, half,
-                  beps_min, beps_m, bm):
-    """One ensemble learner acting by Thompson sampling, with frozen builders alongside."""
+                  beps_min, beps_m, bm, passive):
+    """One ensemble learner acting by Thompson sampling, with frozen builders alongside. Under passive feedback the
+    members also learn the offered action's verdict on skipped turns (same bootstrap mask)."""
     K = EW1.shape[0]
     nF = FW1.shape[0]
     o = np.empty(Wout.shape[1]); oh = np.empty(Wout.shape[1])
@@ -384,9 +385,10 @@ def run_steps_ens(alpha, u, home_a, home_u, kind, Win, bin_, Wout, gamma, noise,
         p = 1.0 / (1.0 + np.exp(-zz))
         act = _decide(p, eps_min, 0.0, 0.0)
         pay = 0.0
-        if act:
+        if act or passive:
             y = 1.0 if _accepts(alpha[it], a, kind[it], half) else 0.0
-            pay = 1.0 if y > 0 else -2.0
+            if act:
+                pay = 1.0 if y > 0 else -2.0
             for mm in range(K):
                 if np.random.random() < 0.5:
                     _logits(EW1, Eb1, EW2, Eb2, mm, o, a1, z)
@@ -564,7 +566,7 @@ def angle_histogram(world, width=5.0):
 
 
 def step_ens(world, bodies, ens, frozen, steps, seed, rule=NONE, eta=0.0, s_u=0.0, kappa=1.0, lr=0.05,
-             eps_min=0.02, chunk=500, builder_explore=None):
+             eps_min=0.02, chunk=500, builder_explore=None, passive=False):
     bx = builder_explore or EXPLORE
     F = frozen if frozen is not None else empty_agents()
     acts = []
@@ -579,7 +581,7 @@ def step_ens(world, bodies, ens, frozen, steps, seed, rule=NONE, eta=0.0, s_u=0.
                       ens["beta"], ens["body"], F["W1"], F["b1"], F["W2"], F["b2"], F["body"],
                       world.idx(0), world.idx(0), rule, eta, s_u, kappa,
                       world.delta, world.drift_a, world.drift_u, eps_min, lr, n, pay, act, HALF,
-                      bx["eps_min"], bx["eps_m"], bx["m"])
+                      bx["eps_min"], bx["eps_m"], bx["m"], passive)
         acts.append(act)
         done += n; k += 1
     return np.concatenate(acts)
