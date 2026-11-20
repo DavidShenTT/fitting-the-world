@@ -1,0 +1,18 @@
+results\smoke\e10\e9.csv: 24 rows, 17 cols; missing: none
+results\smoke\e10\ens.csv: 54 rows, 36 cols; missing: none
+results\smoke\e10\raised.csv: 232 rows, 51 cols; missing: none
+results\smoke\e10\sym.csv: 12 rows, 48 cols; missing: none
+results\smoke\e10\sym_hist.csv: 18 rows, 3 cols; missing: none
+results\smoke\e10\upd.csv: 6 rows, 48 cols; missing: none
+results\smoke\e10\worlds.csv: 11 rows, 10 cols; missing: none
+results\smoke\e1\traj.csv: 720 rows, 11 cols; missing: none
+results\smoke\e2\traj.csv: 660 rows, 9 cols; missing: none
+results\smoke\e3\e3.csv: 48 rows, 18 cols; missing: none
+results\smoke\e3\worlds.csv: 2 rows, 11 cols; missing: none
+results\smoke\e4\decay.csv: 404 rows, 9 cols; missing: none
+results\smoke\e4\pairs.csv: 50 rows, 17 cols; missing: none
+results\smoke\e4\worlds.csv: 4 rows, 11 cols; missing: none
+results\smoke\e6\pairs.csv: 15 rows, 17 cols; missing: none
+results\smoke\e8\e8.csv: 75 rows, 12 cols; missing: {'target_edge_share': 45}
+results\smoke\e8\e8_traj.csv: 450 rows, 8 cols; missing: none
+results\smoke\e8\worlds.csv: 10 rows, 10 cols; missing: none

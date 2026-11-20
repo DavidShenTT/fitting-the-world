@@ -1,0 +1,3 @@
+check,value,passed
+a_wear_minus_control,0.8629543070388142,True
+b_wear_falls_with_delta,0.00025:0.992;0.0005:0.911;0.001:0.541;0.002:0.290;0.004:0.173,True

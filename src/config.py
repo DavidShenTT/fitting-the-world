@@ -27,7 +27,11 @@ STEADY_WINDOW, STEADY_TOL, STEADY_TAIL = 5000, 0.02, 10000
 
 # E2 (symmetric, shaping by eye kappa = 1)
 E2_SWEEP = dict(M=(1, 2, 4, 8, 16), s_u=(0.01, 0.03, 0.1, 0.3), delta=(0.0005, 0.001, 0.002, 0.004))
-E2_RANGE = None                  # TUNED: chosen from the sweep by the rule in PREREGISTRATION.md section 5
+E2_RANGE = None                  # TUNED: chosen from the sweep by the rule in PREREGISTRATION.md section 5 (open)
+# Code check only, never for real seeds: lets the smoke test run E2 end to end before the range is settled.
+E2_SMOKE_RANGE = dict(M=(2, 4, 8), s_u=(0.3,), delta=(0.001, 0.002, 0.004), M_mid=4, s_u_mid=0.3, delta_mid=0.002)
+E2_EXTEND = dict(M=(1, 2, 4, 8, 16), s_u=(0.003,), delta=(0.0005, 0.001, 0.002, 0.004, 0.008))
+E2_EXTEND_D = dict(M=(1, 2, 4, 8, 16), s_u=(0.01, 0.03, 0.1, 0.3), delta=(0.008,))
 E2_WIDTHS = (16, 32, 64)
 
 # E3
@@ -41,13 +45,14 @@ E4_PAIRS = 5
 ABANDON = 10000                  # 5 / delta
 
 # E8-E10
-WIDTH_LADDER = None              # TUNED: narrowest legible width x (1, 2, 4, 8, 16)
+WIDTH_LADDER = (4, 8, 16, 32, 64)  # narrowest legible width 4 (DEVIATIONS D1 yardstick) x (1, 2, 4, 8, 16)
 T2 = 30000
 PRETRAIN_CAP, PRETRAIN_EVERY, PLATEAU_TOL = 100000, 2000, 0.01
 BUDGETS = (30000, 60000)
 N_AG_GRID, N_AG_PRIMARY = 3, 4
 EPS_MIN_ARMS = (0.1, 0.3)
-EPS_R = None                     # TUNED: {(rule, cond): eps_r} for L10a-matched
+EPS_R = {("wear", "skip"): 0.01, ("wear", "passive"): 0.02, ("eye1", "skip"): 0.01, ("eye1", "passive"): 0.02}
+# TUNED on seeds 7000-7004 by home log loss only (results/tuning/epsr_summary.csv)
 UPD_CAP = 240000
 E9_STEPS, E9_EVERY = 500, 100
 ENS_K, ENS_BETA = 5, 10.0

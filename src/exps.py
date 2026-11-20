@@ -234,12 +234,14 @@ def e4(seed, rname):
         wa, wf = wX.copy(), wX.copy()
         sd = Seeder(seed, "e5", rname, t)
         disp0 = float(np.abs(W.wrapdiff(wa.alpha[ov], wa.home_a[ov])).mean())
+        sgn0 = np.sign(W.wrapdiff(wa.alpha[ov], wa.home_a[ov]))   # noise-free decay readout: E[sgn0 * x(t)] = |x0|(1-delta)^t
         for s in range(0, C.ABANDON + 1, 100):
             if s > 0:
                 W.step(wa, B, None, None, 100, seed=sd())
                 live(wf, B, None, frX, rule, 100, sd())
             out["decay"].append(dict(seed=seed, rule=rname, world=t, step=s, disp0=disp0,
                                      disp=float(np.abs(W.wrapdiff(wa.alpha[ov], wa.home_a[ov])).mean()),
+                                     proj=float((sgn0 * W.wrapdiff(wa.alpha[ov], wa.home_a[ov])).mean()),
                                      built_share_overlap=wa.built_share_overlap(),
                                      built_share_overlap_frozen=wf.built_share_overlap()))
         ab[t] = wa
@@ -448,6 +450,9 @@ def tasks(exp, seeds):
             T += [(s, M, r) for M in C.E1_M for r in C.E1_RULES]
         elif exp == "e2":
             rg = C.E2_RANGE
+            if rg is None:
+                assert 7000 <= s <= 7099, "E2_RANGE is not set: real E2 seeds cannot run"
+                rg = C.E2_SMOKE_RANGE
             T += [(s, M, su, d, 32) for M in rg["M"] for su in rg["s_u"] for d in rg["delta"]]
             T += [(s, rg["M_mid"], rg["s_u_mid"], rg["delta_mid"], wd) for wd in C.E2_WIDTHS if wd != 32]
         elif exp == "e3":
@@ -553,6 +558,9 @@ def tasks_tuning(exp, seeds):
         elif exp == "tune_e2":
             sw = C.E2_SWEEP
             T += [(s, M, su, d, 32) for M in sw["M"] for su in sw["s_u"] for d in sw["delta"]]
+        elif exp == "tune_e2_ext":
+            for g in (C.E2_EXTEND, C.E2_EXTEND_D):
+                T += [(s, M, su, d, 32) for M in g["M"] for su in g["s_u"] for d in g["delta"]]
         elif exp == "sanity_wear":
             T += [(s, 6, "none", None)] + [(s, 6, "wear", d) for d in (0.00025, 0.0005, 0.001, 0.002, 0.004)]
     return T
@@ -572,7 +580,7 @@ def run_task(exp, t):  # noqa: F811
         return tune_epsr(*t)
     if exp == "tune_leg_diag":
         return tune_leg_diag(*t)
-    if exp == "tune_e2":
+    if exp in ("tune_e2", "tune_e2_ext"):
         return e2(*t)
     if exp == "sanity_wear":
         return e1(*t)
