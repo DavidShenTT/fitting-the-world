@@ -20,3 +20,14 @@
 - Followed the preregistered rule (λ down in 0.05 steps), run as one ladder λ = 0.35 … 0.10 (`tune_leg_lam`): no λ passes in the symmetric world (best 3/5); in the unequal world width 32 passes only at λ = 0.10. Pass counts don't trend with λ, so the failures look like agent-to-agent noise near the thresholds rather than illegible appearance.
 - Diagnostic (`tune_leg_diag`, 3 agents per seed, λ 0.4 / 0.3 / 0.2, scored at 60k and 120k; `results/tuning/leg_diag_summary.txt`): training length matters more than λ. Seed means pass on 5/5 seeds in both worlds only at λ = 0.2 with 120k steps; at λ = 0.4 / 60k, 2/5 (symmetric) and 4/5 (unequal). Mean edge accuracy at λ = 0.4 / 60k: symmetric 0.842 / 0.867, unequal 0.871 / 0.898; decisive ratio symmetric 0.579 / 0.671, unequal 0.676 / 0.720.
 - **Stopped before ε_r tuning, the E2 sweep, sanity checks, smoke test and E1**, because the preregistered tuning rule did not converge and every fix changes a preregistered setting. Question to David in STATUS.md.
+
+## 20 Nov 2026, session 1 (continued): stage 2 after David chose option 1
+- DEVIATIONS.md D1 written (legibility shortfall judged on 3-agent seed means; λ = 0.4 and 60k kept; the check guards against floor effects, mainly for E8–E10). David's PILOT6.md erratum on the builders' exploration committed.
+- Width ladder: width 4 meets every target on means over tuning seeds → 4, 8, 16, 32, 64 (logged in D1).
+- ε_r tuning (`tune_epsr`, seeds 7000–7004, 2 agents per value, home log loss only): wear 0.01 / 0.02, eye 0.01 / 0.02 (skip / passive), all within ±20% of wild.
+- Wear sanity checks (a), (b) on seeds 7030–7032: pass (`results/tuning/sanity_wear/summary.csv`).
+- E2 sweep (seeds 7020–7022, 80 cells) and the preregistered extension (s_u 0.003, δ 0.008): no full-factorial block in [0.1, 0.9] with max ≤ 0.95; eligible cells lie on a diagonal in M/δ. E2 range left open for the check-in; the code refuses real E2 seeds until set.
+- Added a noise-free decay readout (signed displacement projected on its abandonment sign) before the smoke test; sanity (c), (d) pass on seed 7010.
+- Smoke test, seed 7010, all experiments at full size: every column filled (`results/smoke/smoke_check.txt`). CPU per seed: E10 ≈ 1,540 s, E8 ≈ 220 s, E4/E5 ≈ 320 s.
+- Froze code at de619a5; PREREGISTRATION §11 committed (032ba80) before any real seed.
+- **E1 on seeds 0–9** (`python runs/run.py e1 0-9`, then `python analysis/e1.py e1`): L1 passes at every M under κ = 1 and κ = 0.25. Results in `results/e1/summary.csv`. Stopped for the E1 check-in.
