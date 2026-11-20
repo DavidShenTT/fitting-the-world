@@ -58,7 +58,8 @@ def diag():
     sm["ok"] = (sm.wide_edge_acc >= .85) & (sm.narrow_edge_acc >= .85) & (sm.wide_decisive_ratio >= .6) & \
                (sm.narrow_decisive_ratio >= .6) & ((sm.hw_wide - 60).abs() <= 3) & ((sm.hw_narrow - tn).abs() <= 3)
     b = sm.groupby(["geom", "lam", "steps"]).ok.sum().rename("seeds_passing_on_3agent_mean")
-    txt = a.join(b).to_string()
+    sel = sm[(sm.lam == 0.4) & (sm.steps == 60000)].drop(columns=["lam", "steps"]).round(3)
+    txt = a.join(b).to_string() + "\n\nFrozen setting (lambda 0.4, 60k): 3-agent seed means\n" + sel.to_string(index=False)
     print(txt)
     open(os.path.join(R, "leg_diag_summary.txt"), "w").write(txt + "\n")
 

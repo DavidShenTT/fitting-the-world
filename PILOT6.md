@@ -80,3 +80,7 @@ These readings are post hoc and labelled as such. The ε_min result was predicte
 - `pilot6/world6.py`: the version 7 world (biased offers, angle records, refusal sources, unbuilt-edge log loss, histograms). `pilot6/test_world6.py`: sixteen tests, including an exact match with pilot 5's world when offers are unbiased.
 - `pilot6/pilot6.py`: the runner. `pilot6/verify6.py`: prints every figure above from `pilot6/results/` and pilot 5's saved data.
 - To regenerate: `cd pilot6 && python3 test_world6.py && python3 pilot6.py && python3 verify6.py`.
+
+## Erratum (20 Nov, found by CC while building the real-run code)
+
+In `pilot6/world6.py` the frozen builders used the learner's exploration setting. In the ε_min = 0.1 and 0.3 arms, the builders keeping the built world up therefore also acted at random 10% and 30% of the time. Their random acts that were accepted kept shaping items toward centres, and refused ones changed nothing, so the built worlds in those arms differed somewhat from the ε_min = 0.02 arm. The size and direction of the effect weren't measured. L10m's ε_min readout above is therefore confounded and should be read as provisional. The real-run code keeps the builders' policy fixed in every condition, so the preregistered test is clean.
