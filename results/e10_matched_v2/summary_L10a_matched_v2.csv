@@ -1,0 +1,7 @@
+rule,status,eps_r,n_bins,runnable,bin,n_built,n_wild,home_ll_built,home_ll_wild,conf_ratio,edge_ll_ratio,bin_ok,verdict
+wear,matched (tuning ratio 0.835),0.01,2.0,False,0,28,12,0.015334147386935894,0.013655016130115065,3.6815203354444437,2.6864476368923285,True,not runnable (< 3 bins with >= 10 of each kind)
+wear,matched (tuning ratio 0.835),0.01,2.0,False,1,12,28,0.016541452965702075,0.020882531548273832,2.1224349543598047,2.013286936697523,True,not runnable (< 3 bins with >= 10 of each kind)
+wear,all agents,,,,all,40,40,0.01569633906056575,0.018714276922826206,2.4304355206577037,2.177713698394011,,not runnable (< 3 bins with >= 10 of each kind)
+eye1,unmatched by rule (tuning ratio 0.79),0.01,2.0,False,0,28,12,0.01510452257568756,0.013655016130115065,4.1640468721584245,3.2168715360347724,True,not runnable (< 3 bins with >= 10 of each kind)
+eye1,unmatched by rule (tuning ratio 0.79),0.01,2.0,False,1,12,28,0.016083464481765744,0.020882531548273832,2.4447748977298764,2.418328299962088,True,not runnable (< 3 bins with >= 10 of each kind)
+eye1,all agents,,,,all,40,40,0.015398205147511012,0.018714276922826206,2.7641635860119123,2.610132863546329,,not runnable (< 3 bins with >= 10 of each kind)

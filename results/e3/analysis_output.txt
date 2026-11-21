@@ -1,0 +1,27 @@
+
+== E3 (builders at kappa = 0.25; wear as the control)
+  rule                             prediction  same_body  same_type  outsider  ratio_same_over_out   ci_lo   ci_hi           verdict
+eye025      L3c (primary): entropy drop, bits     0.6302     0.5171    0.0447              14.1082 10.4561 20.4558              pass
+eye025     L3: early learning-curve area gain     0.1683     0.1450    0.1080               1.5585  1.3913  1.7305              pass
+eye025 L3b: home log-loss drop at 2,000 steps     0.0491     0.0451    0.0284               1.7287  1.3140  2.2519              pass
+eye025          L3d: code-length saving, bits   530.9445   496.8901  416.4334               1.2750  1.1955  1.3391              fail
+eye025      speed-up (steps to 0.9), reported     5.3049     3.2929    2.4713               2.1465  1.5997  2.6451        (reported)
+  wear      L3c (primary): entropy drop, bits     0.2734     0.2544    0.2377               1.1498  0.9070  1.4102         (control)
+  wear     L3: early learning-curve area gain     0.1625     0.1850    0.1727               0.9409  0.7559  1.1397 pass (within 20%)
+  wear L3b: home log-loss drop at 2,000 steps     0.0398     0.0558    0.0446               0.8907  0.5742  1.2354        (reported)
+  wear          L3d: code-length saving, bits   564.5940   579.5828  573.8117               0.9839  0.9247  1.0375        (reported)
+  wear      speed-up (steps to 0.9), reported     4.6822     5.1122    4.2015               1.1144  0.8187  1.4859        (reported)
+
+== share of newborns not reaching competence 0.9 within 20,000 steps
+  rule       arm  steps_to_crit_natural  steps_to_crit_built
+eye025  outsider                    0.0                  0.0
+eye025 same_body                    0.0                  0.0
+eye025 same_type                    0.0                  0.0
+  wear  outsider                    0.0                  0.0
+  wear same_body                    0.0                  0.0
+  wear same_type                    0.0                  0.0
+
+== E3 built worlds (u moves: builders read u1 in even seeds, u2 in odd seeds)
+  rule  built_share  edge_share  edge_share_natural  u1_move  u2_move
+eye025       0.6009      0.1138              0.2857   0.4195   0.4217
+  wear       0.9556      0.0127              0.2857   0.0506   0.0501

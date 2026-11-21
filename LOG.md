@@ -37,3 +37,13 @@
 - Wrote `analysis/common.py`, `analysis/e10.py` (E9 inside), `analysis/e8.py`; tested on the smoke data.
 - Ran `bash runs/stage3.sh` (E10 then E8, seeds 0–9): finished without errors. Analysed into `results/e10/analysis_output.txt` and `results/e8/analysis_output.txt`.
 - Results and surprises are in CHECKIN_3.md. Main surprise checked for bugs: E8 shows no forgetting because the preregistered plateau rule ends pretraining at a median of 11–16k steps (edge accuracy 0.70–0.80). That is the code doing what the rule says, not a bug; the pilots saw the same. Stopped for the stage 3 check-in.
+
+## 21 Nov 2026: stage 3 decisions and stage 4
+- David: add an E8 arm with fixed 60k pretraining (D3), retune passive ε_r on more seeds (D4), go ahead with stage 4. D3 and D4 were logged with their predictions before running.
+- Passive ε_r retune (seeds 7040–7059): 0.01 for both rules; wear matched (0.835), eye unmatched by rule (0.791). Logged before the rerun.
+- `bash runs/stage4.sh`: e10_matched_v2, e8_fixed, e4, e3, e6, e2 on seeds 0–9, no errors. Analysed into `results/*/analysis_output.txt`.
+- Checked surprises for bugs:
+  - L4's first clause is capped by a high natural-world κ (0.877), not a bug.
+  - Sanity (d) missed in 1 of 40 worlds by 0.3 points; the built share rose, not a bug.
+  - E2's slopes depend heavily on the s_u covariate, because cells were selected inside the band.
+- Wrote REPORT.md (one row per prediction). E7 not run (optional, not approved). Prior-work abstracts not re-read (flagged in REPORT §6).

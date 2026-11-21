@@ -1,0 +1,35 @@
+
+== E8 (L8a at width 4, L8b 4 vs 64; L8a' judged at width 4)
+rule  width  fall_treat  fall_filtered  fall_natural  extra_fall  extra_lo  extra_hi  treat_minus_filtered  tmf_lo  tmf_hi  n_worlds     L8a              L8a_prime  L8b_ratio  L8b
+wear      4     -0.0172        -0.0115       -0.0289      0.0117    0.0035    0.0190               -0.0057 -0.0272  0.0105        10 against within 0.03 (expected)    -1.2241 pass
+wear      8     -0.0106        -0.0070       -0.0098     -0.0008   -0.0176    0.0162               -0.0036 -0.0159  0.0093        10 against within 0.03 (expected)    -1.2241 pass
+wear     16     -0.0078        -0.0074       -0.0096      0.0018   -0.0080    0.0103               -0.0005 -0.0118  0.0106        10 against within 0.03 (expected)    -1.2241 pass
+wear     32     -0.0119        -0.0075       -0.0136      0.0017   -0.0131    0.0166               -0.0044 -0.0211  0.0123        10 against within 0.03 (expected)    -1.2241 pass
+wear     64     -0.0192        -0.0111       -0.0097     -0.0096   -0.0233    0.0009               -0.0081 -0.0221  0.0068        10 against within 0.03 (expected)    -1.2241 pass
+eye1      4     -0.0094        -0.0222       -0.0289      0.0195    0.0071    0.0311                0.0128  0.0038  0.0239        10 against within 0.03 (expected)    -3.7687 pass
+eye1      8     -0.0099        -0.0105       -0.0098     -0.0000   -0.0156    0.0148                0.0006 -0.0065  0.0074        10 against within 0.03 (expected)    -3.7687 pass
+eye1     16     -0.0077        -0.0101       -0.0096      0.0019   -0.0103    0.0135                0.0024 -0.0058  0.0098        10 against within 0.03 (expected)    -3.7687 pass
+eye1     32     -0.0101        -0.0148       -0.0136      0.0035   -0.0091    0.0147                0.0047 -0.0031  0.0119        10 against within 0.03 (expected)    -3.7687 pass
+eye1     64     -0.0148        -0.0233       -0.0097     -0.0052   -0.0146    0.0024                0.0085  0.0001  0.0162        10 against within 0.03 (expected)    -3.7687 pass
+
+== E8 matching checks (edge share within 0.5 points; acts within 10%)
+rule  width  edge_offered_treat  edge_offered_filtered  max_abs_diff_points  acts_ratio_treat_filtered  plateau_mean  capped
+wear      4              0.0128                 0.0155               0.4133                     0.9941       60000.0       0
+wear      8              0.0127                 0.0155               0.3989                     0.9955       60000.0       0
+wear     16              0.0126                 0.0153               0.3733                     0.9952       60000.0       0
+wear     32              0.0127                 0.0155               0.3900                     1.0000       60000.0       0
+wear     64              0.0127                 0.0155               0.3644                     0.9999       60000.0       0
+eye1      4              0.0044                 0.0073               0.3844                     0.9972       60000.0       0
+eye1      8              0.0046                 0.0074               0.3856                     0.9979       60000.0       0
+eye1     16              0.0041                 0.0071               0.4044                     0.9908       60000.0       0
+eye1     32              0.0047                 0.0075               0.3433                     1.0026       60000.0       0
+eye1     64              0.0043                 0.0071               0.3567                     0.9991       60000.0       0
+
+== population built share vs individual edge accuracy, width 4 (every 3rd checkpoint)
+ step built_share              edge_acc           
+       treat_eye1 treat_wear treat_eye1 treat_wear
+ 2000      0.9861     0.9523     0.8705     0.8765
+ 8000      0.9842     0.9601     0.8758     0.8829
+14000      0.9869     0.9488     0.8773     0.8835
+20000      0.9857     0.9557     0.8779     0.8826
+26000      0.9870     0.9535     0.8790     0.8838

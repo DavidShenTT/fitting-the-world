@@ -1,0 +1,27 @@
+
+== E4 (L4, L5) and E5 (L6)
+rule  k_ov_same  k_ov_diff  k_ov_nat  same_minus_nat  same_lo  same_hi  diff_minus_nat  diff_lo  diff_hi  k_un_same  k_un_diff  k_un_nat   L4  ek_same  ek_diff  ek_nat  L5_diff  L5_lo  L5_hi   L5  k_ov_same_abandoned  k_ov_diff_abandoned  L6_adv   L6_lo  L6_hi   L6
+wear     0.9918     0.8002    0.8772          0.1147   0.1041   0.1259         -0.0770  -0.0905  -0.0639        1.0        1.0       1.0 fail   0.8270   0.4842  0.8079   0.3428 0.3322 0.3531 pass               0.8748               0.8424 -0.0024 -0.0151 0.0111 pass
+eye1     0.9975     0.8435    0.8772          0.1204   0.1091   0.1330         -0.0336  -0.0527  -0.0135        1.0        1.0       1.0 fail   0.8291   0.0739  0.8079   0.7552 0.7448 0.7679 pass               0.8751               0.8604 -0.0021 -0.0110 0.0065 pass
+
+== secondary readout on the natural test set; raw agreement; acceptance of chosen actions
+rule      kind  kappa_overlap_test  kappa_unamb_test  agree_overlap  acc_a
+eye1 different              0.8302            0.9983         0.8831    1.0
+eye1   natural              0.8823            1.0000         0.9082    1.0
+eye1      same              0.8604            0.9986         0.9982    1.0
+wear different              0.8635            1.0000         0.8507    1.0
+wear   natural              0.8823            1.0000         0.9082    1.0
+wear      same              0.8714            0.9999         0.9939    1.0
+
+== E4 built worlds
+rule world  built_share_overlap  edge_share
+eye1     A               0.9631      0.0730
+eye1     B               0.9688      0.0693
+wear     A               0.8893      0.2053
+wear     B               0.8931      0.2057
+
+== E6 (natural world; no prediction): agreement on overlap-home items
+      kind  kappa_overlap     lo     hi  above_chance  kappa_unamb    e_k  n_worlds
+cross_type         0.8348 0.8134 0.8548          True          1.0 0.2421        10
+  same_map         0.8832 0.8691 0.8976          True          1.0 0.8154        10
+ same_type         0.8509 0.8384 0.8627          True          1.0 0.6924        10
