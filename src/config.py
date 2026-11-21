@@ -62,3 +62,4 @@ ENS_VARIANTS = {"standard": ([32] * 5, 0.0), "diverse": ([6, 13, 26, 45, 64], 0.
 N_ENS = 3
 
 REAL_SEEDS = tuple(range(10))
+EPS_R_V2 = None                  # DEVIATIONS D4: passive eps_r retuned on seeds 7040-7059 (set after tuning)

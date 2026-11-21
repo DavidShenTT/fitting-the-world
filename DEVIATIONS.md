@@ -31,3 +31,25 @@ Each entry is logged before the runs it affects.
 - **Collinearity, reported:** corr(log M, log 1/δ) among the chosen cells is −0.34 over all 29, and −0.69, −0.66 within s_u = 0.1 and 0.3 (`results/tuning/e2/range_summary.txt`). The slope intervals will reflect it.
 - **Sensitivity fit:** the same OLS restricted to the 15 eligible cells with tuning-seed mean built share in [0.2, 0.8] (corr −0.50 among them).
 - A finer re-sweep is optional and would only add cells to the band; not run.
+
+## D3 (21 Nov 2026): E8 confirmatory arm with fixed 60k-step pretraining (David's decision; logged before it runs)
+
+**Why.** In the preregistered E8, the plateau rule (edge-accuracy change < 0.01 between successive 2,000-step checks) ended pretraining at a median of 11k–16k steps, at edge accuracy 0.70–0.80. Every arm then kept improving during T2, so the preregistered result shows **stopped edge learning, not forgetting** (CHECKIN_3.md). The preregistered E8 stays the primary result and is described that way.
+
+**The arm.** It is identical to E8 (same seeds 0–9, same 3 agents per width with the same initial weights, widths 4–64, both rules, the same five T2 arms of 30,000 steps, the same built worlds and the same scoring), except that pretraining is a fixed 60,000 steps in the natural world. Wild agents reach edge accuracy 0.88–0.89 there (E10).
+
+**Prediction, with the preregistered thresholds unchanged:**
+- **L8a:** at width 4, edge-accuracy fall in treatment minus natural control ≥ 0.10. **Against:** < 0.03.
+- **L8a′:** treatment and filtered falls within 0.03 (expected); ≥ 0.05 more in treatment is reported as building-specific.
+- **L8b:** width 4's extra fall ≥ 2 × width 64's.
+- **Plain reading, stated in advance:** with trained agents the natural control should gain little during T2. A positive extra fall would then reflect loss of edge accuracy in the built world (forgetting), not withheld learning. The arm is confirmatory and labelled as a deviation in the report.
+
+Runs as `python runs/run.py e8_fixed 0-9`, analysed by `python analysis/e8.py e8_fixed`.
+
+## D4 (21 Nov 2026): passive ε_r retuned on more tuning seeds for L10a-matched (David's decision; logged before it runs)
+
+**Why.** The passive ε_r (0.02, tuned on 5 seeds with 2 agents) didn't transfer: on real seeds, built home log loss came out at 1.47 × wild's (0.028 vs 0.019), against 1.18 × on the tuning seeds, so no home log-loss bin could be formed. The wild comparator's home log loss differed between tuning seeds (0.023) and real seeds (0.019).
+
+**Retune, home log loss only.** Seeds 7040–7059 (20 new tuning seeds), passive feedback, wild and both built rules, 2 agents per value, ε_r ∈ {0, 0.01, …, 0.05} (the earlier grid's useful range, steps of 0.01 as preregistered). Same choice rule: the ε_r whose mean built home log loss over the 20 seeds is closest to the wild mean, required within ±20%.
+
+**Rerun.** The passive matched arm only (both rules, seeds 0–9, 4 agents per seed, primary cell) with the new ε_r, into `results/e10_matched_v2/`. The binning rule is unchanged (tertiles; ≥ 10 agents of each kind per bin; fewer than 3 qualifying bins means not runnable). The skip-rule matched arm isn't rerun; it stays reported as not runnable (2 bins).

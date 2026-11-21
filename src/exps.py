@@ -274,7 +274,7 @@ def lifecycle_worlds(nat, B, seed, rules=("wear", "eye1")):
     return {r: build(nat, B, C.RULES[r], seed, ("lc", r))[:2] for r in rules}
 
 
-def e8(seed, width):
+def e8(seed, width, fixed_pretrain=None):
     nat, B, test = setup(seed, "unequal")
     worlds = lifecycle_worlds(nat, B, seed)
     out = {"worlds": [world_row(w, nat, seed=seed, exp="lc", rule=r) for r, (w, _) in worlds.items()], "e8": [], "e8_traj": []}
@@ -285,7 +285,10 @@ def e8(seed, width):
         sd = Seeder(seed, "e8", width, j)
         ag = W.make_agents(rng(seed, "e8", width, j), 1, width, 0)
         w = nat.copy(); steps, prev, plateau = 0, None, np.nan
-        while steps < C.PRETRAIN_CAP:
+        while fixed_pretrain is not None and steps < fixed_pretrain:   # DEVIATIONS D3: fixed pretraining
+            live(w, B, ag, None, {}, C.PRETRAIN_EVERY, sd()); steps += C.PRETRAIN_EVERY
+            plateau = steps
+        while fixed_pretrain is None and steps < C.PRETRAIN_CAP:
             live(w, B, ag, None, {}, C.PRETRAIN_EVERY, sd()); steps += C.PRETRAIN_EVERY
             ea = ev(ag)
             if prev is not None and abs(ea - prev) < C.PLATEAU_TOL:
@@ -467,6 +470,10 @@ def tasks(exp, seeds):
             T += [(s,)]
         elif exp == "e8":
             T += [(s, wd) for wd in C.WIDTH_LADDER]
+        elif exp == "e8_fixed":   # DEVIATIONS D3
+            T += [(s, wd, 60000) for wd in C.WIDTH_LADDER]
+        elif exp == "e10_matched_v2":   # DEVIATIONS D4
+            T += [("arm", s, "matched", r, "passive", C.N_AG_PRIMARY, C.EPS_R_V2[r]) for r in ("wear", "eye1")]
         elif exp == "e10":
             T += [("grid", s, k, c) for k in ("wild", "wear", "eye1") for c in ("skip", "passive")]
             T += [("arm", s, c, k, c, C.N_AG_GRID) for c in ("skip010", "skip030") for k in ("wild", "wear", "eye1")]
@@ -489,9 +496,9 @@ def run_task(exp, t):
         return e4(*t)
     if exp == "e6":
         return e6(*t)
-    if exp == "e8":
+    if exp in ("e8", "e8_fixed"):
         return e8(*t)
-    if exp == "e10":
+    if exp in ("e10", "e10_matched_v2"):
         kind, rest = t[0], t[1:]
         return {"grid": e10_grid, "arm": e10_arm, "ens": e10_ens, "sym": e10_sym}[kind](*rest)
     raise ValueError(exp)
@@ -565,6 +572,8 @@ def tasks_tuning(exp, seeds):
         elif exp == "tune_e2_ext":
             for g in (C.E2_EXTEND, C.E2_EXTEND_D):
                 T += [(s, M, su, d, 32) for M in g["M"] for su in g["s_u"] for d in g["delta"]]
+        elif exp == "tune_epsr_passive":   # DEVIATIONS D4
+            T += [(s, k, "passive", tuple(round(0.01 * i, 2) for i in range(6))) for k in ("wild", "wear", "eye1")]
         elif exp == "sanity_wear":
             T += [(s, 6, "none", None)] + [(s, 6, "wear", d) for d in (0.00025, 0.0005, 0.001, 0.002, 0.004)]
     return T
@@ -580,7 +589,7 @@ def tasks(exp, seeds):  # noqa: F811
 def run_task(exp, t):  # noqa: F811
     if exp in ("tune_leg", "tune_leg_lam"):
         return tune_leg(*t)
-    if exp == "tune_epsr":
+    if exp in ("tune_epsr", "tune_epsr_passive"):
         return tune_epsr(*t)
     if exp == "tune_leg_diag":
         return tune_leg_diag(*t)
