@@ -47,3 +47,7 @@
   - Sanity (d) missed in 1 of 40 worlds by 0.3 points; the built share rose, not a bug.
   - E2's slopes depend heavily on the s_u covariate, because cells were selected inside the band.
 - Wrote REPORT.md (one row per prediction). E7 not run (optional, not approved). Prior-work abstracts not re-read (flagged in REPORT §6).
+
+## 21 Nov 2026: report revisions after David's review
+- Read the listed abstracts on arxiv.org (via a web-fetch subagent): Hu et al. 2020, Treutlein et al. 2021, Cook et al. 2024, Osband et al. 2018, Hein et al. 2019, Parisi et al. 2018, Dohare et al. 2023, plus Xu et al. 2019 for stigmergy. Constant et al. 2018 isn't on arXiv, so it wasn't read.
+- REPORT.md: added §3a, the prior-work section; §2a (one offer plus skip: E1/E2 building is drainage out of the overlaps, E4/E6's natural agreement mostly reflects the nearer-centre readout, so L4's failure is uninformative about arbitrary conventions); and §2b (E8 with D3: built worlds stop edge learning but don't erase it, so forgetting happens across generations). Adjusted the L4, L8a and E6 rows and §2 bullets to match.

@@ -15,10 +15,10 @@
 | **L3** | same-body area gain ≥ 1.5 × outsiders'; under wear within 20% | 1.56 [1.39, 1.73]; wear 0.94 | **Pass** (narrowly) | same | The interval reaches below 1.5 |
 | **L3b** | log-loss drop at 2k steps ≥ 1.5 × outsiders' | 1.73 [1.31, 2.25] | **Pass** | same | Wide interval |
 | **L3d** | code-length saving ≥ 1.5 × outsiders' | 1.28 [1.20, 1.34] | **Fail** | same | Every reader saves 400–530 bits; the builders' key adds about 28% |
-| **L4** | overlap: same − natural ≥ 0.2; different − natural ≤ 0.05; unambiguous all ≥ 0.9 and within 0.05 | same − natural +0.115 [0.104, 0.126] (wear), +0.120 [0.109, 0.133] (eye); different − natural −0.08, −0.03; unambiguous 1.00 everywhere | **Fail** (first clause), not "against" | `results/e4/summary_E4_E5.csv` (`analysis/e4.py`) | **Ceiling:** natural-world pairs already agree at κ = 0.877, so at most +0.123 was possible; same-world pairs reach 0.99–1.00 |
+| **L4** | overlap: same − natural ≥ 0.2; different − natural ≤ 0.05; unambiguous all ≥ 0.9 and within 0.05 | same − natural +0.115 [0.104, 0.126] (wear), +0.120 [0.109, 0.133] (eye); different − natural −0.08, −0.03; unambiguous 1.00 everywhere | **Fail** (first clause), not "against" | `results/e4/summary_E4_E5.csv` (`analysis/e4.py`) | **Ceiling, and uninformative about arbitrary conventions (section 2a):** natural-world pairs already agree at κ = 0.877 because the argmax readout picks the nearer arc centre, so at most +0.123 was possible; same-world pairs reach 0.99–1.00 |
 | **L5** | E_K same > different, interval above 0 | +0.34 [0.33, 0.35] (wear), +0.76 [0.74, 0.77] (eye) | **Pass** | same | Different-world E_K drops to 0.07 under shaping by eye |
 | **L6** | same-world advantage after 5/δ abandonment < 0.05 | −0.002 [−0.015, 0.011], −0.002 [−0.011, 0.006] | **Pass** | same | — |
-| **L8a** (primary) | extra edge-accuracy fall at width 4 ≥ 0.10 | wear 0.094 [0.075, 0.115]; eye 0.114 [0.092, 0.138] | Wear: neither; eye: **pass by the letter** | `results/e8/summary_E8.csv` (`analysis/e8.py`) | **Not forgetting.** Every arm *improved* during T2; the gap is withheld edge learning. Pretraining stopped at 11k–16k steps (edge accuracy 0.70–0.80) |
+| **L8a** (primary) | extra edge-accuracy fall at width 4 ≥ 0.10 | wear 0.094 [0.075, 0.115]; eye 0.114 [0.092, 0.138] | Wear: neither; eye: **pass by the letter** | `results/e8/summary_E8.csv` (`analysis/e8.py`) | **Not forgetting.** Every arm *improved* during T2; the gap is withheld edge learning. Pretraining stopped at 11k–16k steps (edge accuracy 0.70–0.80). Read together with D3 (next row) and section 2b |
 | L8a, D3 arm (60k pretraining) | same | wear 0.012 [0.004, 0.019]; eye 0.020 [0.007, 0.031] | **Against** (< 0.03) | `results/e8_fixed/summary_E8.csv` (`analysis/e8.py e8_fixed`) | Trained agents (edge accuracy 0.87–0.89) don't lose edge accuracy in a built world over 30k steps |
 | **L8a′** | treatment − filtered within 0.03 expected | primary 0.030 / 0.036; D3 −0.006 / 0.013 | As expected (eye primary just over, "between") | same | Matching held: offered edge shares within 0.45 points, acts within 1% |
 | **L8b** | narrowest extra fall ≥ 2 × widest's | primary 1.11 / 1.30; D3 met by the letter (widest negative) | Primary **fail**; D3 uninformative | same | Both D3 values are near zero |
@@ -30,33 +30,72 @@
 | **L10-dose** | shift difference and confident-error ratio rise with erasure | 0.18 → 1.53 → 5.17°; 1.03 → 1.63 → 4.02 (7%, 22%, 28% edge items removed) | **Pass** | `results/e10/summary_L10dose.csv` | Levels as changed by REVIEW_1 (pilot 5's s_u) |
 | **L10m** | mean stretch (built − wild) falls with ε_min 0.02 → 0.1 → 0.3 | 3.98 → 1.83 → 0.16° (wear); 5.44 → 2.89 → 0.93° (eye) | **Pass** | `results/e10/summary_L10m.csv` | Builders' policy held fixed across conditions (PREREGISTRATION §1.5); pilot 6's version was confounded (its erratum) |
 | **L10a-ens** | readings pre-stated | All three kinds (standard, diverse, randomized prior β = 10) meet L10a in all 12 cells; prior manipulation check 3.7–6.2 (ratio of means) | **"Not specific to single networks"** | `results/e10/summary_L10a_ens.csv` | — |
-| E6 (no prediction) | do different-body newborns agree on overlap items above chance? | κ = 0.83 [0.81, 0.85] cross-type; 0.85 same type; 0.88 same map; E_K 0.24 vs 0.82 | Agreement stays high | `results/e6/summary_E6.csv` | See section 2: geometry fixes most of the convention |
+| E6 (no prediction) | do different-body newborns agree on overlap items above chance? | κ = 0.83 [0.81, 0.85] cross-type; 0.85 same type; 0.88 same map; E_K 0.24 vs 0.82 | Agreement stays high | `results/e6/summary_E6.csv` | Mostly the readout picking the nearer arc centre (section 2a), so it says little about whether the world fixes conventions |
 
 ## 2. What the manifestation results say
 
-- **Building emerges (E1)**, and its amount follows an upkeep law (E2). The built-item count tracks M·s_u/δ. Cells with the same M·s_u/δ hold the same count whatever the mix: 47–49 items at 600 (five cells, M from 1 to 16) and 58–60 at 800 (three cells) (`results/e2/analysis_output.txt`, cell table). Builders' network width doesn't matter (slope 0.001). The count rises slightly sublinearly with M·s_u/δ (slopes 0.91 to 0.98), as a saturating pool would.
+- **Building emerges (E1)**, as drainage out of the overlaps rather than an arbitrary convention (section 2a), and its amount follows an upkeep law (E2). The built-item count tracks M·s_u/δ. Cells with the same M·s_u/δ hold the same count whatever the mix: 47–49 items at 600 (five cells, M from 1 to 16) and 58–60 at 800 (three cells) (`results/e2/analysis_output.txt`, cell table). Builders' network width doesn't matter (slope 0.001). The count rises slightly sublinearly with M·s_u/δ (slopes 0.91 to 0.98), as a saturating pool would.
 - **The builders' key is real at the gate, weaker in learning (E3).**
   - Shaping by eye at κ = 0.25 compresses the world for readers of the shaped axis: entropy drop 0.63 bits for the builders' own map and 0.52 for other maps of the same type, against 0.045 for outsiders.
   - Learning advantages are smaller: early learning-curve gain 1.56 ×, 2k-step log loss 1.73 ×, code length 1.28 × (fails 1.5).
   - So, as pilot 3 suggested, entropy separates by the axis read (same type ≈ same body), while learning speed favours the exact map, and modestly.
   - Under wear, every reader gains alike.
-- **Routes are written into the world (E4–E6), but most of the convention was already fixed by geometry.**
+- **Routes leave traces in the world (E4–E6), but the behavioural test can't speak to conventions (section 2a).**
   - Newborns raised in the same built world agree almost perfectly on overlap items (κ 0.99–1.00) and share representations (E_K 0.83); newborns from separately built worlds agree less than natural-world pairs (κ 0.80–0.84) and, under shaping by eye, barely share representational neighbourhoods (E_K 0.07).
-  - The behavioural criterion L4 fails only because natural-world pairs already agree at κ = 0.88: a smooth learner picks the nearer arc centre in an overlap, so geometry decides most overlap items before anyone builds. E6 says the same across bodies (κ 0.83).
-  - By version 1's own reading, the world's geometry is fixing more than its refusals do. The representational measure (L5) separates routes where behaviour can't.
+  - L4 fails because natural-world pairs already agree at κ = 0.88. That baseline mostly reflects the readout, which picks the nearer arc centre (E6: κ 0.83 across bodies). L4's failure is therefore uninformative about whether conventions are arbitrary.
+  - The representational measure (L5) separates routes where behaviour can't.
   - After 5/δ steps of abandonment the same-world advantage is gone (L6), and the built share decays at the drift rate (sanity check c).
-- **Offloading has a price, but it isn't forgetting (E8, E9).**
-  - Agents moved into a built world stop learning the edges the built world no longer offers. In the primary E8 their edge accuracy rose 0.04–0.06 while natural-world controls rose 0.15.
-  - Agents already trained (D3) didn't lose edge accuracy over 30k steps in a built world.
-  - The price shows when the structure fails (E9): after a snap back to home values, built-raised agents earn 42% (wear) and 73% (shaping by eye) less on decisive turns than wild-raised agents over the first 500 steps.
-  - The surprise jump at the snap is smaller than predicted (L9b fails).
-  - The population keeps the built share at 0.95–0.99 while individuals sit at edge accuracy 0.69–0.76 (`results/e8/summary_E8_traj.csv`): upkeep is collective, competence individual.
+- **Offloading has a price; see section 2b for where the forgetting sits (E8, E9).** The price shows when the structure fails (E9): after a snap back to home values, built-raised agents earn 42% (wear) and 73% (shaping by eye) less on decisive turns than wild-raised agents over the first 500 steps. The surprise jump at the snap is smaller than predicted (L9b fails). The population keeps the built share at 0.95–0.99 while individuals sit at edge accuracy 0.69–0.76 (`results/e8/summary_E8_traj.csv`): upkeep is collective, competence individual.
+
+### 2a. What this design can and can't say about arbitrary conventions
+
+Since version 3, neither agents nor builders ever choose between actions. The world offers one action per turn and the agent acts or skips. Two consequences follow, both found in review after the runs:
+- **E1/E2 building is real but not conventional.** An item in an overlap zone is pulled toward whichever action happened to be offered when it was used. Once it crosses out of the overlap only one action accepts it, so items drain out of the overlaps. Where an item ends up reflects the offer sequence and the geometry, not a habit a population settled on. The built share and the upkeep law measure that drainage.
+- **E4/E6's high natural-world agreement mostly reflects the readout.** Each agent's "chosen action" is read as the action it rates most likely to be accepted. A learner is more confident deeper inside an arc, so in an overlap this picks the nearer arc centre. Two naturally raised newborns therefore agree (κ 0.88, and 0.83 across body types) before anything is built.
+- **So L4's failure says nothing about whether conventions are arbitrary.** The design can't produce or detect one. Testing that needs agents that choose freely among actions, as in version 1, in the symmetric world; that would be a new brief.
+- **The builders'-key result (E3) is unaffected.** It comes from shaping by eye moving appearance, which doesn't depend on action choice. L5 still shows that worlds built separately leave newborns with different representations.
+
+### 2b. Forgetting happens across generations, not within an agent
+
+E8 and its D3 arm together locate the cycle's "forget" step.
+- **Within an agent:** a built world stops edge learning but doesn't erase it. Agents moved in before they knew the edges stopped improving (primary E8: +0.04 to +0.06 against +0.15 in the natural world). Agents moved in after learning them kept what they knew over 30k steps (D3: extra fall 0.012 and 0.020, against L8a).
+- **Across generations:** newborns raised in a built world never learn the edges in the first place. That shows in E10 (confident error 1.8–4.0 × wild, boundaries displaced 3.7–5.2° under the skip rule) and in E9 (decisive payoff 42–73% below wild after the snap).
+- **So the lifecycle's "stops tracking" step shows up as a lineage process:** the knowledge isn't lost by those who had it, it just isn't acquired by those raised where it's no longer needed. That is a cleaner claim than "agents forget", and the one these data support.
 
 ## 3. Naive realism (secondary)
 
 - **Silence and confidence.** Built-raised agents are less surprised at home than wild agents, yet confidently wrong on unbuilt edges 1.8–4.0 times as often, with 1.8–2.6 times the edge log loss. This holds under both feedback conditions, against equal-update wild agents, and for all three ensemble kinds, including randomized priors. The matched-surprise test couldn't be run as preregistered: home log-loss distributions never overlapped enough for three bins. Descriptively, the effect holds in both halves of each two-bin split.
 - **Where boundaries go.** Under the skip rule, built-raised arcs stretch 3.7–5.2° further than wild agents', and the stretch scales with how much building erased (L10-dose). Restoring far-side refusals through random acts removes it (L10m: 4.0 → 0.2° under wear). The raw stretch follows acceptances per far-side refusal in rank order (exploratory). This is pilot 6's refusal-starvation account, now confirmed on preregistered seeds with builders' behaviour held fixed. Under passive feedback the displacement is small (0.9–1.4°), while the confident error remains.
-- **What is and isn't ordinary.** The built-raised agents' error is ordinary extrapolation by networks on inputs their training didn't cover (the edges building emptied); what the setup adds is that the agents' own world removed those inputs and that their home surprise gives no warning. It isn't plain overconfidence away from data, because ensembles with randomized priors, built to disagree off-data, show it too. It isn't forgetting (E8, D3), and the update-count control rules out mere fewer updates.
+- **What is and isn't ordinary.** The built-raised agents' error is ordinary extrapolation by networks on inputs their training didn't cover (the edges building emptied). What the setup adds is that the agents' own world removed those inputs, and that their home surprise gives no warning. Section 3a places this against the literature. It isn't forgetting (E8, D3), and the update-count control rules out mere fewer updates.
+
+### 3a. Prior work
+
+Abstracts read on arxiv.org on 21 Nov 2026. Constant et al. (2018) isn't on arXiv, so it wasn't read from the allowed sources; the framing below relies only on its title's claim as the brief states it.
+- **Arbitrary conventions in coordination.**
+  - Hu, Lerer, Peysakhovich & Foerster (2020, arXiv:2003.02979) show that self-play can produce highly specialised conventions that fail with new partners, and propose other-play, which uses known symmetries of the game to avoid them.
+  - Treutlein, Dennis, Oesterheld & Foerster (2021, arXiv:2106.06613) formalise label-free coordination, and argue that arbitrary tie-breaking between incompatible optima is exactly what zero-shot coordination should prevent.
+  - Our setup can't speak to this line of work (section 2a): agents never choose between equally good actions, so no tie is ever broken.
+  - The closest analogue is E4/L5: worlds built separately leave newborns with different representations (E_K 0.07 across worlds under shaping by eye, against 0.83 within a world), though their behaviour still agrees, because geometry fixes it.
+- **Cultural accumulation.**
+  - Cook, Lu, Hughes, Leibo & Foerster (2024, arXiv:2406.00392) obtain accumulation across generations of RL agents by balancing social and independent learning; their generations pass knowledge on through in-context or in-weights learning.
+  - Here, what passes between generations is the state of the world, not anything learned socially.
+  - Section 2b's result is in a sense the converse of theirs: what one generation builds into the world lets the next skip learning, and what isn't learned is then missing when the world changes (E9).
+- **Stigmergy.**
+  - Xu, Li, Zhao & Zhang (2019, arXiv:1911.12504) use a digital pheromone in a shared environment as an indirect channel between independent learners.
+  - Our agents also meet only through the items, but nothing is designed as a signal: the "message" is the reshaped item itself. E3 shows its readability depends on the reader's body (entropy drop 0.63 bits for the builders' body, 0.045 for outsiders).
+- **Forgetting and plasticity.**
+  - Parisi et al.'s review (2018/2019, arXiv:1802.07569) frames catastrophic forgetting as interference under non-stationary data.
+  - Dohare et al. (2023, arXiv:2306.13812) show that continually trained deep networks also lose the ability to learn new things.
+  - E8 matches neither: the built world withheld data rather than presenting conflicting data, and trained agents didn't lose edge accuracy (D3). We didn't test plasticity directly (the second-task test was dropped in version 6).
+  - The deficit we do find is non-acquisition across generations (section 2b), which neither framework addresses.
+- **Overconfidence away from the data.**
+  - Hein, Andriushchenko & Bitterwolf (2019, arXiv:1812.05720) show that piecewise-linear (ReLU) networks are almost always highly confident far from their training data.
+  - Our networks use tanh, so their argument doesn't apply directly, but the phenomenon is the same: confident predictions where the training distribution has no support.
+  - The new element is that the agents' own world (built by their predecessors) removed the support, and that in-distribution surprise (home log loss) gives no warning.
+- **Randomized priors.**
+  - Osband, Aslanides & Cassirer (2018, arXiv:1806.03335) add a fixed, untrained random prior network to each ensemble member, so that uncertainty not grounded in data can be expressed.
+  - At β = 10 our randomized-prior ensembles passed the manipulation check (member spread at edges 3.7–6.2 × that at centres), yet still met L10a. The pre-stated reading is that the effect isn't specific to single networks: prior-driven disagreement wasn't enough to stop confident error at edges that building emptied.
+- **Niche construction.** Constant, Ramstead, Veissière, Campbell & Friston (2018), as BRIEF §1 notes: the "niche as the environment's estimate of the organism" reading predicts E3's same-body advantage too, so E3 doesn't distinguish it from the theory under test. Its abstract wasn't read here (not on arXiv).
 
 ## 4. Sanity checks and design checks
 - (a) wear clusters items: +0.86 over control; (b) built share falls monotonically with δ; both pass (`results/tuning/sanity_wear/summary.csv`).
@@ -74,7 +113,8 @@ Before the freeze, PREREGISTRATION §1 recorded the REVIEW_1 changes (symmetric 
 
 ## 6. Not done, and limits
 - **E7 not run** (optional; needs approval).
-- **Prior work:** BRIEF §1 asks for the listed abstracts to be read and the results positioned against them. I haven't re-read them in this project: section 3's positioning against overconfidence and randomized prior functions is general, and should be checked against those papers before the report is shared.
+- **Prior work:** section 3a, from abstracts read on arxiv.org. Constant et al. (2018) wasn't read (not on arXiv).
+- **Arbitrary conventions aren't testable in this design** (section 2a): that needs free choice among actions, a new brief.
 - 600 items, one network family, 10 worlds per condition. E8–E10 legibility is borderline (D1). Several thresholds were set after pilots, as BRIEF.md records.
 
 ## 7. Reproduce
