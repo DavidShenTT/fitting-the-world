@@ -1,0 +1,16 @@
+wild passive home log loss (20 seeds x 2 agents): 0.0196
+kind  eps_r  home_logloss  ratio
+eye1   0.00        0.0005 0.0266
+eye1   0.01        0.0155 0.7914
+eye1   0.02        0.0270 1.3826
+eye1   0.03        0.0371 1.8965
+eye1   0.04        0.0453 2.3182
+eye1   0.05        0.0538 2.7496
+wear   0.00        0.0007 0.0345
+wear   0.01        0.0163 0.8347
+wear   0.02        0.0278 1.4224
+wear   0.03        0.0373 1.9066
+wear   0.04        0.0469 2.4006
+wear   0.05        0.0547 2.7984
+chosen eye1: eps_r 0.01, ratio 0.791, within 20%: False
+chosen wear: eps_r 0.01, ratio 0.835, within 20%: True
