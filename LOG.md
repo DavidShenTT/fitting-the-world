@@ -51,3 +51,12 @@
 ## 21 Nov 2026: report revisions after David's review
 - Read the listed abstracts on arxiv.org (via a web-fetch subagent): Hu et al. 2020, Treutlein et al. 2021, Cook et al. 2024, Osband et al. 2018, Hein et al. 2019, Parisi et al. 2018, Dohare et al. 2023, plus Xu et al. 2019 for stigmergy. Constant et al. 2018 isn't on arXiv, so it wasn't read.
 - REPORT.md: added §3a, the prior-work section; §2a (one offer plus skip: E1/E2 building is drainage out of the overlaps, E4/E6's natural agreement mostly reflects the nearer-centre readout, so L4's failure is uninformative about arbitrary conventions); and §2b (E8 with D3: built worlds stop edge learning but don't erase it, so forgetting happens across generations). Adjusted the L4, L8a and E6 rows and §2 bullets to match.
+- REPORT.md tightened per David's eight points:
+  - E7 stated as not run (optional, not approved).
+  - E2 slopes attributed to shaping by eye at κ = 1. The collapse without s_u is explained as selection inside the band (corr(log M, log s_u) = corr(log 1/δ, log s_u) = −0.44; `results/e2/selection_note.txt`). Width claim limited to "extra width above the competence threshold adds nothing".
+  - E8 led by the D3 null for individual forgetting.
+  - L9b edge concentration: untested (E9 saved only whole-world log loss).
+  - L3d beside L3c as shared vs key-specific gains (93% vs 22% key-specific).
+  - L10a-matched strictly descriptive.
+  - Fixed builder policy highlighted in L10m.
+  - PLAN.md already read "tanh" (corrected in 413663e); no change needed.

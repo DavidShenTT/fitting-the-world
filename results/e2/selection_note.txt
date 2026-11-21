@@ -1,0 +1,4 @@
+E2 chosen cells (n = 29): corr(log M, log s_u) = -0.442; corr(log 1/delta, log s_u) = -0.442; corr(log M, log 1/delta) = -0.338
+spread of log(count) across chosen cells: sd 0.622 (count 16-187); log(M*s_u/delta) sd 0.654
+L3c (primary): entropy drop, bits: same body 0.630, outsider (shared) 0.045, key-specific 0.586 = 93% of the builders' gain
+L3d: code-length saving, bits: same body 530.944, outsider (shared) 416.433, key-specific 114.511 = 22% of the builders' gain
