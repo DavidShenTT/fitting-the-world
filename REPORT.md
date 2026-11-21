@@ -51,7 +51,7 @@
   - L4 fails because natural-world pairs already agree at κ = 0.88. That baseline mostly reflects the readout, which picks the nearer arc centre (E6: κ 0.83 across bodies). L4's failure is therefore uninformative about whether conventions are arbitrary.
   - The representational measure (L5) separates routes where behaviour can't.
   - After 5/δ steps of abandonment the same-world advantage is gone (L6), and the built share decays at the drift rate (sanity check c).
-- **No individual forgetting; offloading has a price across generations (E8, E9; section 2b).**
+- **No forgetting; the price falls on newcomers (E8, E9, E10; section 2b).**
   - Agents that already know the edges keep that knowledge in a built world: the D3 arm's extra fall is 0.012 and 0.020, against L8a. The preregistered E8 passes L8a by the letter only because its agents were still learning: the built world stopped their edge learning.
   - The price shows when the structure fails (E9). After a snap back to home values, built-raised agents earn 42% (wear) and 73% (shaping by eye) less on decisive turns than wild-raised agents over the first 500 steps.
   - The surprise jump at the snap is smaller than predicted (L9b fails). Whether it is concentrated on edge items is untested: only whole-world log loss was recorded.
@@ -65,12 +65,14 @@ Since version 3, neither agents nor builders ever choose between actions. The wo
 - **So L4's failure says nothing about whether conventions are arbitrary.** The design can't produce or detect one. Testing that needs agents that choose freely among actions, as in version 1, in the symmetric world; that would be a new brief.
 - **The builders'-key result (E3) is unaffected.** It comes from shaping by eye moving appearance, which doesn't depend on action choice. L5 still shows that worlds built separately leave newborns with different representations.
 
-### 2b. Forgetting happens across generations, not within an agent
+### 2b. A built world doesn't erase what was learned; it stops newcomers acquiring it
 
-The D3 arm and the preregistered E8 together locate the cycle's "forget" step.
-- **Within an agent, no forgetting:** agents moved into a built world after learning the edges kept what they knew over 30k steps (D3: extra fall 0.012 and 0.020, against L8a). A built world stops edge learning but doesn't erase it: agents moved in before they knew the edges stopped improving (preregistered E8: +0.04 to +0.06, against +0.15 in the natural world).
-- **Across generations:** newborns raised in a built world never learn the edges in the first place. That shows in E10 (confident error 1.8–4.0 × wild, boundaries displaced 3.7–5.2° under the skip rule) and in E9 (decisive payoff 42–73% below wild after the snap).
-- **So the lifecycle's "stops tracking" step shows up as a lineage process:** the knowledge isn't lost by those who had it, it just isn't acquired by those raised where it's no longer needed. That is a cleaner claim than "agents forget", and the one these data support.
+Here a **newcomer** is any agent that learns the domain inside the built world, newborn or not. Three cases, by how much an agent knew of the edges on entering:
+- **Fully trained (D3 arm, 60k pretraining, edge accuracy 0.87–0.89 on entry):** nothing lost. Over 30k steps in a built world, the extra fall is 0.012 (wear) and 0.020 (shaping by eye), against L8a.
+- **Partly trained (preregistered E8; pretraining stopped at edge accuracy 0.70–0.80):** these agents kept what they had, but in the built world gained only +0.04 to +0.06, against +0.15 for the same agents in the natural control.
+- **Untrained (E9, E10; newborns raised in the built world):** they never learned the edges. In E10 their confident error is 1.8–4.0 × wild agents', with boundaries displaced 3.7–5.2° under the skip rule; in E9 their decisive payoff is 42–73% below wild after the snap.
+
+**The claim these data support:** a built world doesn't erase what was learned before entering it; it stops anyone learning there from acquiring what the built world no longer shows. The lifecycle's "stops tracking" step is therefore non-acquisition by newcomers, not forgetting by those who already knew.
 
 ## 3. Naive realism (secondary)
 
@@ -88,8 +90,8 @@ Abstracts read on arxiv.org on 21 Nov 2026. Constant et al. (2018) isn't on arXi
   - The closest analogue is E4/L5: worlds built separately leave newborns with different representations (E_K 0.07 across worlds under shaping by eye, against 0.83 within a world), though their behaviour still agrees, because geometry fixes it.
 - **Cultural accumulation.**
   - Cook, Lu, Hughes, Leibo & Foerster (2024, arXiv:2406.00392) obtain accumulation across generations of RL agents by balancing social and independent learning; their generations pass knowledge on through in-context or in-weights learning.
-  - Here, what passes between generations is the state of the world, not anything learned socially.
-  - Section 2b's result is in a sense the converse of theirs: what one generation builds into the world lets the next skip learning, and what isn't learned is then missing when the world changes (E9).
+  - Here, what passes from builders to later agents is the state of the world, not anything learned socially.
+  - Section 2b's result is in a sense the converse of theirs: what builders put into the world lets newcomers skip learning, and what they don't learn is then missing when the world changes (E9).
 - **Stigmergy.**
   - Xu, Li, Zhao & Zhang (2019, arXiv:1911.12504) use a digital pheromone in a shared environment as an indirect channel between independent learners.
   - Our agents also meet only through the items, but nothing is designed as a signal: the "message" is the reshaped item itself. E3 shows its readability depends on the reader's body (entropy drop 0.63 bits for the builders' body, 0.045 for outsiders).
@@ -97,7 +99,7 @@ Abstracts read on arxiv.org on 21 Nov 2026. Constant et al. (2018) isn't on arXi
   - Parisi et al.'s review (2018/2019, arXiv:1802.07569) frames catastrophic forgetting as interference under non-stationary data.
   - Dohare et al. (2023, arXiv:2306.13812) show that continually trained deep networks also lose the ability to learn new things.
   - E8 matches neither: the built world withheld data rather than presenting conflicting data, and trained agents didn't lose edge accuracy (D3). We didn't test plasticity directly (the second-task test was dropped in version 6).
-  - The deficit we do find is non-acquisition across generations (section 2b), which neither framework addresses.
+  - The deficit we do find is non-acquisition by newcomers (section 2b), which neither framework addresses.
 - **Overconfidence away from the data.**
   - Hein, Andriushchenko & Bitterwolf (2019, arXiv:1812.05720) show that piecewise-linear (ReLU) networks are almost always highly confident far from their training data.
   - Our networks use tanh, so their argument doesn't apply directly, but the phenomenon is the same: confident predictions where the training distribution has no support.

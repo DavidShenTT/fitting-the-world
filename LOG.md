@@ -60,3 +60,4 @@
   - L10a-matched strictly descriptive.
   - Fixed builder policy highlighted in L10m.
   - PLAN.md already read "tanh" (corrected in 413663e); no change needed.
+- REPORT.md: the forgetting framing changed from "generational" to "newcomers" (any agent learning inside the built world). §2b now gives three cases: fully trained (D3, nothing lost), partly trained (preregistered E8, kept what they had but gained +0.04 to +0.06 against +0.15), untrained (E9/E10, never learned).
