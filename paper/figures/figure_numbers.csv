@@ -1,0 +1,23 @@
+figure,quantity,value,source
+1,"built (wear, symmetric) % of items in [30,60) deg",3.6833333333333336,results/e10/sym_hist.csv
+2,"slope of log count on log(M*s_u/delta), width-32 world points",0.9322603143004039,results/e2/points.csv
+2,  95% CI low (bootstrap over worlds),0.8981158643255124,results/e2/points.csv
+2,  95% CI high (bootstrap over worlds),0.9743763964702755,results/e2/points.csv
+3,h_drop same_body (kappa 0.25),0.6302208286422106,results/e3/world_means.csv
+3,h_drop same_type (kappa 0.25),0.5171090462567409,results/e3/world_means.csv
+3,h_drop outsider (kappa 0.25),0.04467040746803423,results/e3/world_means.csv
+3,code_saving same_body (kappa 0.25),530.9444979241588,results/e3/world_means.csv
+3,code_saving same_type (kappa 0.25),496.89009451185467,results/e3/world_means.csv
+3,code_saving outsider (kappa 0.25),416.43342064892784,results/e3/world_means.csv
+4,e8_fixed treat_wear edge accuracy start/end of T2 (width 4),0.868/0.885,results/e8_fixed/e8.csv
+4,e8_fixed natural edge accuracy start/end of T2 (width 4),0.868/0.897,results/e8_fixed/e8.csv
+4,e8 treat_wear edge accuracy start/end of T2 (width 4),0.704/0.762,results/e8/e8.csv
+4,e8 natural edge accuracy start/end of T2 (width 4),0.704/0.856,results/e8/e8.csv
+4,"untrained newborns raised in wear world, edge accuracy (width 4, 60k)",0.7610383691930064,results/e10/raised.csv
+4,"untrained newborns raised wild, edge accuracy (width 4, 60k)",0.8867746643331473,results/e10/raised.csv
+4,e8_fixed treat_eye1 edge accuracy start/end of T2 (width 4),0.868/0.878,results/e8_fixed/e8.csv
+4,e8_fixed natural edge accuracy start/end of T2 (width 4),0.868/0.897,results/e8_fixed/e8.csv
+4,e8 treat_eye1 edge accuracy start/end of T2 (width 4),0.704/0.742,results/e8/e8.csv
+4,e8 natural edge accuracy start/end of T2 (width 4),0.704/0.856,results/e8/e8.csv
+4,"untrained newborns raised in eye1 world, edge accuracy (width 4, 60k)",0.6988799559180391,results/e10/raised.csv
+4,"untrained newborns raised wild, edge accuracy (width 4, 60k)",0.8867746643331473,results/e10/raised.csv

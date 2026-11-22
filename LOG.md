@@ -61,3 +61,10 @@
   - Fixed builder policy highlighted in L10m.
   - PLAN.md already read "tanh" (corrected in 413663e); no change needed.
 - REPORT.md: the forgetting framing changed from "generational" to "newcomers" (any agent learning inside the built world). §2b now gives three cases: fully trained (D3, nothing lost), partly trained (preregistered E8, kept what they had but gained +0.04 to +0.06 against +0.15), untrained (E9/E10, never learned).
+
+## 22 Nov 2026: PAPER_BRIEF, up to check-in 1
+- Read PAPER_BRIEF.md (approved by David): an 8–10 page preprint, figure pack and summary; no new real-seed runs; stop after the outline, figure drafts and titles.
+- Read Bruineberg et al. (2018, PMC6117456) and Constant et al. (2018, PMC5938575) on PMC through a web-fetch subagent: all main sections and appendices; Constant et al.'s supplementary .docx wasn't fetched. Notes in `paper/reading_notes.md`.
+- Validated the figure palette with the dataviz validator (blue, orange, aqua; CVD checks pass, aqua contrast relieved by labels).
+- Wrote `analysis/figures/make_figures.py`, drawing six figures from saved results into `paper/figures/` (PNG and SVG), with `figure_numbers.csv` for every new figure number (e.g. a single-predictor E2 slope of 0.93 [0.90, 0.97]). Checked each render visually and fixed overlaps.
+- Wrote `paper/OUTLINE.md` with three title options. Stopped at check-in 1.
