@@ -92,3 +92,9 @@
 - Content: §5 answers the information-seeking objection; Hu (§4.5), Parisi and Dohare (§4.3), Cook (§5) each cited where they belong; Hein's ReLU-versus-tanh caveat; §6 opens "By analogy," and names Claude, as Alpöge's note does; Appendix A's L8a verdict as David worded it.
 - Summary: "What didn't work" in plainer words.
 - verify_numbers.py: strings updated for the new wording, plus 6 new checks (wear code lengths, the 1.8–2.7× and 2.7–4.0× ranges, appendix L8a values and verdict, D3 appendix values). 70 checks, 0 failed. PDF 14 pages; main text ends on page 11.
+
+## 22 Nov: second short revision
+- §4.2: "Payoff without understanding" paragraph: compression 93% key-specific, code-length saving 78% shared (416/531, results/e3/summary_E3.csv).
+- §6 opens "Nothing here tests capacity; this section motivates the next experiment." and links E3's split to the Riemann Hypothesis example (verdict without understanding).
+- §5: "Future work" list: contested worlds (builders with different bodies), gradual decay instead of E9's instant snap-back, newcomers as the next builders and compounding errors.
+- verify_numbers.py: 2 new checks (93%, 78%); 72 checks, 0 failed. PDF 14 pages; main text ends on page 11.

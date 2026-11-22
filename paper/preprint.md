@@ -125,6 +125,8 @@ Builders on one body built a world under shaping by eye at κ = 0.25, so most of
 
 The split has a simple source. At κ = 0.25 the angle still moves a little (the built share is 0.60), which every reader can use. The appearance changes compress the world only for readers of that axis.
 
+**Payoff without understanding.** The two kinds of gain split. Perceptually, the built world is almost unreadable to outsiders: 93% of the builders' compression is key-specific. Functionally, outsiders keep most of the practical benefit: 78% of the builders' code-length saving is shared. Outsiders get the payoff without the understanding.
+
 ![Figure 3. **The builders' key (E3; shaping by eye at κ = 0.25, unequal world).** (A) Entropy drop of the built state under each reader's body. (B) Code-length saving over 8,000 item–action offers. Bars are means over 10 worlds with 95% bootstrap intervals; dashed marks show the wear control, where nothing depends on the reader.](figures/fig3_key.png)
 
 ### 4.3 Newcomers (E8, E9)
@@ -213,13 +215,21 @@ One reading of Constant et al. is that the niche comes to model its constructors
 - Edge legibility was borderline (D1).
 - Capacity was varied only as network width, over a range where the task was already learnable. Extra width added nothing to building, and the newcomer effects barely changed with width; we make no claim beyond the widths tested.
 
+**Future work.** Three extensions follow directly from these limits:
+
+- **Contested worlds:** builders with different bodies shaping the same world, so that no single key fits it.
+- **Gradual decay:** newcomers facing a world that decays slowly when upkeep stops, instead of the instant snap-back tested in E9.
+- **Generations:** newcomers who become the next builders, and whether their errors compound across generations.
+
 ## 6. Where this points (speculation)
+
+Nothing here tests capacity; this section motivates the next experiment.
 
 The ledger has an uncomfortable reading when the builders have more capacity than the readers. Systems that build artifacts for their own kind of reader can leave humans as outsiders without the key, and as newcomers inside a world they didn't build.
 
-By analogy, a current example: on 21 November 2026 the Lean and Mathlib communities certified that a 17-million-line Lean library compiles and proves Mathlib's statement of the Riemann Hypothesis (Lean and Mathlib communities, 2026). Its author describes finding the proof while working with Claude, an AI system, and says he released only the formal code, since a complete human-readable account would currently be, in his words, "a huge, unreadable document containing sufficient detail" (Alpöge, 2026). Mathematicians' assessment of the proof, and human understanding of it, are pending. Such systems are also themselves newcomers, raised inside humanity's largest built world, language, before they build past it.
+By analogy, a current example: on 21 November 2026 the Lean and Mathlib communities certified that a 17-million-line Lean library compiles and proves Mathlib's statement of the Riemann Hypothesis (Lean and Mathlib communities, 2026). Its author describes finding the proof while working with Claude, an AI system, and says he released only the formal code, since a complete human-readable account would currently be, in his words, "a huge, unreadable document containing sufficient detail" (Alpöge, 2026). Mathematicians' assessment of the proof, and human understanding of it, are pending. This mirrors the split in E3. There, outsiders kept most of the practical benefit of the built world without being able to read its structure. Here, a machine check can deliver the verdict without the understanding. Such systems are also themselves newcomers, raised inside humanity's largest built world, language, before they build past it.
 
-Our simulation didn't test capacity: network width barely mattered here. The experiment that would test it asks when agents build instead of keeping a regularity internal, with builders and readers of different capacity (E7 plus a capacity sweep).
+In our simulation network width barely mattered. The experiment that would test capacity asks when agents build instead of keeping a regularity internal, with builders and readers of different capacity (E7 plus a capacity sweep).
 
 ## 7. Reproducibility
 

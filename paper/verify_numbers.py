@@ -102,6 +102,8 @@ b = row(e3, rule="eye025", prediction="L3b: home log-loss drop at 2,000 steps")
 check("L3b", "1.73 [1.31, 2.25] times", f"{f2(b.ratio_same_over_out)} [{f2(b.ci_lo)}, {f2(b.ci_hi)}] times")
 w = row(e3, rule="wear", prediction="L3c (primary): entropy drop, bits")
 check("E3 wear control", "(entropy drops 0.27, 0.25 and 0.24 bits)", f"(entropy drops {f2(w.same_body)}, {f2(w.same_type)} and {f2(w.outsider)} bits)")
+check("payoff without understanding", "93% of the builders' compression is key-specific", f"{pct((h.same_body - h.outsider) / h.same_body)} of the builders' compression is key-specific")
+check("payoff without understanding", "78% of the builders' code-length saving is shared", f"{pct(cd_.outsider / cd_.same_body)} of the builders' code-length saving is shared")
 wc = row(e3, rule="wear", prediction="L3d: code-length saving, bits")
 check("E3 wear code savings", "for every reader (565, 580 and 574 bits;",
       f"for every reader ({wc.same_body:.0f}, {wc.same_type:.0f} and {wc.outsider:.0f} bits;")
