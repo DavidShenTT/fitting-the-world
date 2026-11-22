@@ -98,3 +98,11 @@
 - §6 opens "Nothing here tests capacity; this section motivates the next experiment." and links E3's split to the Riemann Hypothesis example (verdict without understanding).
 - §5: "Future work" list: contested worlds (builders with different bodies), gradual decay instead of E9's instant snap-back, newcomers as the next builders and compounding errors.
 - verify_numbers.py: 2 new checks (93%, 78%); 72 checks, 0 failed. PDF 14 pages; main text ends on page 11.
+
+## 22 Nov: third revision pass (7 points)
+- §1: "What is expected, and what is new": upkeep scaling as push–decay balance; outsiders' near-zero entropy drop from their bodies; contribution = ledger, measurements, mechanism test (self-made covariate shift and selective labels, no sign in home surprise).
+- §5 related ideas: Perdomo et al. 2020 and Shumailov et al. (arXiv v3, 2024) from their arXiv abstracts (read through a web-fetch subagent). Lakkaraju et al. 2017 is not on arXiv (title, author and keyword searches returned nothing), so it is positioned from general knowledge without quotation; flagged in STATUS.
+- §5 information-seeking reply rewritten: removed items can't be recovered; home surprise silent; randomized-prior ensemble spread 3.7–6.2× larger at edges (built-world kinds only; wild 5.1 excluded from the check) is a signal used only through Thompson sampling, not as a warning; acting on it untested.
+- §4.2 "Useful but illegible to outsiders" (93% key-specific compression, 78% shared code length). §4.3 "kept what they knew but largely stopped improving": "largely" added because they still rose 0.017 and 0.010 against the control's 0.029. D3 labelled "an added confirmatory arm" throughout. §3 notes the bootstrap intervals over 10 worlds are approximate. Appendix A's L8a split into two rows.
+- §6 cut to one paragraph. Alpöge's quote re-checked against the extracted note text: the quote is exact, but the old paraphrase was off (the note says producing such a document is routine, not that a readable account is impossible); now corrected. Future work: four items.
+- Layout: Fig. 1 moved after "The gate" so page 2 fills; headings and list lead-in lines kept with what follows (CSS). verify_numbers.py: 72 checks, 0 failed. PDF 15 pages; main text ends on page 12.

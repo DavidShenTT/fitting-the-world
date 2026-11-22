@@ -31,6 +31,8 @@ A nearby idea is **cognitive offloading**: using the world to hold or process in
 - **Newcomers never acquire it.** Agents who learn inside the built world never acquire what it no longer shows. That is non-acquisition, not offloading.
 - **Nothing is stored for every reader.** What the built world "holds" is readable mainly by readers with the builders' kind of body (section 4.2), not by everyone.
 
+**What is expected, and what is new.** Two of our results are expected. The upkeep scaling is what a balance between pushing and decay predicts: if each builder pushes items away from home in proportion to shaping strength and drift pulls them back at rate δ, the amount held away scales with M·s~u~/δ. And outsiders' near-zero entropy drop follows from their bodies, which don't read the coordinate the builders moved. The contribution is the cost ledger, its measurements and a mechanism test. Agents create their own covariate shift and their own selective labels, and home surprise gives no sign of either.
+
 **What this paper shows.** We build a toy world where learning agents reshape items by acting on them, and we preregister tests of four costs:
 
 1. the upkeep a built world needs;
@@ -50,8 +52,6 @@ A nearby idea is **cognitive offloading**: using the world to hold or process in
 
 Figure 1 shows the set-up; Appendix B lists every parameter.
 
-![Figure 1. **The world.** (A) Items sit on a ring, and four actions are each accepted inside an arc. Experiments use one of two geometries: symmetric arcs (±60°), where neighbouring arcs overlap by 30° and a third of the ring is accepted by two actions; and unequal arcs (±60° for actions 0 and 2, ±35° for actions 1 and 3). (B) Building empties the overlap. Share of items per 5° bin, folded onto 0–90°, in a world kept up by wear (symmetric arcs; mean of 10 worlds), against the uniform natural world. (C) The cycle studied: builders fit the world and keep it up; newcomers learn inside it; when upkeep stops, items drift back home.](figures/fig1_schematic.png)
-
 **Items.** A world holds 600 items. Each has an angle on a ring and two appearance coordinates (u1, u2), each with a home value drawn once. Every coordinate drifts back toward home at rate δ = 0.0005 per step, with a little noise.
 
 **What the world refuses.** There are four actions, centred at 0°, 90°, 180° and 270°. An action is accepted if the item's angle lies within its arc and refused otherwise. We use two geometries:
@@ -60,6 +60,8 @@ Figure 1 shows the set-up; Appendix B lists every parameter.
 - **Unequal arcs:** two wide (±60°) and two narrow (±35°), so overlaps are only 5° wide. These carry the experiments on readers and newcomers (E3, E8–E10).
 
 **The gate.** Each turn, an item is drawn and offers one action, at random. The agent either acts or skips: an accepted act earns +1, a refused act −2, a skip 0. An agent learns only whether the actions it took were refused. We call this the **skip rule**. In some arms (**passive feedback**) agents also learn the verdict on offers they skip.
+
+![Figure 1. **The world.** (A) Items sit on a ring, and four actions are each accepted inside an arc. Experiments use one of two geometries: symmetric arcs (±60°), where neighbouring arcs overlap by 30° and a third of the ring is accepted by two actions; and unequal arcs (±60° for actions 0 and 2, ±35° for actions 1 and 3). (B) Building empties the overlap. Share of items per 5° bin, folded onto 0–90°, in a world kept up by wear (symmetric arcs; mean of 10 worlds), against the uniform natural world. (C) The cycle studied: builders fit the world and keep it up; newcomers learn inside it; when upkeep stops, items drift back home.](figures/fig1_schematic.png)
 
 **Bodies and reader axes.** An agent sees an item through its **body**: a fixed random nonlinear map from (angle, one appearance coordinate) to a 16-number observation, plus noise. Type-1 bodies read u1, type-2 bodies read u2, and neither reads the other's coordinate. Each world has four bodies of each type.
 
@@ -82,7 +84,7 @@ Figure 1 shows the set-up; Appendix B lists every parameter.
 
 - **Seeds:** real runs use seeds 0–9, never touched by the pilots or by tuning.
 - **Unit:** the world (seed) is the unit of analysis. Agents within a world are averaged first.
-- **Criteria** are judged on point estimates exactly as preregistered, with 95% bootstrap intervals over worlds (10,000 resamples) given in brackets.
+- **Criteria** are judged on point estimates exactly as preregistered, with 95% bootstrap intervals over worlds (10,000 resamples) given in brackets. With 10 worlds per condition these intervals are approximate.
 - **Ratios** ("built-raised ÷ wild") are geometric means over worlds of paired per-world ratios.
 - **Primary cell** for the newcomer experiments: network width 32 and 60,000 training steps. Other widths (4–64) and a 30,000-step budget are secondary.
 
@@ -92,7 +94,7 @@ Four deviations were logged before the runs they affect (Table 1).
 | --- | --- | --- |
 | D1 | The legibility check (wild agents read arc edges well) wasn't met on every tuning seed. Lowering the appearance scale λ didn't help, so λ = 0.4 and 60k steps were kept. | Borderline edge legibility: mean edge accuracy 0.84–0.90 against a 0.85 target. Read E8–E10 with this in mind. Width ladder 4–64. |
 | D2 | No 3 × 3 block of unsaturated cells existed for E2, so the law is fitted on all 29 eligible cells, with shaping strength as a covariate. | Section 4.1 explains why the covariate is needed. |
-| D3 | A confirmatory E8 arm with fixed 60k-step pretraining was added, because the preregistered pretraining stopped early. | Gives the "fully trained" newcomer case. |
+| D3 | An added confirmatory arm: E8 with fixed 60k-step pretraining, run because the preregistered pretraining stopped early. | Gives the "fully trained" newcomer case. |
 | D4 | The passive-feedback noise level for the matched-surprise test was retuned on 20 more tuning seeds. | The test still couldn't be run (section 4.5). |
 
 *Table 1. Deviations from the preregistration (full text in DEVIATIONS.md).*
@@ -125,7 +127,7 @@ Builders on one body built a world under shaping by eye at κ = 0.25, so most of
 
 The split has a simple source. At κ = 0.25 the angle still moves a little (the built share is 0.60), which every reader can use. The appearance changes compress the world only for readers of that axis.
 
-**Payoff without understanding.** The two kinds of gain split. Perceptually, the built world is almost unreadable to outsiders: 93% of the builders' compression is key-specific. Functionally, outsiders keep most of the practical benefit: 78% of the builders' code-length saving is shared. Outsiders get the payoff without the understanding.
+**Useful but illegible to outsiders.** The perceptual and the functional gains split. Outsiders see almost none of the builders' compression (93% of it is key-specific), yet they keep most of the code-length saving (78% of it is shared). The built world is useful to outsiders but illegible to them.
 
 ![Figure 3. **The builders' key (E3; shaping by eye at κ = 0.25, unequal world).** (A) Entropy drop of the built state under each reader's body. (B) Code-length saving over 8,000 item–action offers. Bars are means over 10 worlds with 95% bootstrap intervals; dashed marks show the wear control, where nothing depends on the reader.](figures/fig3_key.png)
 
@@ -133,7 +135,7 @@ The split has a simple source. At κ = 0.25 the angle still moves a little (the 
 
 We place agents into a built world at three levels of prior knowledge and measure their **edge accuracy**: whether they predict correctly on unbuilt items near an arc's edge, the cases building removes (Fig. 4). The forgetting tests below use network width 4, not the primary width 32: the preregistered forgetting test was set at the narrowest width, where forgetting was expected to be strongest, and the other widths behaved similarly (L8b, section 4.5).
 
-**Fully trained agents lose nothing.** Agents pretrained for 60,000 steps in the natural world (edge accuracy 0.868) were then moved into a built world for 30,000 steps (D3). Their edge accuracy ended at 0.885 (wear) and 0.878 (shaping by eye), against 0.897 for the same agents kept in the natural world. The extra fall relative to that control was 0.012 [0.003, 0.019] and 0.019 [0.007, 0.031], below the 0.03 "against" bar of the preregistered forgetting prediction (L8a). A built world doesn't make agents forget what they know.
+**Fully trained agents kept what they knew but largely stopped improving.** Agents pretrained for 60,000 steps in the natural world (edge accuracy 0.868) were then moved into a built world for 30,000 steps (D3, an added confirmatory arm). Their edge accuracy ended at 0.885 (wear) and 0.878 (shaping by eye), against 0.897 for the same agents kept in the natural world. The extra fall relative to that control was 0.012 [0.003, 0.019] and 0.019 [0.007, 0.031], below the 0.03 "against" bar of the preregistered forgetting prediction (L8a). A built world doesn't make agents forget what they know.
 
 **Partly trained agents stop learning.** In the preregistered version of the same test, pretraining stopped at a plateau rule that fired early, at edge accuracy 0.704. In the built world these agents kept what they had but rose only to 0.762 (wear) and 0.742 (shaping by eye), while the same agents in the natural world rose to 0.856. By the letter this passes L8a for shaping by eye (0.114 ≥ 0.10). But it is withheld learning, not forgetting. It is also not catastrophic forgetting in the usual sense, interference from conflicting data (Parisi et al., 2019): the built world withheld data rather than contradicting it. Nor did we test loss of plasticity (Dohare et al., 2023); the fully trained agents give no sign of it.
 
@@ -182,7 +184,7 @@ We raised the learner's floor of random acts (ε~min~) from 0.02 to 0.1 to 0.3, 
   - Because agents never choose freely between actions, this design can't produce or detect an arbitrary convention of the kind studied in coordination, where self-play can settle on conventions that fail with new partners (Hu et al., 2020).
   - The representational measure E_K does separate worlds built separately (L5, pass: same-world minus different-world E_K is +0.34 under wear and +0.76 under shaping by eye). E_K asks how many of each item's six nearest neighbours in one agent's hidden layer are also among its six nearest in the other's, rescaled so that 0 is chance and 1 is identical neighbourhoods (Appendix B).
 - **L8b failed:** the E8 gap barely depends on network width (ratios 1.11 and 1.30 against 2).
-- **No individual forgetting:** the fully trained arm is a null for individual forgetting (section 4.3).
+- **No individual forgetting:** the fully trained arm (D3, an added confirmatory arm) is a null for individual forgetting (section 4.3).
 - **L9b failed:** the surprise jump at the snap-back is smaller than predicted, and whether it sits on edge items is untested.
 - **L10a-matched couldn't be run.** Even with a learner-only random-refusal rate tuned to equalise home surprise (retuned once, D4), the two groups' home log losses never overlapped enough to form three comparison bins.
 - **E7 was not run.** It was optional and asked when agents choose to build rather than keep a regularity internal.
@@ -202,9 +204,15 @@ We raised the learner's floor of random acts (ε~min~) from 0.02 to 0.1 to 0.3, 
 2. **Who reads.** Both earlier papers treat fit as a relation between one organism and its niche. Here the same built state fits different readers to very different degrees, so "the niche" is simpler for some bodies than others.
 3. **Who arrives later.** Newcomers, agents who learn inside a world others built, are a cost group that neither paper models. Cook et al. (2024) obtain accumulation across generations of reinforcement-learning agents through social learning. Here what passes to later agents is the state of the world, which lets them skip learning what it no longer shows.
 
+**Related ideas in machine learning.**
+
+- **Performative prediction.** Perdomo et al. (2020) study predictions that change the outcomes they predict, and ask when repeated retraining settles at a stable point. Our builders are a performative case in which acts, not published predictions, reshape the inputs. We ask what the settled world costs agents who didn't make it.
+- **Selective labels.** Lakkaraju et al. (2017) study decisions where an outcome is observed only for cases the decision-maker acted on. The skip rule is such a setting: an agent learns a verdict only where it acts. Building adds a second selection, because it removes the items that would supply refusals beyond the edge.
+- **Model collapse.** Shumailov et al. (2024) show that generative models trained on model-generated data lose the tails of the original distribution, irreversibly. Here the tails, the edge items, are removed through the world rather than through training data, within one generation of builders. Whether the loss compounds when newcomers become builders is untested.
+
 One reading of Constant et al. is that the niche comes to model its constructors. It predicts the builders' advantage in E3 as well, so our results don't separate it from the account tested here.
 
-**Would information-seeking avoid the trap?** An active-inference reader might object that an agent which seeks information would go back and test the edges. But information-seeking can't recover edges that building removed: passive feedback, which gives verdicts on every offer, still shows 1.8–2.7× confident error, and ensembles with randomized priors, whose members disagree at unbuilt edges, still fall into the trap.
+**Would an information-seeking agent avoid the trap?** An active-inference reader might expect an agent that seeks information to go back and test the edges. No learner can recover items that building removed: passive feedback, which gives a verdict on every offer, still leaves 1.8–2.7× confident error. Home surprise gives no warning. A warning signal does exist: in ensembles with randomized priors, members' spread is 3.7–6.2× larger at unbuilt edges than at arc centres. Our agents don't use it as a warning. Thompson sampling lets the disagreement randomise single acts, but nothing makes an agent look for test cases where its members disagree, and these ensembles still fall into the trap. Whether an agent that acted on its own uncertainty would escape is untested (future work).
 
 **An interpretation (optional; not tested here).** Building compresses the distribution of inputs along the builders' read axes. A newcomer with a matching body learns that compressed distribution well, so it is less surprised at home. Its error away from home then grows with the compression, a standard result for learning under covariate shift. Where building empties the support completely, the newcomer's predictions are set by its priors and its own sampling, not by data. That is the regime the skip-rule results and Fig. 6 describe.
 
@@ -215,21 +223,16 @@ One reading of Constant et al. is that the niche comes to model its constructors
 - Edge legibility was borderline (D1).
 - Capacity was varied only as network width, over a range where the task was already learnable. Extra width added nothing to building, and the newcomer effects barely changed with width; we make no claim beyond the widths tested.
 
-**Future work.** Three extensions follow directly from these limits:
+**Future work.** Four extensions follow from these results and limits:
 
+- **Generations:** newcomers who become the next builders, and whether their errors compound across generations.
+- **Agents that act on their own uncertainty:** for example, seeking test cases where ensemble members disagree.
 - **Contested worlds:** builders with different bodies shaping the same world, so that no single key fits it.
 - **Gradual decay:** newcomers facing a world that decays slowly when upkeep stops, instead of the instant snap-back tested in E9.
-- **Generations:** newcomers who become the next builders, and whether their errors compound across generations.
 
 ## 6. Where this points (speculation)
 
-Nothing here tests capacity; this section motivates the next experiment.
-
-The ledger has an uncomfortable reading when the builders have more capacity than the readers. Systems that build artifacts for their own kind of reader can leave humans as outsiders without the key, and as newcomers inside a world they didn't build.
-
-By analogy, a current example: on 21 November 2026 the Lean and Mathlib communities certified that a 17-million-line Lean library compiles and proves Mathlib's statement of the Riemann Hypothesis (Lean and Mathlib communities, 2026). Its author describes finding the proof while working with Claude, an AI system, and says he released only the formal code, since a complete human-readable account would currently be, in his words, "a huge, unreadable document containing sufficient detail" (Alpöge, 2026). Mathematicians' assessment of the proof, and human understanding of it, are pending. This mirrors the split in E3. There, outsiders kept most of the practical benefit of the built world without being able to read its structure. Here, a machine check can deliver the verdict without the understanding. Such systems are also themselves newcomers, raised inside humanity's largest built world, language, before they build past it.
-
-In our simulation network width barely mattered. The experiment that would test capacity asks when agents build instead of keeping a regularity internal, with builders and readers of different capacity (E7 plus a capacity sweep).
+Nothing here tests capacity; this motivates the next experiment. The ledger has an uncomfortable reading when the builders have more capacity than the readers: systems that build artifacts for their own kind of reader can leave humans as outsiders without the key, and as newcomers inside a world they didn't build. By analogy, on 21 November 2026 the Lean and Mathlib communities certified that a 17-million-line Lean library compiles and proves Mathlib's statement of the Riemann Hypothesis (Lean and Mathlib communities, 2026). Its author, who found the proof working with Claude, writes that the formalization is finished and that it is routine to produce "a huge, unreadable document containing sufficient detail", while he intends to understand the argument and explain it properly (Alpöge, 2026). Like E3's built world for outsiders, such a result is useful but, for now, illegible to its human readers. In our simulation network width barely mattered; the experiment that would test capacity asks when agents build instead of keeping a regularity internal, with builders and readers of different capacity (E7 plus a capacity sweep).
 
 ## 7. Reproducibility
 
@@ -266,10 +269,13 @@ All code, preregistration documents, results tables and figures are in the accom
 - Dohare, S., Hernandez-Garcia, J. F., Rahman, P., Mahmood, A. R. & Sutton, R. S. (2023). Maintaining plasticity in deep continual learning. arXiv:2306.13812.
 - Hein, M., Andriushchenko, M. & Bitterwolf, J. (2019). Why ReLU networks yield high-confidence predictions far away from the training data and how to mitigate the problem. CVPR 2019; arXiv:1812.05720.
 - Hu, H., Lerer, A., Peysakhovich, A. & Foerster, J. (2020). "Other-play" for zero-shot coordination. arXiv:2003.02979.
+- Lakkaraju, H., Kleinberg, J., Leskovec, J., Ludwig, J. & Mullainathan, S. (2017). The selective labels problem: Evaluating algorithmic predictions in the presence of unobservables. *Proceedings of KDD 2017*.
 - Lean and Mathlib communities (2026). Lean verification of the Riemann Hypothesis. Lean community blog, 21 November 2026. https://leanprover-community.github.io/blog/posts/riemann-hypothesis/
 - Osband, I., Aslanides, J. & Cassirer, A. (2018). Randomized prior functions for deep reinforcement learning. arXiv:1806.03335.
 - Parisi, G. I., Kemker, R., Part, J. L., Kanan, C. & Wermter, S. (2019). Continual lifelong learning with neural networks: a review. *Neural Networks*; arXiv:1802.07569.
+- Perdomo, J. C., Zrnic, T., Mendler-Dünner, C. & Hardt, M. (2020). Performative prediction. ICML 2020; arXiv:2002.06673.
 - Risko, E. F. & Gilbert, S. J. (2016). Cognitive offloading. *Trends in Cognitive Sciences* 20, 676–688.
+- Shumailov, I., Shumaylov, Z., Zhao, Y., Gal, Y., Papernot, N. & Anderson, R. (2024). The curse of recursion: Training on generated data makes models forget. arXiv:2305.17493 (v3).
 - [Author] (in preparation). *Shannon's Zero*.
 
 ## Appendix A. Every preregistered prediction
@@ -286,7 +292,8 @@ All code, preregistration documents, results tables and figures are in the accom
 | L4 | same-world − natural agreement ≥ 0.2 on overlap items | +0.115, +0.120 (ceiling 0.123) | Fail |
 | L5 | E_K same > different world | +0.34, +0.76 | Pass |
 | L6 | same-world advantage after abandonment < 0.05 | −0.002, −0.002 | Pass |
-| L8a | extra edge-accuracy fall at width 4 ≥ 0.10 | partly trained: 0.094 (wear), 0.114 (shaping by eye); fully trained (D3): 0.012, 0.019 | wear: inconclusive (0.094); shaping by eye: passes by the letter (0.114), but it's withheld learning; D3 (fully trained): against |
+| L8a, partly trained (preregistered) | extra edge-accuracy fall at width 4 ≥ 0.10; against if < 0.03 | 0.094 (wear), 0.114 (shaping by eye) | Wear: inconclusive. Shaping by eye: passes by the letter, but it is withheld learning, not forgetting |
+| L8a, fully trained (D3, an added confirmatory arm) | same criterion | 0.012 (wear), 0.019 (shaping by eye) | Against |
 | L8b | narrowest width's extra fall ≥ 2 × widest | 1.11, 1.30 | Fail |
 | L9 | built decisive payoff ≥ 30% below wild | 42%, 73% | Pass |
 | L9b | surprise jump at snap, built − wild ≥ 0.1 nats | 0.056, 0.095 | Fail |
@@ -320,7 +327,7 @@ All code, preregistration documents, results tables and figures are in the accom
 
 - **D1:** the legibility check was not met on every tuning seed (3-agent seed means pass on 4/5 seeds in the unequal world, 2/5 in the symmetric world). λ = 0.4 and 60k steps were kept by the investigator's decision. The width ladder is 4–64, from the narrowest width meeting the targets on seed means.
 - **D2:** E2 is fitted on all 29 eligible cells, with a shaping-strength covariate and a [0.2, 0.8] sensitivity subset, because no 3 × 3 block of unsaturated cells exists. The band is diagonal, as the law predicts.
-- **D3:** an E8 arm with fixed 60k-step pretraining, with its prediction logged before running.
+- **D3:** an added confirmatory E8 arm with fixed 60k-step pretraining, with its prediction logged before running.
 - **D4:** passive-feedback ε~r~ retuned on seeds 7040–7059 (0.01). The shaping-by-eye arm was "unmatched" by the tuning rule (0.79), and both arms still gave only two qualifying bins.
 
 ## Appendix D. Pilots

@@ -102,8 +102,8 @@ b = row(e3, rule="eye025", prediction="L3b: home log-loss drop at 2,000 steps")
 check("L3b", "1.73 [1.31, 2.25] times", f"{f2(b.ratio_same_over_out)} [{f2(b.ci_lo)}, {f2(b.ci_hi)}] times")
 w = row(e3, rule="wear", prediction="L3c (primary): entropy drop, bits")
 check("E3 wear control", "(entropy drops 0.27, 0.25 and 0.24 bits)", f"(entropy drops {f2(w.same_body)}, {f2(w.same_type)} and {f2(w.outsider)} bits)")
-check("payoff without understanding", "93% of the builders' compression is key-specific", f"{pct((h.same_body - h.outsider) / h.same_body)} of the builders' compression is key-specific")
-check("payoff without understanding", "78% of the builders' code-length saving is shared", f"{pct(cd_.outsider / cd_.same_body)} of the builders' code-length saving is shared")
+check("useful but illegible", "almost none of the builders' compression (93% of it is key-specific)", f"almost none of the builders' compression ({pct((h.same_body - h.outsider) / h.same_body)} of it is key-specific)")
+check("useful but illegible", "most of the code-length saving (78% of it is shared)", f"most of the code-length saving ({pct(cd_.outsider / cd_.same_body)} of it is shared)")
 wc = row(e3, rule="wear", prediction="L3d: code-length saving, bits")
 check("E3 wear code savings", "for every reader (565, 580 and 574 bits;",
       f"for every reader ({wc.same_body:.0f}, {wc.same_type:.0f} and {wc.outsider:.0f} bits;")
@@ -123,7 +123,7 @@ s8f = pd.read_csv(R("e8_fixed", "summary_E8.csv"))
 ef_w, ef_e = row(s8f, rule="wear", width=4), row(s8f, rule="eye1", width=4)
 check("D3 extra falls", "0.012 [0.003, 0.019] and 0.019 [0.007, 0.031]",
       f"{f3(ef_w.extra_fall)} [{f3(ef_w.extra_lo)}, {f3(ef_w.extra_hi)}] and {f3(ef_e.extra_fall)} [{f3(ef_e.extra_lo)}, {f3(ef_e.extra_hi)}]")
-check("D3 appendix", "fully trained (D3): 0.012, 0.019", f"fully trained (D3): {f3(ef_w.extra_fall)}, {f3(ef_e.extra_fall)}")
+check("D3 appendix", "| same criterion | 0.012 (wear), 0.019 (shaping by eye) | Against |", f"| same criterion | {f3(ef_w.extra_fall)} (wear), {f3(ef_e.extra_fall)} (shaping by eye) | Against |")
 pw = se("e8 treat_wear edge accuracy start/end of T2 (width 4)"); pe = se("e8 treat_eye1 edge accuracy start/end of T2 (width 4)")
 pn = se("e8 natural edge accuracy start/end of T2 (width 4)")
 check("E8 partly trained start", "at edge accuracy 0.704", f"at edge accuracy {f3(pw[0])}")
@@ -131,8 +131,8 @@ check("E8 partly trained ends", "rose only to 0.762 (wear) and 0.742 (shaping by
       f"rose only to {f3(pw[1])} (wear) and {f3(pe[1])} (shaping by eye), while the same agents in the natural world rose to {f3(pn[1])}")
 s8 = pd.read_csv(R("e8", "summary_E8.csv"))
 check("L8a primary eye", "(0.114 ≥ 0.10)", f"({f3(row(s8, rule='eye1', width=4).extra_fall)} ≥ 0.10)")
-check("L8a primary, appendix", "partly trained: 0.094 (wear), 0.114 (shaping by eye)", f"partly trained: {f3(row(s8, rule="wear", width=4).extra_fall)} (wear), {f3(row(s8, rule="eye1", width=4).extra_fall)} (shaping by eye)")
-check("L8a verdict, appendix", "wear: inconclusive (0.094); shaping by eye: passes by the letter (0.114)", f"wear: inconclusive ({f3(row(s8, rule="wear", width=4).extra_fall)}); shaping by eye: passes by the letter ({f3(row(s8, rule="eye1", width=4).extra_fall)})")
+check("L8a primary, appendix", "against if < 0.03 | 0.094 (wear), 0.114 (shaping by eye) |", f"against if < 0.03 | {f3(row(s8, rule='wear', width=4).extra_fall)} (wear), {f3(row(s8, rule='eye1', width=4).extra_fall)} (shaping by eye) |")
+assert 0.03 <= row(s8, rule="wear", width=4).extra_fall < 0.10 <= row(s8, rule="eye1", width=4).extra_fall  # "inconclusive" / "passes by the letter"
 check("L8b", "(ratios 1.11 and 1.30 against 2)", f"(ratios {f2(row(s8, rule='wear', width=4).L8b_ratio)} and {f2(row(s8, rule='eye1', width=4).L8b_ratio)} against 2)")
 un_w = fv("untrained newcomers raised in wear world, edge accuracy (width 4, 60k)")
 un_e = fv("untrained newcomers raised in eye1 world, edge accuracy (width 4, 60k)")
@@ -162,7 +162,7 @@ for cond, rule, nm in (("skip", "wear", "wear"), ("skip", "eye1", "shaping by ey
 rng1 = lambda c: f"{min(row(L, cond=c, rule=r).conf_ratio for r in ('wear', 'eye1')):.1f}–{max(row(L, cond=c, rule=r).conf_ratio for r in ('wear', 'eye1')):.1f}×"
 check("bridge: passive range", "removing the edge items alone gives 1.8–2.7× confident error", f"removing the edge items alone gives {rng1('passive')} confident error")
 check("bridge: skip range", "raise it to 2.7–4.0×", f"raise it to {rng1('skip')}")
-check("objection: passive range", "still shows 1.8–2.7× confident error, and ensembles", f"still shows {rng1('passive')} confident error, and ensembles")
+check("objection: passive range", "still leaves 1.8–2.7× confident error", f"still leaves {rng1('passive')} confident error")
 rw, re_ = row(L, cond="skip", rule="wear"), row(L, cond="skip", rule="eye1")
 check("home log loss skip", "0.016 (wear) and 0.014 (shaping by eye) against 0.031",
       f"{f3(rw.home_ll_built)} (wear) and {f3(re_.home_ll_built)} (shaping by eye) against {f3(rw.home_ll_wild)}")
@@ -175,9 +175,10 @@ check("update control", "(ratios 2.53 and 1.89 for wear, 3.88 and 2.52 for shapi
 EN = pd.read_csv(R("e10", "summary_L10a_ens.csv"))
 check("ensembles conf range", "(confident-error ratios 2.26–4.18)", f"(confident-error ratios {f2(EN.conf_ratio.min())}–{f2(EN.conf_ratio.max())})")
 assert (EN.verdict == "pass").all()
-E = pd.read_csv(R("e10", "ens.csv")); p = E[E.variant == "prior"]
+E = pd.read_csv(R("e10", "ens.csv")); p = E[(E.variant == "prior") & (E.kind != "wild")]   # newcomers in built worlds
 rm = p.groupby("kind").spread_edges.mean() / p.groupby("kind").spread_centres.mean()
 check("prior spread", "(their spread is 3.7–6.2× larger at edges", f"(their spread is {rm.min():.1f}–{rm.max():.1f}× larger at edges")
+check("prior spread, section 5", "members' spread is 3.7–6.2× larger at unbuilt edges", f"members' spread is {rm.min():.1f}–{rm.max():.1f}× larger at unbuilt edges")
 SH = pd.read_csv(R("e10", "summary_L10shift.csv"))
 a1, a2 = row(SH, rule="wear"), row(SH, rule="eye1")
 check("L10-shift", "3.69° [3.26, 4.14] (wear) and 5.17° [4.59, 5.72]",

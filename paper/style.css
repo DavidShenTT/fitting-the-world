@@ -24,3 +24,5 @@ a { color: #1c5cab; text-decoration: none; word-break: break-all; }
 .sidefig { float: right; width: 50%; margin: 0.2em 0 0.6em 1.2em; }
 .sidefig figure { margin: 0; }
 h3 { clear: both; }
+h2, h3 { break-after: avoid; page-break-after: avoid; }
+p:has(+ ul), p:has(+ ol) { break-after: avoid; page-break-after: avoid; }
