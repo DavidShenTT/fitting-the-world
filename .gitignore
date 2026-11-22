@@ -14,3 +14,4 @@ checkpoints/
 _incoming_layer2.zip
 # per-task pickles (merged CSVs are kept)
 results/**/parts/
+export/

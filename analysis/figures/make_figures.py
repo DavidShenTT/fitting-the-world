@@ -32,7 +32,7 @@ plt.rcParams.update({"font.size": 8.5, "axes.titlesize": 9, "axes.labelsize": 8.
                      "axes.edgecolor": MUTED, "axes.labelcolor": INK, "xtick.color": MUTED, "ytick.color": MUTED,
                      "text.color": INK, "axes.spines.top": False, "axes.spines.right": False, "axes.grid": True,
                      "grid.color": GRID, "grid.linewidth": 0.6, "axes.axisbelow": True, "lines.linewidth": 2,
-                     "svg.fonttype": "none", "font.family": "DejaVu Sans"})
+                     "svg.fonttype": "path", "font.family": "DejaVu Sans"})
 NUM = []
 
 
@@ -53,22 +53,24 @@ def mean_ci(x):
 
 # ------------------------------------------------------------------ Fig 1: schematic
 def fig1():
-    fig = plt.figure(figsize=(7.2, 2.8))
-    ax_u, ax_s = fig.add_axes([0.0, 0.14, 0.21, 0.72]), fig.add_axes([0.235, 0.14, 0.21, 0.72])
+    fig = plt.figure(figsize=(7.2, 2.9))
+    ax_u, ax_s = fig.add_axes([0.0, 0.16, 0.21, 0.64]), fig.add_axes([0.235, 0.16, 0.21, 0.64])
+    G_IN, G_OUT = "#4d4c48", "#a3a29c"   # neutral greys: arcs aren't experimental conditions
     for ax, half, title, exps in ((ax_u, (60, 35, 60, 35), "Unequal arcs", "E3, E8–E10"),
                                   (ax_s, (60, 60, 60, 60), "Symmetric arcs", "E1, E2, E4–E6")):
-        ax.set_aspect("equal"); ax.axis("off"); ax.set_xlim(-1.5, 1.5); ax.set_ylim(-1.5, 1.5)
+        ax.set_aspect("equal"); ax.axis("off"); ax.set_xlim(-1.55, 1.55); ax.set_ylim(-1.55, 1.55)
         for a, (c, h) in enumerate(zip((0, 90, 180, 270), half)):
-            col = C_WILD if a % 2 == 0 else C_WEAR
+            col = G_IN if a % 2 == 0 else G_OUT
             r = 1.0 if a % 2 == 0 else 1.18
-            ax.add_patch(Wedge((0, 0), r, c - h, c + h, width=0.12, color=col, alpha=0.9, lw=0))
-            ax.text(1.4 * np.cos(np.deg2rad(c)), 1.4 * np.sin(np.deg2rad(c)), f"{a}", ha="center", va="center",
+            ax.add_patch(Wedge((0, 0), r, c - h, c + h, width=0.12, color=col, lw=0))
+            ax.text(1.45 * np.cos(np.deg2rad(c)), 1.45 * np.sin(np.deg2rad(c)), f"{a}", ha="center", va="center",
                     color=MUTED, fontsize=7)
-        ax.add_patch(plt.Circle((0, 0), 0.82, fill=False, color=MUTED, lw=0.6))
-        ax.text(0, 0.1, title, ha="center", va="center", fontsize=8, fontweight="bold")
-        ax.text(0, -0.15, exps, ha="center", va="center", fontsize=7, color=MUTED)
-    fig.text(0.005, 0.95, "A  The ring: four actions, each accepted inside its arc", fontweight="bold", fontsize=9)
-    fig.text(0.01, 0.0, "inner arcs: actions 0, 2   outer arcs: actions 1, 3\nwhere arcs overlap, both actions are accepted",
+        ax.text(0, 0.1, title.split()[0], ha="center", va="center", fontsize=7.5, fontweight="bold")
+        ax.text(0, -0.12, "arcs", ha="center", va="center", fontsize=7.5, fontweight="bold")
+        ax.text(0, -1.75, exps, ha="center", va="center", fontsize=7, color=MUTED)
+    TITLE_Y = 0.95   # one baseline for the A, B and C titles
+    fig.text(0.005, TITLE_Y, "A  Four actions, each accepted in its arc", fontweight="bold", fontsize=8.2)
+    fig.text(0.01, -0.02, "dark arcs: actions 0, 2;  light arcs: actions 1, 3;  where arcs overlap, both are accepted",
              fontsize=6.5, color=MUTED, va="bottom")
     # B: natural vs built item distribution (symmetric world, wear; folded onto 0-90 degrees)
     ax = fig.add_axes([0.545, 0.33, 0.21, 0.5])
@@ -79,7 +81,7 @@ def fig1():
     ax.text(45, h.values.max() * 100 * 0.92, "overlap", ha="center", fontsize=7, color=MUTED)
     ax.set_xlabel("item angle, folded (deg)"); ax.set_ylabel("% of items per 5°"); ax.set_xticks([0, 30, 60, 90])
     ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.38), ncol=2, fontsize=6.8)
-    ax.set_title("B  Building empties the in-between", loc="left", fontweight="bold")
+    fig.text(0.49, TITLE_Y, "B  Built vs natural (symmetric world)", fontweight="bold", fontsize=8.2)
     note(1, "built (wear, symmetric) % of items in [30,60) deg", float(h.loc[30:55].sum() * 100), "results/e10/sym_hist.csv")
     # C: the cycle
     ax = fig.add_axes([0.79, 0.08, 0.21, 0.78]); ax.axis("off"); ax.set_xlim(0, 1); ax.set_ylim(0, 1)
@@ -89,7 +91,7 @@ def fig1():
         ax.text(x, y, s, ha="center", va="center", fontsize=7.2, bbox=dict(boxstyle="round,pad=0.35", fc="white", ec=MUTED, lw=0.8))
     for y0, y1 in ((0.75, 0.63), (0.41, 0.29)):
         ax.add_patch(FancyArrowPatch((0.5, y0), (0.5, y1), arrowstyle="-|>", mutation_scale=9, color=MUTED, lw=1))
-    fig.text(0.79, 0.95, "C  The cycle studied", fontweight="bold", fontsize=9)
+    fig.text(0.865, TITLE_Y, "C  The cycle", fontweight="bold", fontsize=8.2)
     save(fig, "fig1_schematic")
 
 
@@ -150,7 +152,7 @@ def fig3():
         ax.text(0.02, 0.985, f"key-specific: {100 * (sb - out) / sb:.0f}% of the builders' gain", transform=ax.transAxes,
                 ha="left", va="top", fontsize=7)
     axes[0].plot([], [], color=C_WEAR, lw=1.5, ls=(0, (2, 1.5)), label="wear control (no key)")
-    fig.legend(*axes[0].get_legend_handles_labels(), frameon=False, loc="lower center", bbox_to_anchor=(0.5, -0.07), fontsize=7)
+    fig.legend(*axes[0].get_legend_handles_labels(), frameon=False, loc="lower center", bbox_to_anchor=(0.5, -0.16), fontsize=7)
     save(fig, "fig3_key")
 
 
@@ -171,17 +173,17 @@ def fig4():
         wl = prim[prim.kind == "wild"].groupby("seed").edge_acc.mean().mean()
         ax.scatter([1.2], [un], marker="D", s=26, color=col, edgecolor=INK, lw=0.6, zorder=3)
         ax.scatter([1.2], [wl], marker="D", s=26, color=C_WILD, edgecolor=INK, lw=0.6, zorder=3)
-        ax.text(1.29, un, "built", fontsize=6.5, va="center")
-        ax.text(1.29, wl, "wild", fontsize=6.5, va="center")
-        note(4, f"untrained newborns raised in {rule} world, edge accuracy (width 4, 60k)", float(un), "results/e10/raised.csv")
-        note(4, "untrained newborns raised wild, edge accuracy (width 4, 60k)", float(wl), "results/e10/raised.csv")
-        ax.set_xticks([0, 1]); ax.set_xticklabels(["start\nof T2", "end\nof T2"]); ax.set_xlim(-0.15, 1.6)
+        ax.text(1.29, un, "newcomer", fontsize=6.3, va="center")
+        ax.text(1.29, wl, "wild", fontsize=6.3, va="center")
+        note(4, f"untrained newcomers raised in {rule} world, edge accuracy (width 4, 60k)", float(un), "results/e10/raised.csv")
+        note(4, "untrained agents raised wild (not newcomers), edge accuracy (width 4, 60k)", float(wl), "results/e10/raised.csv")
+        ax.set_xticks([0, 1]); ax.set_xticklabels(["start\nof T2", "end\nof T2"]); ax.set_xlim(-0.15, 1.75)
         ax.set_ylim(0.6, 0.95); ax.set_ylabel("edge accuracy" if rule == "wear" else ""); ax.grid(axis="x")
-        ax.set_title(f"{lab}  Newcomers: {nm}", loc="left", fontweight="bold", fontsize=8.5)
+        ax.set_title(f"{lab}  {nm.capitalize()} world", loc="left", fontweight="bold", fontsize=8.5)
     axes[0].plot([], [], color=MUTED, ls="-", label="fully trained (60k)")
     axes[0].plot([], [], color=MUTED, ls=(0, (3, 2)), label="partly trained")
     axes[0].plot([], [], color=C_WILD, label="natural control")
-    axes[0].scatter([], [], marker="D", s=22, color="white", edgecolor=INK, lw=0.6, label="untrained newborn (60k)")
+    axes[0].scatter([], [], marker="D", s=22, color="white", edgecolor=INK, lw=0.6, label="untrained newcomer (60k)")
     axes[0].legend(frameon=False, loc="lower left", fontsize=6.3)
     e9 = pd.read_csv(R("e10", "e9.csv")); e9 = e9[e9.cond == "skip"]
     ax = axes[2]
@@ -204,18 +206,18 @@ def fig5():
     r = pd.read_csv(R("e10", "raised.csv"))
     r = r[(r.arm == "grid") & (r.width == 32) & (r.budget == 60000)]
     wm = r.groupby(["seed", "kind", "cond"])[["home_logloss", "conf_err"]].mean().reset_index()
-    fig, axes = plt.subplots(1, 2, figsize=(6.6, 2.9), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(6.6, 3.2), sharey=True)
     for ax, rule, col, nm in ((axes[0], "wear", C_WEAR, "A  Wear"), (axes[1], "eye1", C_EYE, "B  Shaping by eye")):
-        for kind, c, kn in (("wild", C_WILD, "raised wild"), (rule, col, "raised built")):
+        for kind, c, kn in (("wild", C_WILD, "wild"), (rule, col, "newcomer")):
             for cond, mk, fill in (("skip", "o", True), ("passive", "^", False)):
                 g = wm[(wm.kind == kind) & (wm.cond == cond)]
                 ax.scatter(g.home_logloss, g.conf_err, marker=mk, s=28, facecolor=c if fill else "white", edgecolor=c,
-                           lw=1.2, label=f"{kn}, {'skip rule' if cond == 'skip' else 'passive feedback'}")
+                           lw=1.2, label=f"{kn}, {'skip rule' if cond == 'skip' else 'passive'}")
         ax.set_xscale("log"); ax.set_xlabel("home log loss (nats, log scale)")
         ax.set_title(nm, loc="left", fontweight="bold")
+        ax.legend(frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.2), ncol=2, fontsize=6.3,
+                  columnspacing=0.8, handletextpad=0.3)   # one legend per panel, in that panel's colours
     axes[0].set_ylabel("confident error on unbuilt edges")
-    h, l = axes[1].get_legend_handles_labels()
-    fig.legend(h, l, frameon=False, loc="lower center", ncol=4, bbox_to_anchor=(0.5, -0.1), fontsize=6.8)
     fig.suptitle("Less surprise at home, more confident error away from it (E10; one point per world)",
                  x=0.01, ha="left", fontsize=9, y=1.02)
     save(fig, "fig5_silent_home")
@@ -236,7 +238,7 @@ def fig6():
     ax.set_xlabel("learner's random-act floor ε_min"); ax.set_ylabel("extra arc stretch, built − wild (deg)")
     ax.text(0.98, 0.98, "builders' policy fixed\n(ε_min 0.02) in every arm", transform=ax.transAxes, ha="right", va="top",
             fontsize=6.8, color=MUTED)
-    ax.set_title("Random tests beyond the edge undo the stretch (L10m)", loc="left", fontsize=8.5)
+    ax.set_title("More random acts undo the stretch (L10m)", loc="left", fontsize=8.5)
     save(fig, "fig6_mechanism")
 
 

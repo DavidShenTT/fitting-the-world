@@ -68,3 +68,20 @@
 - Validated the figure palette with the dataviz validator (blue, orange, aqua; CVD checks pass, aqua contrast relieved by labels).
 - Wrote `analysis/figures/make_figures.py`, drawing six figures from saved results into `paper/figures/` (PNG and SVG), with `figure_numbers.csv` for every new figure number (e.g. a single-predictor E2 slope of 0.93 [0.90, 0.97]). Checked each render visually and fixed overlaps.
 - Wrote `paper/OUTLINE.md` with three title options. Stopped at check-in 1.
+
+## 22 Nov 2026: paper, check-in 1 decisions through check-in 2
+- David: working title "Fitting the World to the Model: What It Costs, and Who It Serves"; author undecided; MIT (code) and CC BY 4.0 (text); a public GitHub repo with a Zenodo release (prepare the export, don't push); "newcomer" everywhere; cognitive offloading in the introduction; figure fixes.
+- Figures:
+  - neutral grey arcs, one title baseline, "symmetric world" label (Fig 1);
+  - legend moved (Fig 3); panel titles and "untrained newcomer (60k)" (Fig 4);
+  - one legend per panel (Fig 5); retitled (Fig 6);
+  - SVG text saved as paths (no `<text>` elements), so it displays in any viewer;
+  - "newborn" replaced by "newcomer" in the figures, outline and figure numbers.
+- Read the Lean community post (21 Nov 2026) and Alpöge's note (alpo.ge/remark.pdf; text extracted with pypdf from the downloaded PDF). Notes are in `paper/reading_notes.md`.
+- Wrote `paper/preprint.md` (abstract 193 words, main text about 4,300 words including captions and tables) and `paper/summary.md` (540 words).
+- Installed `pypandoc_binary` 1.17 (41 MB) into `.venv` only; `pip check` clean. `paper/render.py`: pandoc to standalone HTML, then the installed Edge in headless mode (profile in `.cache/edge`) to PDF. 13 pages; main text ends on page 11.
+- `paper/verify_numbers.py`: 64 checks, each recomputing a reported number from `results/` and matching it to the text. It found two rounding errors inherited from REPORT.md's 4-decimal tables:
+  - L3d 1.2750 printed as 1.28; correct value 1.27.
+  - D3 extra fall 0.0195 printed as 0.020, and lower bound 0.0035 as 0.004; correct values 0.019 and 0.003.
+  - Corrected in the preprint and REPORT.md. All 64 checks pass.
+- Clean export: README.md, LICENSE (MIT), LICENSE-text.md (CC BY 4.0), requirements.txt, `tools/make_export.py` (writes `export/`, git-ignored; scans for personal details). 266 files, 12.3 MB. Nothing pushed.

@@ -1,0 +1,21 @@
+@page { size: A4; margin: 20mm 20mm 20mm 20mm; }
+:root { --ink: #1f1f1e; --muted: #5f5e58; --rule: #d9d8d2; }
+html { background: #ffffff; }
+body { font-family: "Charter", "Georgia", "Cambria", serif; font-size: 10.5pt; line-height: 1.42; color: var(--ink);
+       max-width: 170mm; margin: 0 auto; background: #ffffff; }
+header#title-block-header { text-align: center; margin-bottom: 1.2em; }
+h1.title { font-size: 18pt; line-height: 1.2; margin: 0 0 0.3em; }
+p.author, p.date { margin: 0.1em 0; color: var(--muted); }
+h2 { font-size: 13pt; margin: 1.3em 0 0.4em; border-bottom: 1px solid var(--rule); padding-bottom: 0.15em; }
+h3 { font-size: 11pt; margin: 1.0em 0 0.3em; }
+p { margin: 0.45em 0; text-align: left; hyphens: auto; }
+figure { margin: 1em 0; page-break-inside: avoid; break-inside: avoid; }
+figure img { width: 100%; height: auto; }
+figcaption { font-size: 9pt; color: var(--muted); line-height: 1.35; margin-top: 0.3em; }
+table { border-collapse: collapse; width: 100%; font-size: 8.8pt; margin: 0.8em 0; page-break-inside: avoid; }
+th, td { border-bottom: 1px solid var(--rule); padding: 3px 5px; vertical-align: top; text-align: left; }
+th { border-bottom: 1.5px solid var(--ink); }
+code { font-family: "Consolas", "Menlo", monospace; font-size: 9pt; }
+ul, ol { margin: 0.3em 0 0.5em 1.2em; padding-left: 0.6em; }
+li { margin: 0.15em 0; }
+a { color: #1c5cab; text-decoration: none; word-break: break-all; }

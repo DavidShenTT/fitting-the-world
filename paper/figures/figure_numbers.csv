@@ -13,11 +13,11 @@ figure,quantity,value,source
 4,e8_fixed natural edge accuracy start/end of T2 (width 4),0.868/0.897,results/e8_fixed/e8.csv
 4,e8 treat_wear edge accuracy start/end of T2 (width 4),0.704/0.762,results/e8/e8.csv
 4,e8 natural edge accuracy start/end of T2 (width 4),0.704/0.856,results/e8/e8.csv
-4,"untrained newborns raised in wear world, edge accuracy (width 4, 60k)",0.7610383691930064,results/e10/raised.csv
-4,"untrained newborns raised wild, edge accuracy (width 4, 60k)",0.8867746643331473,results/e10/raised.csv
+4,"untrained newcomers raised in wear world, edge accuracy (width 4, 60k)",0.7610383691930064,results/e10/raised.csv
+4,"untrained agents raised wild (not newcomers), edge accuracy (width 4, 60k)",0.8867746643331473,results/e10/raised.csv
 4,e8_fixed treat_eye1 edge accuracy start/end of T2 (width 4),0.868/0.878,results/e8_fixed/e8.csv
 4,e8_fixed natural edge accuracy start/end of T2 (width 4),0.868/0.897,results/e8_fixed/e8.csv
 4,e8 treat_eye1 edge accuracy start/end of T2 (width 4),0.704/0.742,results/e8/e8.csv
 4,e8 natural edge accuracy start/end of T2 (width 4),0.704/0.856,results/e8/e8.csv
-4,"untrained newborns raised in eye1 world, edge accuracy (width 4, 60k)",0.6988799559180391,results/e10/raised.csv
-4,"untrained newborns raised wild, edge accuracy (width 4, 60k)",0.8867746643331473,results/e10/raised.csv
+4,"untrained newcomers raised in eye1 world, edge accuracy (width 4, 60k)",0.6988799559180391,results/e10/raised.csv
+4,"untrained agents raised wild (not newcomers), edge accuracy (width 4, 60k)",0.8867746643331473,results/e10/raised.csv

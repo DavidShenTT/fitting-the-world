@@ -1,0 +1,11 @@
+# Versions used for the reported runs (PLAN.md section 1). Python 3.12.
+numpy==2.5.4
+scipy==1.18.1
+pandas==3.1.0
+numba==0.68.1
+llvmlite==0.50.0
+torch==2.15.0          # CPU build is enough; used only by src/metrics.py
+matplotlib==3.11.2
+pytest==9.2.0
+pypdf                  # PDF page count in paper/render.py
+pypandoc_binary==1.17  # only to rebuild the PDF
