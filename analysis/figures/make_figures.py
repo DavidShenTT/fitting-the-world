@@ -116,15 +116,15 @@ def fig2():
     for i, su in enumerate(levels[::-1]):
         g = cells[cells.s_u == su]
         ax.errorbar(g.x, g.y, yerr=g.ysd, fmt="o", ms=5, color=BLUE_RAMP[i], mec="white", mew=1, elinewidth=1,
-                    capsize=0, label=f"s_u = {su:g}")
+                    capsize=0, label=f"$s_u$ = {su:g}")
     xs = np.logspace(np.log10(cells.x.min() * 0.8), np.log10(cells.x.max() * 1.2), 50)
     ax.plot(xs, np.exp(icpt) * xs ** slope, color=MUTED, lw=1.2, ls="--")
-    ax.text(0.04, 0.96, f"slope {slope:.2f} [{lo:.2f}, {hi:.2f}]\n(joint fit: M 0.91, 1/δ 0.91, s_u 0.98)",
+    ax.text(0.04, 0.96, f"slope {slope:.2f} [{lo:.2f}, {hi:.2f}]\n(joint fit: $M$ 0.91, $1/\\delta$ 0.91, $s_u$ 0.98)",
             transform=ax.transAxes, va="top", fontsize=7)
     ax.set_xscale("log"); ax.set_yscale("log"); ax.minorticks_off()
     ax.set_xticks([300, 600, 1000, 2000, 3000]); ax.set_xticklabels(["300", "600", "1,000", "2,000", "3,000"])
     ax.set_yticks([20, 40, 60, 100, 200]); ax.set_yticklabels(["20", "40", "60", "100", "200"])
-    ax.set_xlabel("builders × strength ÷ decay  (M · s_u / δ)"); ax.set_ylabel("built items at steady state")
+    ax.set_xlabel(r"builders × strength ÷ decay  ($M\,s_u/\delta$)"); ax.set_ylabel("built items at steady state")
     ax.legend(frameon=False, loc="lower right", title="shaping strength", title_fontsize=7.5)
     ax.set_title("Upkeep law (E2: shaping by eye, symmetric world)", loc="left", fontsize=8.5)
     save(fig, "fig2_upkeep")
@@ -136,7 +136,7 @@ def fig3():
     arms = [("same_body", "builders'\nbody"), ("same_type", "same\ntype"), ("outsider", "outsider")]
     fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.7))
     for ax, col, ttl, unit in ((axes[0], "h_drop", "A  Compression at the gate (L3c)", "entropy drop (bits)"),
-                               (axes[1], "code_saving", "B  Code-length saving (L3d)", "saving (bits over 8,000 pairs)")):
+                               (axes[1], "code_saving", "B  Code-length saving (L3d)", "bits saved over 8,000\nitem–action offers")):
         for i, (arm, nm) in enumerate(arms):
             m, lo, hi = mean_ci(wm[(wm.rule == "eye025") & (wm.arm == arm)][col])
             ax.bar(i, m, width=0.62, color=BLUE_RAMP[i], yerr=[[m - lo], [hi - m]], error_kw=dict(ecolor=INK, lw=1))
@@ -177,7 +177,7 @@ def fig4():
         ax.text(1.29, wl, "wild", fontsize=6.3, va="center")
         note(4, f"untrained newcomers raised in {rule} world, edge accuracy (width 4, 60k)", float(un), "results/e10/raised.csv")
         note(4, "untrained agents raised wild (not newcomers), edge accuracy (width 4, 60k)", float(wl), "results/e10/raised.csv")
-        ax.set_xticks([0, 1]); ax.set_xticklabels(["start\nof T2", "end\nof T2"]); ax.set_xlim(-0.15, 1.75)
+        ax.set_xticks([0, 1]); ax.set_xticklabels(["entry", "+30k\nsteps"]); ax.set_xlim(-0.15, 1.75)
         ax.set_ylim(0.6, 0.95); ax.set_ylabel("edge accuracy" if rule == "wear" else ""); ax.grid(axis="x")
         ax.set_title(f"{lab}  {nm.capitalize()} world", loc="left", fontweight="bold", fontsize=8.5)
     axes[0].plot([], [], color=MUTED, ls="-", label="fully trained (60k)")
@@ -235,8 +235,8 @@ def fig6():
     ax.axhline(0, color=MUTED, lw=0.8)
     ax.set_xscale("log"); ax.set_xticks([0.02, 0.1, 0.3]); ax.set_xticklabels(["0.02", "0.1", "0.3"]); ax.set_xlim(0.015, 0.75)
     ax.minorticks_off()
-    ax.set_xlabel("learner's random-act floor ε_min"); ax.set_ylabel("extra arc stretch, built − wild (deg)")
-    ax.text(0.98, 0.98, "builders' policy fixed\n(ε_min 0.02) in every arm", transform=ax.transAxes, ha="right", va="top",
+    ax.set_xlabel(r"learner's random-act floor $\varepsilon_{\min}$"); ax.set_ylabel("extra arc stretch, built − wild (deg)")
+    ax.text(0.98, 0.98, "builders' policy fixed\n" r"($\varepsilon_{\min}$ 0.02) in every arm", transform=ax.transAxes, ha="right", va="top",
             fontsize=6.8, color=MUTED)
     ax.set_title("More random acts undo the stretch (L10m)", loc="left", fontsize=8.5)
     save(fig, "fig6_mechanism")

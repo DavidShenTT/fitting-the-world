@@ -6,11 +6,12 @@ date: "Preprint, November 2026"
 
 ## Abstract
 
-Agents also reshape their world to suit what they already do. When the changes persist, the world ends up fitted to its users. Active-inference work on niche construction has shown that this happens. We ask what it costs, and who pays.
+Agents don't only adapt to their world; they also reshape it to suit what they already do. When the changes persist, the world ends up fitted to its users. Active-inference work on niche construction has shown that this happens. We ask what it costs, and who pays.
 
 In a small preregistered simulation, learning agents act on items on a ring and learn only whether each act was refused. Acting reshapes the items, by wear or by "shaping by eye" (nudging each item toward what the user already predicts).
 
 Four costs appear:
+
 - **Upkeep:** the amount built follows builders × shaping strength ÷ decay, and fades without upkeep.
 - **The builders' key:** a built world is 0.63 bits simpler for readers with the builders' body, 0.52 for the same body type and 0.045 for outsiders, while code-length savings are mostly shared.
 - **Newcomers:** a built world doesn't erase what agents already knew, but it stops anyone learning there from acquiring what it no longer shows.
@@ -25,17 +26,20 @@ A learner can reduce its surprise in two ways. It can improve its model of the w
 This is not a new idea. In active inference, an agent minimises free energy (roughly, long-run surprise) by perceiving and by acting. Bruineberg, Rietveld, Parr, van Maanen and Friston (2018) simulated an active-inference agent whose walking slowly opens a path through a grid that "remembers" where it went: a desire path. Whether the agent adapts to the grid or the grid to the agent depends on their relative inertia. Constant, Ramstead, Veissière, Campbell and Friston (2018) gave niche construction a variational description in which organism and niche come to infer each other. Both papers show that world-fitting happens and why it pays the fitter. Neither measures what keeping a fitted world costs, nor who else pays. Bruineberg et al.'s environment keeps its changes without upkeep and doesn't model agents who arrive later. Constant et al. name decay, upkeep and negative feedbacks as open problems.
 
 A nearby idea is **cognitive offloading**: using the world to hold or process information that would otherwise be held in the head (Risko & Gilbert, 2016). Our results speak to it, but we avoid the term for three reasons.
+
 - **Veterans keep what they knew.** In our simulation, agents who knew the domain before entering a built world kept what they knew; nothing moved out of their heads.
 - **Newcomers never acquire it.** Agents who learn inside the built world never acquire what it no longer shows. That is non-acquisition, not offloading.
 - **Nothing is stored for every reader.** What the built world "holds" is readable mainly by readers with the builders' kind of body (section 4.2), not by everyone.
 
 **What this paper shows.** We build a toy world where learning agents reshape items by acting on them, and we preregister tests of four costs:
+
 1. the upkeep a built world needs;
 2. the reader-specific value of what is built (the builders' key);
 3. what newcomers learn inside it;
 4. how surprise and error behave when agents raised there meet the unbuilt world.
 
 **Results in brief.**
+
 - Building emerges and follows a simple upkeep law: the amount built scales with builders × shaping strength ÷ decay, and it fades when upkeep stops.
 - What is built is much simpler for readers built like the builders than for outsiders, though part of its value is shared.
 - A built world doesn't erase what was learned before entering it; it stops anyone learning there from acquiring what it no longer shows.
@@ -51,6 +55,7 @@ Figure 1 shows the set-up; Appendix B lists every parameter.
 **Items.** A world holds 600 items. Each has an angle on a ring and two appearance coordinates (u1, u2), each with a home value drawn once. Every coordinate drifts back toward home at rate δ = 0.0005 per step, with a little noise.
 
 **What the world refuses.** There are four actions, centred at 0°, 90°, 180° and 270°. An action is accepted if the item's angle lies within its arc and refused otherwise. We use two geometries:
+
 - **Symmetric arcs (±60°):** a third of the ring is overlap. These carry the building experiments (E1, E2, E4–E6).
 - **Unequal arcs:** two wide (±60°) and two narrow (±35°), so overlaps are only 5° wide. These carry the experiments on readers and newcomers (E3, E8–E10).
 
@@ -61,8 +66,9 @@ Figure 1 shows the set-up; Appendix B lists every parameter.
 **Agents.** Each agent is a small network (one hidden layer of tanh units) that outputs, for each action, the probability that it will be accepted. It learns online by gradient descent. It acts when the predicted acceptance exceeds 2/3 (the break-even point) and explores a little near that threshold.
 
 **Building.** An accepted act moves the item, under one of two preregistered rules:
+
 - **Wear:** the angle moves 15% of the way toward the action's centre. This is the same for every body.
-- **Shaping by eye:** the item moves a small step in each coordinate in the direction that raises the actor's own predicted acceptance, computed through its own body. A coordinate the body doesn't read never moves.
+- **Shaping by eye:** the item moves a small step in each coordinate in the direction that raises the actor's own predicted acceptance, computed through its own body. The step size s~u~ is the shaping strength, and κ sets the mix of angle and appearance movement: κ = 1 moves both, κ = 0.25 moves mainly appearance. A coordinate the body doesn't read never moves.
 
 **Builders and newcomers.** Six builders sharing one body learn and build for 30,000 steps, starting from random weights; then frozen copies keep acting, so the world stays built. A **newcomer** is any agent that learns the domain inside a built world, whether it starts untrained or partly trained. Agents raised alone in the unbuilt world are called **wild**.
 
@@ -73,6 +79,7 @@ Figure 1 shows the set-up; Appendix B lists every parameter.
 **Preregistration.** The predictions, thresholds and analysis were committed before any real run, at commit `063329b` (PREREGISTRATION.md). Tuned settings and the frozen code followed at `032ba80` (its section 11) and `de619a5` (code).
 
 **Statistics.**
+
 - **Seeds:** real runs use seeds 0–9, never touched by the pilots or by tuning.
 - **Unit:** the world (seed) is the unit of analysis. Agents within a world are averaged first.
 - **Criteria** are judged on point estimates exactly as preregistered, with 95% bootstrap intervals over worlds (10,000 resamples) given in brackets.
@@ -96,11 +103,13 @@ Four deviations were logged before the runs they affect (Table 1).
 
 **Building emerges.** With shaping by eye in the symmetric world, the **built share** is the share of items whose home lies in an overlap zone that now sit outside every overlap. It rises far above the no-building control for every population tested: +0.43, +0.81, +0.93 and +0.96 above control with 2, 4, 6 and 12 builders (all pass the 0.3 bar; E1). When shaping mostly moves appearance (κ = 0.25), the builders' read appearance coordinate moves 0.37–1.02 from home, while the coordinate they don't read stays at drift level (0.051).
 
-**The amount built follows an upkeep law (Fig. 2).** We varied the number of builders M, shaping strength s_u and decay δ, and kept the 29 combinations whose built share lay between 0.1 and 0.9 (unsaturated). On those cells, a joint log–log fit gives slopes of 0.91 [0.87, 0.94] on M and 0.91 [0.88, 0.95] on 1/δ, within the preregistered [0.75, 1.25], and 0.98 on s_u. Restricted to cells between 0.2 and 0.8, the slopes are 0.96 and 0.96. Cells with the same product M·s_u/δ hold the same number of built items, whatever the mix: 47–49 items at 600 (five cells, M from 1 to 16) and 58–60 at 800 (three cells). Builders' network width adds nothing above the level needed to learn the task (slope 0.001 [−0.015, 0.014], widths 16–64).
+::: {.sidefig}
+![Figure 2. **The upkeep law (E2).** Built items at steady state against builders × shaping strength ÷ decay, log–log, shaping by eye in the symmetric world. One point per cell (mean over 10 worlds, bars ±1 s.d.), coloured by shaping strength. Dashed line: a single-predictor fit, slope 0.93 [0.90, 0.97]. The preregistered joint fit gives 0.91 (M), 0.91 (1/δ) and 0.98 (s~u~). The cells were selected inside the unsaturated band, so the fit needs the strength term (text).](figures/fig2_upkeep.png)
+:::
 
-**The fit needs the strength covariate.** Without it, the slopes on M and 1/δ collapse to about 0.2 (0.19 and 0.22), and this is caused by how the cells were selected. A cell entered the fit only if its built share stayed inside the 0.1–0.9 band. A cell with more builders or slower decay could do so only with weaker shaping. Among the chosen cells, log M and log(1/δ) each correlate −0.44 with log s_u. Leaving s_u out then lets its opposing effect cancel most of theirs.
+**The amount built follows an upkeep law (Fig. 2).** We varied the number of builders M, shaping strength s~u~ and decay δ, and kept the 29 combinations whose built share lay between 0.1 and 0.9 (unsaturated). On those cells, a joint log–log fit gives slopes of 0.91 [0.87, 0.94] on M and 0.91 [0.88, 0.95] on 1/δ, within the preregistered [0.75, 1.25], and 0.98 on s~u~. Restricted to cells between 0.2 and 0.8, the slopes are 0.96 and 0.96. Cells with the same product M·s~u~/δ hold the same number of built items, whatever the mix: 47–49 items at 600 (five cells, M from 1 to 16) and 58–60 at 800 (three cells). Builders' network width adds nothing above the level needed to learn the task (slope 0.001 [−0.015, 0.014], widths 16–64).
 
-![Figure 2. **The upkeep law (E2).** Built items at steady state against builders × shaping strength ÷ decay, log–log, shaping by eye in the symmetric world. One point per cell (mean over 10 worlds, bars ±1 s.d.), coloured by shaping strength. Dashed line: a single-predictor fit, slope 0.93 [0.90, 0.97]. The preregistered joint fit gives 0.91 (M), 0.91 (1/δ) and 0.98 (s_u). The cells were selected inside the unsaturated band, so the fit needs the strength term (text).](figures/fig2_upkeep.png){width=62%}
+**The fit needs the strength covariate.** Without it, the slopes on M and 1/δ collapse to about 0.2 (0.19 and 0.22), and this is caused by how the cells were selected. A cell entered the fit only if its built share stayed inside the 0.1–0.9 band. A cell with more builders or slower decay could do so only with weaker shaping. Among the chosen cells, log M and log(1/δ) each correlate −0.44 with log s~u~. Leaving s~u~ out then lets its opposing effect cancel most of theirs.
 
 **What is built fades without upkeep (E5).** When every agent leaves, built displacement halves in 1,335–1,450 steps, against ln 2/δ = 1,386 for pure drift. After 5/δ steps, newcomers raised in the abandoned worlds show no trace of which world they grew up in: the same-world advantage in agreement is −0.002 (L6, pass).
 
@@ -110,27 +119,27 @@ Builders on one body built a world under shaping by eye at κ = 0.25, so most of
 
 **Compression at the gate is almost all key-specific.** We fit 32 clusters to each body's view of the natural world, then measure the entropy of a world state's items over those clusters. The built state's entropy drops by 0.63 bits for the builders' own body, 0.52 for other bodies of the same type, and 0.045 for outsiders (L3c, pass). So 93% of the builders' drop, and 91% of the same type's, disappears for outsiders.
 
-**Code length is mostly shared.** The prequential code length of the frozen world is how many bits a newcomer needs to encode its outcomes while learning. It falls by 531 bits for the builders' body, 497 for the same type and 416 for outsiders. Only 22% of the builders' saving is key-specific, so the 1.5 × criterion fails (1.27 [1.20, 1.34]; L3d).
+**Code length is mostly shared.** The prequential code length of the frozen world is how many bits a newcomer needs to encode the verdicts on 8,000 item–action offers while learning. It falls by 531 bits for the builders' body, 497 for the same type and 416 for outsiders. Only 22% of the builders' saving is key-specific, so the 1.5 × criterion fails (1.27 [1.20, 1.34]; L3d).
 
-**Learning measures fall in between.** Same-body newcomers' early learning gain is 1.56 [1.39, 1.73] times outsiders' (L3, pass, narrowly), and their home log loss after 2,000 steps drops 1.73 [1.31, 2.25] times as much (L3b, pass). Under wear, which every body sees alike, all readers gain alike (entropy drops 0.27, 0.25 and 0.24 bits).
+**Learning measures fall in between.** Same-body newcomers' early learning gain is 1.56 [1.39, 1.73] times outsiders' (L3, pass, narrowly), and their home log loss after 2,000 steps drops 1.73 [1.31, 2.25] times as much (L3b, pass). Under wear, which every body sees alike, all readers gain alike (entropy drops 0.27, 0.25 and 0.24 bits). Wear also saves more code length than shaping by eye, for every reader (565, 580 and 574 bits; dashed marks in Fig. 3B). Wear pulls angles straight to arc centres, which helps every reader, whereas at κ = 0.25 shaping by eye moves mostly appearance.
 
 The split has a simple source. At κ = 0.25 the angle still moves a little (the built share is 0.60), which every reader can use. The appearance changes compress the world only for readers of that axis.
 
-![Figure 3. **The builders' key (E3; shaping by eye at κ = 0.25, unequal world).** (A) Entropy drop of the built state under each reader's body. (B) Code-length saving over 8,000 outcomes. Bars are means over 10 worlds with 95% bootstrap intervals; dashed marks show the wear control, where nothing depends on the reader.](figures/fig3_key.png)
+![Figure 3. **The builders' key (E3; shaping by eye at κ = 0.25, unequal world).** (A) Entropy drop of the built state under each reader's body. (B) Code-length saving over 8,000 item–action offers. Bars are means over 10 worlds with 95% bootstrap intervals; dashed marks show the wear control, where nothing depends on the reader.](figures/fig3_key.png)
 
 ### 4.3 Newcomers (E8, E9)
 
-We place agents into a built world at three levels of prior knowledge and measure their **edge accuracy**: whether they predict correctly on unbuilt items near an arc's edge, the cases building removes (Fig. 4).
+We place agents into a built world at three levels of prior knowledge and measure their **edge accuracy**: whether they predict correctly on unbuilt items near an arc's edge, the cases building removes (Fig. 4). The forgetting tests below use network width 4, not the primary width 32: the preregistered forgetting test was set at the narrowest width, where forgetting was expected to be strongest, and the other widths behaved similarly (L8b, section 4.5).
 
 **Fully trained agents lose nothing.** Agents pretrained for 60,000 steps in the natural world (edge accuracy 0.868) were then moved into a built world for 30,000 steps (D3). Their edge accuracy ended at 0.885 (wear) and 0.878 (shaping by eye), against 0.897 for the same agents kept in the natural world. The extra fall relative to that control was 0.012 [0.003, 0.019] and 0.019 [0.007, 0.031], below the 0.03 "against" bar of the preregistered forgetting prediction (L8a). A built world doesn't make agents forget what they know.
 
-**Partly trained agents stop learning.** In the preregistered version of the same test, pretraining stopped at a plateau rule that fired early, at edge accuracy 0.704. In the built world these agents kept what they had but rose only to 0.762 (wear) and 0.742 (shaping by eye), while the same agents in the natural world rose to 0.856. By the letter this passes L8a for shaping by eye (0.114 ≥ 0.10). But it is withheld learning, not forgetting.
+**Partly trained agents stop learning.** In the preregistered version of the same test, pretraining stopped at a plateau rule that fired early, at edge accuracy 0.704. In the built world these agents kept what they had but rose only to 0.762 (wear) and 0.742 (shaping by eye), while the same agents in the natural world rose to 0.856. By the letter this passes L8a for shaping by eye (0.114 ≥ 0.10). But it is withheld learning, not forgetting. It is also not catastrophic forgetting in the usual sense, interference from conflicting data (Parisi et al., 2019): the built world withheld data rather than contradicting it. Nor did we test loss of plasticity (Dohare et al., 2023); the fully trained agents give no sign of it.
 
 **Untrained newcomers never learn the edges.** Agents raised from scratch for 60,000 steps inside the built world reach edge accuracy 0.761 (wear) and 0.699 (shaping by eye), against 0.887 for agents raised wild (width 4).
 
 **Fragility.** When upkeep stops at once and every item snaps back home, newcomers raised in the built world earn 42% (wear) and 73% (shaping by eye) less per decisive edge turn than wild agents over the first 500 steps (0.204 and 0.097 against 0.353; L9, pass). Under passive feedback the gap is 31% and 53%. The jump in surprise at the snap is smaller than predicted, 0.056 and 0.095 nats against a 0.1 bar (L9b, fail). Whether that jump is concentrated on edge items is untested, because only whole-world surprise was recorded.
 
-![Figure 4. **Newcomers and fragility.** (A, B) Edge accuracy at the start and end of 30,000 steps in a built world (orange: wear; green: shaping by eye) or in the natural control (blue), for fully trained (solid) and partly trained (dashed) agents. Diamonds: untrained newcomers raised for 60,000 steps in the built world, and agents raised wild, for reference. Panels A–B use network width 4, where the preregistered E8 test is judged. Only start and end points are shown, because full trajectories were saved for the built-world arms only. (C) Payoff per decisive edge turn over the first 500 steps after the world snaps back (E9; width 32, 60,000 steps, skip rule), with 95% intervals over 10 worlds.](figures/fig4_newcomers.png)
+![Figure 4. **Newcomers and fragility.** (A, B) Edge accuracy on entry and after 30,000 steps in a built world (orange: wear; green: shaping by eye) or in the natural control (blue), for fully trained (solid) and partly trained (dashed) agents. Diamonds: untrained newcomers raised for 60,000 steps in the built world, and agents raised wild, for reference. Panels A–B use network width 4, where the preregistered E8 test is judged. Only start and end points are shown, because full trajectories were saved for the built-world arms only. (C) Payoff per decisive edge turn over the first 500 steps after the world snaps back (E9; width 32, 60,000 steps, skip rule), with 95% intervals over 10 worlds.](figures/fig4_newcomers.png)
 
 ### 4.4 Silent home, confident error (E10)
 
@@ -146,29 +155,30 @@ We place agents into a built world at three levels of prior knowledge and measur
 *Table 2. The primary test (L10a) passes in all four cells: both ratios ≥ 1.5, home log loss no higher.*
 
 How robust this is:
+
 - **Other cells:** the pattern holds in 34 of 40 width × budget cells; the six misses are all at the shorter budget.
 - **Equal updates:** it also holds against wild agents given as many learning updates as the newcomers (ratios 2.53 and 1.89 for wear, 3.88 and 2.52 for shaping by eye).
-- **Ensembles:** five-network ensembles of three kinds show it too (confident-error ratios 2.26–4.18). That includes ensembles with randomized prior functions (Osband et al., 2018), whose members disagree about inputs they have no data for (edge-to-centre spread 3.7–6.2).
+- **Ensembles:** five-network ensembles of three kinds show it too (confident-error ratios 2.26–4.18). That includes ensembles with randomized prior functions (Osband et al., 2018), whose members disagree about inputs they have no data for (their spread is 3.7–6.2× larger at edges than at arc centres).
 
-So it isn't specific to single networks. Like other networks far from their training data (Hein et al., 2019), these agents are confident where their data have no support. What is new here is that their own world, built by their predecessors, removed that support, and that low surprise at home gives no warning.
+So it isn't specific to single networks. Hein et al. (2019) showed that ReLU networks are confident far from their training data. Their argument is about ReLU networks and these agents use tanh, but the behaviour is alike: the agents are confident where their data have no support. What is new here is that their own world, built by their predecessors, removed that support, and that low surprise at home gives no warning.
 
 ![Figure 5. **Less surprise at home, more confident error away from it (E10).** Home log loss (log scale) against confident error on unbuilt edge items, one point per world, for agents raised wild (blue) and newcomers raised in the built world (orange: wear; green: shaping by eye), under the skip rule (filled circles) and passive feedback (open triangles). Width 32, 60,000 steps.](figures/fig5_silent_home.png)
 
-**Boundaries move.** Under the skip rule, newcomers' learned arc edges sit 3.69° [3.26, 4.14] (wear) and 5.17° [4.59, 5.72] (shaping by eye) further from the truth than wild agents' (L10-shift, pass). The displacement grows with how much building erased. For shaping strengths removing 7%, 22% and 28% of edge items, the extra shift is 0.18°, 1.53° and 5.17°, and the confident-error ratio 1.03, 1.63 and 4.02 (L10-dose, pass). Under passive feedback the extra shift is small (1.41° and 0.88°), while the confident error remains.
+**Boundaries move.** Under the skip rule, newcomers' learned arc edges sit 3.69° [3.26, 4.14] (wear) and 5.17° [4.59, 5.72] (shaping by eye) further from the truth than wild agents' (L10-shift, pass). This is the **unsigned shift**: how far each learned edge lies from the true one, in either direction. The displacement grows with how much building erased. For shaping strengths removing 7%, 22% and 28% of edge items, the extra shift is 0.18°, 1.53° and 5.17°, and the confident-error ratio 1.03, 1.63 and 4.02 (L10-dose, pass). Under passive feedback the extra shift is small (1.41° and 0.88°), while the confident error remains. So under passive feedback, removing the edge items alone gives 1.8–2.7× confident error; under the skip rule, the missing refusals add the stretch and raise it to 2.7–4.0×.
 
 **The mechanism: building empties the margin where agents test themselves (Fig. 6).** Under the skip rule an agent collects verdicts only where it acts. Wild agents keep testing just beyond their own edge: 55% of their refusals on wide actions come from within 20° beyond the edge. In a built world those items are gone, and so are those refusals: 24% (wear) and 11% (shaping by eye) of newcomers' refusals come from that margin. Without refusals from beyond the edge, newcomers' arcs stretch.
 
-We raised the learner's floor of random acts (ε_min) from 0.02 to 0.1 to 0.3, which brings back refusals from beyond the edge. The extra stretch then falls from 3.98° to 1.83° to 0.16° under wear, and from 5.44° to 2.89° to 0.93° under shaping by eye (L10m, pass). Only the learner's ε_min changes: the builders keep the same fixed policy in every arm, so the built world doesn't change with the condition. (In a pilot, the builders had inherited the learner's setting, which confounded this test.)
+We raised the learner's floor of random acts (ε~min~) from 0.02 to 0.1 to 0.3, which brings back refusals from beyond the edge. This test uses a different measure, the **signed outward stretch**: how far learned edges extend outward past the true ones, averaged over the wide and narrow arcs, and negative if the arcs shrink. It is not the unsigned shift above, so 3.98° here and 3.69° there are different quantities. The extra stretch then falls from 3.98° to 1.83° to 0.16° under wear, and from 5.44° to 2.89° to 0.93° under shaping by eye (L10m, pass). Only the learner's ε~min~ changes: the builders keep the same fixed policy in every arm, so the built world doesn't change with the condition. (In a pilot, the builders had inherited the learner's setting, which confounded this test.)
 
-![Figure 6. **More random acts undo the stretch (L10m).** Extra arc stretch of newcomers over wild agents (degrees) against the learner's floor of random acts ε_min, under the skip rule, with 95% bands over 10 worlds. The builders' policy is the same in every arm.](figures/fig6_mechanism.png){width=58%}
+![Figure 6. **More random acts undo the stretch (L10m).** Extra arc stretch of newcomers over wild agents (degrees) against the learner's floor of random acts ε~min~, under the skip rule, with 95% bands over 10 worlds. The builders' policy is the same in every arm.](figures/fig6_mechanism.png){width=58%}
 
 ### 4.5 What failed or couldn't be tested
 
 - **L3d failed:** the code-length saving is only 1.27 × larger for the builders' body (section 4.2).
 - **L4 failed, and says nothing about conventions.** Newcomers raised in the same built world agree almost perfectly on which action suits an overlap item (Cohen's κ 0.99–1.00). But naturally raised pairs already agree at κ = 0.88, so the preregistered +0.2 gain was out of reach.
   - Most of that baseline comes from the readout. We read an agent's choice as the action it rates most likely to be accepted, which in an overlap is the nearer arc's.
-  - Because agents never choose freely between actions, this design can't produce or detect an arbitrary convention.
-  - The representational measure (E_K on hidden-layer neighbourhoods) does separate worlds built separately (L5, pass: +0.34 and +0.76).
+  - Because agents never choose freely between actions, this design can't produce or detect an arbitrary convention of the kind studied in coordination, where self-play can settle on conventions that fail with new partners (Hu et al., 2020).
+  - The representational measure E_K does separate worlds built separately (L5, pass: same-world minus different-world E_K is +0.34 under wear and +0.76 under shaping by eye). E_K asks how many of each item's six nearest neighbours in one agent's hidden layer are also among its six nearest in the other's, rescaled so that 0 is chance and 1 is identical neighbourhoods (Appendix B).
 - **L8b failed:** the E8 gap barely depends on network width (ratios 1.11 and 1.30 against 2).
 - **No individual forgetting:** the fully trained arm is a null for individual forgetting (section 4.3).
 - **L9b failed:** the surprise jump at the snap-back is smaller than predicted, and whether it sits on edge items is untested.
@@ -178,21 +188,26 @@ We raised the learner's floor of random acts (ε_min) from 0.02 to 0.1 to 0.3, w
 ## 5. Discussion
 
 **The cost ledger.** Persistent world-fitting has at least four entries:
+
 - **Upkeep:** a built world is held in place by labour, in proportion to builders × strength ÷ decay, and it decays at the drift rate when the labour stops.
 - **The builders' key:** most of what building does to a world's structure is readable only by readers built like the builders; outsiders get the shared part.
 - **Newcomers:** a built world stops anyone learning there from acquiring what it no longer shows. Those who learned elsewhere keep their knowledge.
 - **The trap:** newcomers are less surprised at home and more confidently wrong away from it, and they pay when the world snaps back.
 
 **Relation to active inference and niche construction.** These results extend the agent–niche picture in three directions.
+
 1. **Upkeep.** They make it quantitative, in a regime where changes decay unless kept up. Bruineberg et al.'s environment remembers without cost; here memory is paid for continuously.
 2. **Who reads.** Both earlier papers treat fit as a relation between one organism and its niche. Here the same built state fits different readers to very different degrees, so "the niche" is simpler for some bodies than others.
-3. **Who arrives later.** Newcomers, agents who learn inside a world others built, are a cost group that neither paper models.
+3. **Who arrives later.** Newcomers, agents who learn inside a world others built, are a cost group that neither paper models. Cook et al. (2024) obtain accumulation across generations of reinforcement-learning agents through social learning. Here what passes to later agents is the state of the world, which lets them skip learning what it no longer shows.
 
 One reading of Constant et al. is that the niche comes to model its constructors. It predicts the builders' advantage in E3 as well, so our results don't separate it from the account tested here.
+
+**Would information-seeking avoid the trap?** An active-inference reader might object that an agent which seeks information would go back and test the edges. But information-seeking can't recover edges that building removed: passive feedback, which gives verdicts on every offer, still shows 1.8–2.7× confident error, and ensembles with randomized priors, whose members disagree at unbuilt edges, still fall into the trap.
 
 **An interpretation (optional; not tested here).** Building compresses the distribution of inputs along the builders' read axes. A newcomer with a matching body learns that compressed distribution well, so it is less surprised at home. Its error away from home then grows with the compression, a standard result for learning under covariate shift. Where building empties the support completely, the newcomer's predictions are set by its priors and its own sampling, not by data. That is the regime the skip-rule results and Fig. 6 describe.
 
 **Limits.**
+
 - The world is a toy: 600 items, tanh networks, 10 worlds per condition.
 - Agents act or skip on one offer and never choose between actions, so nothing here bears on arbitrary conventions.
 - Edge legibility was borderline (D1).
@@ -202,13 +217,14 @@ One reading of Constant et al. is that the niche comes to model its constructors
 
 The ledger has an uncomfortable reading when the builders have more capacity than the readers. Systems that build artifacts for their own kind of reader can leave humans as outsiders without the key, and as newcomers inside a world they didn't build.
 
-A current example: on 21 November 2026 the Lean and Mathlib communities certified that a 17-million-line Lean library compiles and proves Mathlib's statement of the Riemann Hypothesis (Lean and Mathlib communities, 2026). Its author describes finding the proof while working with an AI system, and says he released only the formal code, since a complete human-readable account would currently be, in his words, "a huge, unreadable document containing sufficient detail" (Alpöge, 2026). Mathematicians' assessment of the proof, and human understanding of it, are pending. Such systems are also themselves newcomers, raised inside humanity's largest built world, language, before they build past it.
+By analogy, a current example: on 21 November 2026 the Lean and Mathlib communities certified that a 17-million-line Lean library compiles and proves Mathlib's statement of the Riemann Hypothesis (Lean and Mathlib communities, 2026). Its author describes finding the proof while working with Claude, an AI system, and says he released only the formal code, since a complete human-readable account would currently be, in his words, "a huge, unreadable document containing sufficient detail" (Alpöge, 2026). Mathematicians' assessment of the proof, and human understanding of it, are pending. Such systems are also themselves newcomers, raised inside humanity's largest built world, language, before they build past it.
 
 Our simulation didn't test capacity: network width barely mattered here. The experiment that would test it asks when agents build instead of keeping a regularity internal, with builders and readers of different capacity (E7 plus a capacity sweep).
 
 ## 7. Reproducibility
 
 All code, preregistration documents, results tables and figures are in the accompanying repository.
+
 - **Licences:** code MIT; text CC BY 4.0.
 - **Commits:** preregistration `063329b`; frozen settings `032ba80`; frozen code `de619a5`.
 - **Layout:**
@@ -260,7 +276,7 @@ All code, preregistration documents, results tables and figures are in the accom
 | L4 | same-world − natural agreement ≥ 0.2 on overlap items | +0.115, +0.120 (ceiling 0.123) | Fail |
 | L5 | E_K same > different world | +0.34, +0.76 | Pass |
 | L6 | same-world advantage after abandonment < 0.05 | −0.002, −0.002 | Pass |
-| L8a | extra edge-accuracy fall at width 4 ≥ 0.10 | 0.094 / 0.114 (partly trained; withheld learning); 0.012 / 0.019 (fully trained, D3) | Neither / pass by the letter; D3: against |
+| L8a | extra edge-accuracy fall at width 4 ≥ 0.10 | partly trained: 0.094 (wear), 0.114 (shaping by eye); fully trained (D3): 0.012, 0.019 | wear: inconclusive (0.094); shaping by eye: passes by the letter (0.114), but it's withheld learning; D3 (fully trained): against |
 | L8b | narrowest width's extra fall ≥ 2 × widest | 1.11, 1.30 | Fail |
 | L9 | built decisive payoff ≥ 30% below wild | 42%, 73% | Pass |
 | L9b | surprise jump at snap, built − wild ≥ 0.1 nats | 0.056, 0.095 | Fail |
@@ -268,7 +284,7 @@ All code, preregistration documents, results tables and figures are in the accom
 | L10a-matched | ≥ 3 home-log-loss bins with ≥ 10 agents each | 2 bins | Not runnable |
 | L10-shift | extra unsigned shift ≥ 2.5° | 3.69°, 5.17° | Pass |
 | L10-dose | shift and error ratio rise with erasure | 0.18 → 1.53 → 5.17°; 1.03 → 1.63 → 4.02 | Pass |
-| L10m | extra stretch falls with ε_min | 3.98 → 1.83 → 0.16°; 5.44 → 2.89 → 0.93° | Pass |
+| L10m | extra stretch falls with ε~min~ | 3.98 → 1.83 → 0.16°; 5.44 → 2.89 → 0.93° | Pass |
 | L10a-ens | pre-stated readings | all three ensemble kinds meet L10a | Not specific to single networks |
 | E7 | (optional) | not run | — |
 
@@ -280,13 +296,14 @@ All code, preregistration documents, results tables and figures are in the accom
 - **Agents:**
   - one tanh hidden layer (width 32 unless stated), four sigmoid outputs, zero initial output bias;
   - plain SGD on binary cross-entropy, learning rate 0.05;
-  - policy: act if predicted acceptance > 2/3; within ±0.2 of 2/3 act with probability 0.6; random-act floor ε_min = 0.02.
+  - policy: act if predicted acceptance > 2/3; within ±0.2 of 2/3 act with probability 0.6; random-act floor ε~min~ = 0.02.
 - **Payoffs:** +1 accepted, −2 refused, 0 skip.
 - **Building:**
   - wear η = 0.15;
-  - shaping by eye: step s_u = 0.3 in appearance and κ·s_u·20° in angle, along the sign of the actor's own logit gradient, with κ = 1 or 0.25;
+  - shaping by eye: step s~u~ = 0.3 in appearance and κ·s~u~·20° in angle, along the sign of the actor's own logit gradient, with κ = 1 or 0.25;
   - six builders on one body, 30,000-step warm-up, then frozen copies keep acting with a fixed policy.
 - **Natural test set:** 3,000 fresh items; decisive sets of 300 items inside and 300 outside each action's edge (within 10°).
+- **Representational agreement (E_K):** for two agents, the share of each item's 6 nearest neighbours (cosine distance on hidden-layer activations, 600 items) that are also among its 6 nearest for the other agent, as excess over the permutation-null mean, E = (K − K~0~)/(1 − K~0~). Code from an earlier project, copied unchanged (`src/metrics.py`).
 - **Ensembles:** five members trained by Thompson sampling with a bootstrap mask; diverse widths 6–64; randomized priors with β = 10.
 
 ## Appendix C. Deviations
@@ -294,7 +311,7 @@ All code, preregistration documents, results tables and figures are in the accom
 - **D1:** the legibility check was not met on every tuning seed (3-agent seed means pass on 4/5 seeds in the unequal world, 2/5 in the symmetric world). λ = 0.4 and 60k steps were kept by the investigator's decision. The width ladder is 4–64, from the narrowest width meeting the targets on seed means.
 - **D2:** E2 is fitted on all 29 eligible cells, with a shaping-strength covariate and a [0.2, 0.8] sensitivity subset, because no 3 × 3 block of unsaturated cells exists. The band is diagonal, as the law predicts.
 - **D3:** an E8 arm with fixed 60k-step pretraining, with its prediction logged before running.
-- **D4:** passive-feedback ε_r retuned on seeds 7040–7059 (0.01). The shaping-by-eye arm was "unmatched" by the tuning rule (0.79), and both arms still gave only two qualifying bins.
+- **D4:** passive-feedback ε~r~ retuned on seeds 7040–7059 (0.01). The shaping-by-eye arm was "unmatched" by the tuning rule (0.79), and both arms still gave only two qualifying bins.
 
 ## Appendix D. Pilots
 

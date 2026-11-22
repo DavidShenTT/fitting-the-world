@@ -12,10 +12,15 @@ p { margin: 0.45em 0; text-align: left; hyphens: auto; }
 figure { margin: 1em 0; page-break-inside: avoid; break-inside: avoid; }
 figure img { width: 100%; height: auto; }
 figcaption { font-size: 9pt; color: var(--muted); line-height: 1.35; margin-top: 0.3em; }
-table { border-collapse: collapse; width: 100%; font-size: 8.8pt; margin: 0.8em 0; page-break-inside: avoid; }
+table { border-collapse: collapse; width: 100%; font-size: 8.8pt; margin: 0.8em 0; }
+tr { break-inside: avoid; page-break-inside: avoid; }
+thead { display: table-header-group; }
 th, td { border-bottom: 1px solid var(--rule); padding: 3px 5px; vertical-align: top; text-align: left; }
 th { border-bottom: 1.5px solid var(--ink); }
 code { font-family: "Consolas", "Menlo", monospace; font-size: 9pt; }
 ul, ol { margin: 0.3em 0 0.5em 1.2em; padding-left: 0.6em; }
 li { margin: 0.15em 0; }
 a { color: #1c5cab; text-decoration: none; word-break: break-all; }
+.sidefig { float: right; width: 50%; margin: 0.2em 0 0.6em 1.2em; }
+.sidefig figure { margin: 0; }
+h3 { clear: both; }

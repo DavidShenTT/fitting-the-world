@@ -56,7 +56,7 @@ s2 = pd.read_csv(R("e2", "summary_E2.csv"))
 pri, nos, sen = s2.iloc[0], s2.iloc[1], s2.iloc[2]
 check("E2 slope M", f"0.91 [0.87, 0.94] on M", f"{f2(pri.slope_M)} [{f2(pri.M_lo)}, {f2(pri.M_hi)}] on M")
 check("E2 slope 1/delta", "0.91 [0.88, 0.95] on 1/δ", f"{f2(pri.slope_inv_delta)} [{f2(pri.d_lo)}, {f2(pri.d_hi)}] on 1/δ")
-check("E2 slope s_u", "0.98 on s_u", f"{f2(pri.slope_s_u)} on s_u")
+check("E2 slope s_u", "0.98 on s~u~", f"{f2(pri.slope_s_u)} on s~u~")
 check("E2 sensitivity", "the slopes are 0.96 and 0.96", f"the slopes are {f2(sen.slope_M)} and {f2(sen.slope_inv_delta)}")
 check("E2 without s_u", "(0.19 and 0.22)", f"({f2(nos.slope_M)} and {f2(nos.slope_inv_delta)})")
 check("E2 width slope", neg("slope 0.001 [-0.015, 0.014]"), neg(f"slope {f3(pri.slope_width)} [{f3(pri.w_lo)}, {f3(pri.w_hi)}]"))
@@ -64,7 +64,7 @@ rg = json.load(open(R("tuning", "e2", "range.json")))
 c = pd.DataFrame(rg["cells"], columns=["M", "s_u", "delta"])
 check("E2 eligible cells", "kept the 29 combinations", f"kept the {len(c)} combinations")
 cm = np.corrcoef(np.log(c.M), np.log(c.s_u))[0, 1]; cd = np.corrcoef(np.log(1 / c.delta), np.log(c.s_u))[0, 1]
-check("E2 selection correlations", neg("each correlate -0.44 with log s_u"), neg(f"each correlate {f2(cm)} with log s_u") if f2(cm) == f2(cd) else "mismatch")
+check("E2 selection correlations", neg("each correlate -0.44 with log s~u~"), neg(f"each correlate {f2(cm)} with log s~u~") if f2(cm) == f2(cd) else "mismatch")
 pts = pd.read_csv(R("e2", "points.csv")); p32 = pts[pts.width == 32].copy(); p32["x"] = (p32.M * p32.s_u / p32.delta).round()
 cells = p32.groupby(["M", "s_u", "delta", "x"]).built_count_overlap.mean().reset_index()
 for x, n in ((600, 5), (800, 3)):
@@ -102,6 +102,10 @@ b = row(e3, rule="eye025", prediction="L3b: home log-loss drop at 2,000 steps")
 check("L3b", "1.73 [1.31, 2.25] times", f"{f2(b.ratio_same_over_out)} [{f2(b.ci_lo)}, {f2(b.ci_hi)}] times")
 w = row(e3, rule="wear", prediction="L3c (primary): entropy drop, bits")
 check("E3 wear control", "(entropy drops 0.27, 0.25 and 0.24 bits)", f"(entropy drops {f2(w.same_body)}, {f2(w.same_type)} and {f2(w.outsider)} bits)")
+wc = row(e3, rule="wear", prediction="L3d: code-length saving, bits")
+check("E3 wear code savings", "for every reader (565, 580 and 574 bits;",
+      f"for every reader ({wc.same_body:.0f}, {wc.same_type:.0f} and {wc.outsider:.0f} bits;")
+assert min(wc.same_body, wc.same_type, wc.outsider) > max(cd_.same_body, cd_.same_type, cd_.outsider)  # "more ... for every reader"
 w3 = pd.read_csv(R("e3", "worlds.csv"))
 check("E3 built share", "(the built share is 0.60)", f"(the built share is {f2(w3[w3.rule == 'eye025'].built_share.mean())})")
 
@@ -117,6 +121,7 @@ s8f = pd.read_csv(R("e8_fixed", "summary_E8.csv"))
 ef_w, ef_e = row(s8f, rule="wear", width=4), row(s8f, rule="eye1", width=4)
 check("D3 extra falls", "0.012 [0.003, 0.019] and 0.019 [0.007, 0.031]",
       f"{f3(ef_w.extra_fall)} [{f3(ef_w.extra_lo)}, {f3(ef_w.extra_hi)}] and {f3(ef_e.extra_fall)} [{f3(ef_e.extra_lo)}, {f3(ef_e.extra_hi)}]")
+check("D3 appendix", "fully trained (D3): 0.012, 0.019", f"fully trained (D3): {f3(ef_w.extra_fall)}, {f3(ef_e.extra_fall)}")
 pw = se("e8 treat_wear edge accuracy start/end of T2 (width 4)"); pe = se("e8 treat_eye1 edge accuracy start/end of T2 (width 4)")
 pn = se("e8 natural edge accuracy start/end of T2 (width 4)")
 check("E8 partly trained start", "at edge accuracy 0.704", f"at edge accuracy {f3(pw[0])}")
@@ -124,7 +129,8 @@ check("E8 partly trained ends", "rose only to 0.762 (wear) and 0.742 (shaping by
       f"rose only to {f3(pw[1])} (wear) and {f3(pe[1])} (shaping by eye), while the same agents in the natural world rose to {f3(pn[1])}")
 s8 = pd.read_csv(R("e8", "summary_E8.csv"))
 check("L8a primary eye", "(0.114 ≥ 0.10)", f"({f3(row(s8, rule='eye1', width=4).extra_fall)} ≥ 0.10)")
-check("L8a primary, appendix", "0.094 / 0.114", f"{f3(row(s8, rule='wear', width=4).extra_fall)} / {f3(row(s8, rule='eye1', width=4).extra_fall)}")
+check("L8a primary, appendix", "partly trained: 0.094 (wear), 0.114 (shaping by eye)", f"partly trained: {f3(row(s8, rule="wear", width=4).extra_fall)} (wear), {f3(row(s8, rule="eye1", width=4).extra_fall)} (shaping by eye)")
+check("L8a verdict, appendix", "wear: inconclusive (0.094); shaping by eye: passes by the letter (0.114)", f"wear: inconclusive ({f3(row(s8, rule="wear", width=4).extra_fall)}); shaping by eye: passes by the letter ({f3(row(s8, rule="eye1", width=4).extra_fall)})")
 check("L8b", "(ratios 1.11 and 1.30 against 2)", f"(ratios {f2(row(s8, rule='wear', width=4).L8b_ratio)} and {f2(row(s8, rule='eye1', width=4).L8b_ratio)} against 2)")
 un_w = fv("untrained newcomers raised in wear world, edge accuracy (width 4, 60k)")
 un_e = fv("untrained newcomers raised in eye1 world, edge accuracy (width 4, 60k)")
@@ -151,6 +157,10 @@ for cond, rule, nm in (("skip", "wear", "wear"), ("skip", "eye1", "shaping by ey
     check(f"Table 2 {cond} {rule}", f"| {lab} | {nm} | {f2(r.conf_ratio)} [{f2(r.conf_lo)}, {f2(r.conf_hi)}] | {f2(r.edge_ll_ratio)} [{f2(r.ll_lo)}, {f2(r.ll_hi)}] |",
           f"| {lab} | {nm} | {f2(r.conf_ratio)} [{f2(r.conf_lo)}, {f2(r.conf_hi)}] | {f2(r.edge_ll_ratio)} [{f2(r.ll_lo)}, {f2(r.ll_hi)}] |")
     assert r.verdict == "pass"
+rng1 = lambda c: f"{min(row(L, cond=c, rule=r).conf_ratio for r in ('wear', 'eye1')):.1f}–{max(row(L, cond=c, rule=r).conf_ratio for r in ('wear', 'eye1')):.1f}×"
+check("bridge: passive range", "removing the edge items alone gives 1.8–2.7× confident error", f"removing the edge items alone gives {rng1('passive')} confident error")
+check("bridge: skip range", "raise it to 2.7–4.0×", f"raise it to {rng1('skip')}")
+check("objection: passive range", "still shows 1.8–2.7× confident error, and ensembles", f"still shows {rng1('passive')} confident error, and ensembles")
 rw, re_ = row(L, cond="skip", rule="wear"), row(L, cond="skip", rule="eye1")
 check("home log loss skip", "0.016 (wear) and 0.014 (shaping by eye) against 0.031",
       f"{f3(rw.home_ll_built)} (wear) and {f3(re_.home_ll_built)} (shaping by eye) against {f3(rw.home_ll_wild)}")
@@ -165,7 +175,7 @@ check("ensembles conf range", "(confident-error ratios 2.26–4.18)", f"(confide
 assert (EN.verdict == "pass").all()
 E = pd.read_csv(R("e10", "ens.csv")); p = E[E.variant == "prior"]
 rm = p.groupby("kind").spread_edges.mean() / p.groupby("kind").spread_centres.mean()
-check("prior spread", "(edge-to-centre spread 3.7–6.2)", f"(edge-to-centre spread {rm.min():.1f}–{rm.max():.1f})")
+check("prior spread", "(their spread is 3.7–6.2× larger at edges", f"(their spread is {rm.min():.1f}–{rm.max():.1f}× larger at edges")
 SH = pd.read_csv(R("e10", "summary_L10shift.csv"))
 a1, a2 = row(SH, rule="wear"), row(SH, rule="eye1")
 check("L10-shift", "3.69° [3.26, 4.14] (wear) and 5.17° [4.59, 5.72]",
@@ -187,7 +197,7 @@ check("near-side refusals built", "24% (wear) and 11% (shaping by eye) of newcom
 # ---------------- E4 / L5
 check("same-world agreement", "(Cohen's κ 0.99–1.00)", f"(Cohen's κ {f2(e45.k_ov_same.min())}–{f2(e45.k_ov_same.max())})")
 check("natural agreement", "already agree at κ = 0.88", f"already agree at κ = {f2(e45.k_ov_nat.mean())}")
-check("L5", "(L5, pass: +0.34 and +0.76)", f"(L5, pass: +{f2(e45.loc['wear', 'L5_diff'])} and +{f2(e45.loc['eye1', 'L5_diff'])})")
+check("L5", "E_K is +0.34 under wear and +0.76 under shaping by eye", f"E_K is +{f2(e45.loc["wear", "L5_diff"])} under wear and +{f2(e45.loc["eye1", "L5_diff"])} under shaping by eye")
 check("L4 appendix", "+0.115, +0.120 (ceiling 0.123)",
       f"+{f3(e45.loc['wear', 'same_minus_nat'])}, +{f3(e45.loc['eye1', 'same_minus_nat'])} (ceiling {f3(1 - e45.k_ov_nat.mean())})")
 

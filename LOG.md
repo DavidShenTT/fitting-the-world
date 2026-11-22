@@ -85,3 +85,10 @@
   - D3 extra fall 0.0195 printed as 0.020, and lower bound 0.0035 as 0.004; correct values 0.019 and 0.003.
   - Corrected in the preprint and REPORT.md. All 64 checks pass.
 - Clean export: README.md, LICENSE (MIT), LICENSE-text.md (CC BY 4.0), requirements.txt, `tools/make_export.py` (writes `export/`, git-ignored; scans for personal details). 266 files, 12.3 MB. Nothing pushed.
+
+## 22 Nov: revision pass on the paper draft (David's 16 points)
+- Rendering: blank line before every list (lists had rendered inline); s_u, ε_min, ε_r as subscripts in prose (pandoc `~sub~`) and in Figs 2 and 6 (mathtext). The page-3 gap came from Table 1 refusing to split; tables now break between rows. Fig. 2 floats right with the §4.1 text wrapping it, which removed a second gap on page 4.
+- Clarity: new abstract opening; κ defined in §2; Fig. 4 ticks "entry" / "+30k steps"; §4.3 says why width 4; §4.2 explains wear's larger code-length saving (565, 580, 574 bits, from results/e3/summary_E3.csv) and Fig. 3B's axis reads "8,000 item–action offers" (CODE_PAIRS = 8000 passive offers in src/config.py); E_K defined at L5 and in Appendix B, with +0.34 (wear) and +0.76 (shaping by eye); §4.4 separates L10-shift (unsigned) from L10m (signed outward stretch, as PREREGISTRATION §L10m defines it), adds the passive-versus-skip bridging sentence, ensemble spread written "3.7–6.2×".
+- Content: §5 answers the information-seeking objection; Hu (§4.5), Parisi and Dohare (§4.3), Cook (§5) each cited where they belong; Hein's ReLU-versus-tanh caveat; §6 opens "By analogy," and names Claude, as Alpöge's note does; Appendix A's L8a verdict as David worded it.
+- Summary: "What didn't work" in plainer words.
+- verify_numbers.py: strings updated for the new wording, plus 6 new checks (wear code lengths, the 1.8–2.7× and 2.7–4.0× ranges, appendix L8a values and verdict, D3 appendix values). 70 checks, 0 failed. PDF 14 pages; main text ends on page 11.
