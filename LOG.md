@@ -117,3 +117,13 @@
   - history check: commits use a GitHub no-reply address; no credential-like strings; earlier commits still contain local paths (2 user-folder paths, 29 project paths) and the now-untracked files, which only a history rewrite could remove.
 - tools/set_author.py fills the "[Author]" placeholders (paper, summary, README, licences) and rebuilds the PDF; the name is still to be given.
 - verify_numbers.py: 72 checks, 0 failed. PDF 15 pages.
+
+## 24 Nov: final polish pass (8 points)
+- §1 plain glosses: "their own distribution shift (covariate shift)", "their own missing verdicts (selective labels)".
+- §4.2: the language/notation analogy now covers illegibility only; the shared benefit is attributed to the angle changes every reader can see.
+- §4.3: the veterans' null is qualified: no internal decay and no second task competing for capacity.
+- §5 future work: fifth item, capacity and internal decay (§6). §7 lists src/metrics.py.
+- E_K written as a subscript throughout; Appendix B gives E_K = (K − K_0)/(1 − K_0).
+- Fig. 3: wider gap between panels (wspace 0.55, figure 6.9 in wide).
+- summary.md: "useful to outsiders but illegible to them" line in point 2.
+- CSS: a nested list stays with its parent line. verify_numbers.py: 72 checks, 0 failed. PDF 15 pages; main text ends on page 12.

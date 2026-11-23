@@ -13,7 +13,7 @@
 **What we found.**
 
 1. **Upkeep.** How much gets built follows a simple rule: the number of builders, times how hard each pushes, divided by how fast things drift back. When the builders stop, it fades. Bigger networks for the builders (within the sizes tested) didn't change it.
-2. **Built for one kind of reader.** A reshaped world is much simpler for readers built like the builders than for outsiders: almost all of the simplification disappears for an outsider. Some of the benefit is shared by everyone, but most of the structure is readable only with the builders' "key".
+2. **Built for one kind of reader.** A reshaped world is much simpler for readers built like the builders than for outsiders: almost all of the simplification disappears for an outsider. Some of the benefit is shared by everyone, but most of the structure is readable only with the builders' "key". In short, the reshaped world stays useful to outsiders but illegible to them.
 3. **Newcomers don't learn what the world no longer shows.** Agents who already knew the world lost nothing when they moved into a reshaped one. But anyone learning inside it, from scratch or halfway, failed to pick up what reshaping had removed.
 4. **A quiet trap.** Agents raised in a reshaped world feel *less* surprised at home than agents raised in the untouched world. Yet beyond the reshaped region they are confidently wrong about two to four times as often. When upkeep stopped and the world snapped back, they earned 42–73% less. The reason: learners normally test themselves just past the edge of what they know, and reshaping removes exactly those test cases.
 

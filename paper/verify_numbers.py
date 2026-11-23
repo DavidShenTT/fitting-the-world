@@ -200,7 +200,7 @@ check("near-side refusals built", "24% (wear) and 11% (shaping by eye) of newcom
 # ---------------- E4 / L5
 check("same-world agreement", "(Cohen's κ 0.99–1.00)", f"(Cohen's κ {f2(e45.k_ov_same.min())}–{f2(e45.k_ov_same.max())})")
 check("natural agreement", "already agree at κ = 0.88", f"already agree at κ = {f2(e45.k_ov_nat.mean())}")
-check("L5", "E_K is +0.34 under wear and +0.76 under shaping by eye", f"E_K is +{f2(e45.loc["wear", "L5_diff"])} under wear and +{f2(e45.loc["eye1", "L5_diff"])} under shaping by eye")
+check("L5", "E~K~ is +0.34 under wear and +0.76 under shaping by eye", f"E~K~ is +{f2(e45.loc["wear", "L5_diff"])} under wear and +{f2(e45.loc["eye1", "L5_diff"])} under shaping by eye")
 check("L4 appendix", "+0.115, +0.120 (ceiling 0.123)",
       f"+{f3(e45.loc['wear', 'same_minus_nat'])}, +{f3(e45.loc['eye1', 'same_minus_nat'])} (ceiling {f3(1 - e45.k_ov_nat.mean())})")
 

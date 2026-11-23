@@ -134,7 +134,7 @@ def fig2():
 def fig3():
     wm = pd.read_csv(R("e3", "world_means.csv"))
     arms = [("same_body", "builders'\nbody"), ("same_type", "same\ntype"), ("outsider", "outsider")]
-    fig, axes = plt.subplots(1, 2, figsize=(6.4, 2.7))
+    fig, axes = plt.subplots(1, 2, figsize=(6.9, 2.7), gridspec_kw=dict(wspace=0.55))
     for ax, col, ttl, unit in ((axes[0], "h_drop", "A  Compression at the gate (L3c)", "entropy drop (bits)"),
                                (axes[1], "code_saving", "B  Code-length saving (L3d)", "bits saved over 8,000\nitem–action offers")):
         for i, (arm, nm) in enumerate(arms):

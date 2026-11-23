@@ -31,7 +31,7 @@ A nearby idea is **cognitive offloading**: using the world to hold or process in
 - **Newcomers never acquire it.** Agents who learn inside the built world never acquire what it no longer shows. That is non-acquisition, not offloading.
 - **Nothing is stored for every reader.** What the built world "holds" is readable mainly by readers with the builders' kind of body (section 4.2), not by everyone.
 
-**What is expected, and what is new.** Two of our results are expected. The upkeep scaling is what a balance between pushing and decay predicts: if each builder pushes items away from home in proportion to shaping strength and drift pulls them back at rate δ, the amount held away scales with M·s~u~/δ. And outsiders' near-zero entropy drop follows from their bodies, which don't read the coordinate the builders moved. The contribution is the cost ledger, its measurements and a mechanism test. Agents create their own covariate shift and their own selective labels, and home surprise gives no sign of either.
+**What is expected, and what is new.** Two of our results are expected. The upkeep scaling is what a balance between pushing and decay predicts: if each builder pushes items away from home in proportion to shaping strength and drift pulls them back at rate δ, the amount held away scales with M·s~u~/δ. And outsiders' near-zero entropy drop follows from their bodies, which don't read the coordinate the builders moved. The contribution is the cost ledger, its measurements and a mechanism test. Agents create their own distribution shift (covariate shift) and their own missing verdicts (selective labels), and home surprise gives no sign of either.
 
 **What this paper shows.** We build a toy world where learning agents reshape items by acting on them, and we preregister tests of four costs:
 
@@ -127,7 +127,7 @@ Builders on one body built a world under shaping by eye at κ = 0.25, so most of
 
 The split has a simple source. At κ = 0.25 the angle still moves a little (the built share is 0.60), which every reader can use. The appearance changes compress the world only for readers of that axis.
 
-**Useful but illegible to outsiders.** The perceptual and the functional gains split. Outsiders see almost none of the builders' compression (93% of it is key-specific), yet they keep most of the code-length saving (78% of it is shared). The built world is useful to outsiders but illegible to them. As an everyday analogy, not a result: a language or a musical notation is effortless to read for those raised in it and near-noise to outsiders, yet outsiders can still use much of what it carries.
+**Useful but illegible to outsiders.** The perceptual and the functional gains split. Outsiders see almost none of the builders' compression (93% of it is key-specific), yet they keep most of the code-length saving (78% of it is shared). The built world is useful to outsiders but illegible to them. For the illegibility only, an everyday analogy (not a result): a language or a musical notation is effortless for those raised in it and near-noise to outsiders. The shared benefit has a different source here: the angle changes that every reader can see (previous paragraph).
 
 ![Figure 3. **The builders' key (E3; shaping by eye at κ = 0.25, unequal world).** (A) Entropy drop of the built state under each reader's body. (B) Code-length saving over 8,000 item–action offers. Bars are means over 10 worlds with 95% bootstrap intervals; dashed marks show the wear control, where nothing depends on the reader.](figures/fig3_key.png)
 
@@ -135,7 +135,7 @@ The split has a simple source. At κ = 0.25 the angle still moves a little (the 
 
 We place agents into a built world at three levels of prior knowledge and measure their **edge accuracy**: whether they predict correctly on unbuilt items near an arc's edge, the cases building removes (Fig. 4). The forgetting tests below use network width 4, not the primary width 32: the preregistered forgetting test was set at the narrowest width, where forgetting was expected to be strongest, and the other widths behaved similarly (L8b, section 4.5).
 
-**Fully trained agents kept what they knew but largely stopped improving.** Agents pretrained for 60,000 steps in the natural world (edge accuracy 0.868) were then moved into a built world for 30,000 steps (D3, an added confirmatory arm). Their edge accuracy ended at 0.885 (wear) and 0.878 (shaping by eye), against 0.897 for the same agents kept in the natural world. The extra fall relative to that control was 0.012 [0.003, 0.019] and 0.019 [0.007, 0.031], below the 0.03 "against" bar of the preregistered forgetting prediction (L8a). A built world doesn't make agents forget what they know.
+**Fully trained agents kept what they knew but largely stopped improving.** Agents pretrained for 60,000 steps in the natural world (edge accuracy 0.868) were then moved into a built world for 30,000 steps (D3, an added confirmatory arm). Their edge accuracy ended at 0.885 (wear) and 0.878 (shaping by eye), against 0.897 for the same agents kept in the natural world. The extra fall relative to that control was 0.012 [0.003, 0.019] and 0.019 [0.007, 0.031], below the 0.03 "against" bar of the preregistered forgetting prediction (L8a). A built world doesn't make agents forget what they know. These agents, though, had no internal decay and no second task competing for capacity, so the null says nothing about agents that do.
 
 **Partly trained agents stop learning.** In the preregistered version of the same test, pretraining stopped at a plateau rule that fired early, at edge accuracy 0.704. In the built world these agents kept what they had but rose only to 0.762 (wear) and 0.742 (shaping by eye), while the same agents in the natural world rose to 0.856. By the letter this passes L8a for shaping by eye (0.114 ≥ 0.10). But it is withheld learning, not forgetting. It is also not catastrophic forgetting in the usual sense, interference from conflicting data (Parisi et al., 2019): the built world withheld data rather than contradicting it. Nor did we test loss of plasticity (Dohare et al., 2023); the fully trained agents give no sign of it.
 
@@ -182,7 +182,7 @@ We raised the learner's floor of random acts (ε~min~) from 0.02 to 0.1 to 0.3, 
 - **L4 failed, and says nothing about conventions.** Newcomers raised in the same built world agree almost perfectly on which action suits an overlap item (Cohen's κ 0.99–1.00). But naturally raised pairs already agree at κ = 0.88, so the preregistered +0.2 gain was out of reach.
   - Most of that baseline comes from the readout. We read an agent's choice as the action it rates most likely to be accepted, which in an overlap is the nearer arc's.
   - Because agents never choose freely between actions, this design can't produce or detect an arbitrary convention of the kind studied in coordination, where self-play can settle on conventions that fail with new partners (Hu et al., 2020).
-  - The representational measure E_K does separate worlds built separately (L5, pass: same-world minus different-world E_K is +0.34 under wear and +0.76 under shaping by eye). E_K asks how many of each item's six nearest neighbours in one agent's hidden layer are also among its six nearest in the other's, rescaled so that 0 is chance and 1 is identical neighbourhoods (Appendix B).
+  - The representational measure E~K~ does separate worlds built separately (L5, pass: same-world minus different-world E~K~ is +0.34 under wear and +0.76 under shaping by eye). E~K~ asks how many of each item's six nearest neighbours in one agent's hidden layer are also among its six nearest in the other's, rescaled so that 0 is chance and 1 is identical neighbourhoods (Appendix B).
 - **L8b failed:** the E8 gap barely depends on network width (ratios 1.11 and 1.30 against 2).
 - **No individual forgetting:** the fully trained arm (D3, an added confirmatory arm) is a null for individual forgetting (section 4.3).
 - **L9b failed:** the surprise jump at the snap-back is smaller than predicted, and whether it sits on edge items is untested.
@@ -223,12 +223,13 @@ One reading of Constant et al. is that the niche comes to model its constructors
 - Edge legibility was borderline (D1).
 - Capacity was varied only as network width, over a range where the task was already learnable. Extra width added nothing to building, and the newcomer effects barely changed with width; we make no claim beyond the widths tested.
 
-**Future work.** Four extensions follow from these results and limits:
+**Future work.** Five extensions follow from these results and limits:
 
 - **Generations:** newcomers who become the next builders, and whether their errors compound across generations.
 - **Agents that act on their own uncertainty:** for example, seeking test cases where ensemble members disagree.
 - **Contested worlds:** builders with different bodies shaping the same world, so that no single key fits it.
 - **Gradual decay:** newcomers facing a world that decays slowly when upkeep stops, instead of the instant snap-back tested in E9.
+- **Capacity and internal decay:** bounded agents choosing between building and keeping a regularity internal, or reinvesting freed capacity in a second task (§6).
 
 ## 6. Where this points (speculation)
 
@@ -243,6 +244,7 @@ All code, preregistration documents, results tables and figures are in the accom
 - **Layout:**
   - `src/world.py`: the world, agents and measures (numba);
   - `src/exps.py`: experiment tasks;
+  - `src/metrics.py`: representational agreement (E~K~), copied unchanged from an earlier project;
   - `runs/run.py`: parallel, resumable runner;
   - `analysis/`: one script per experiment;
   - `analysis/figures/make_figures.py`: all figures;
@@ -290,7 +292,7 @@ This study was designed in discussion with AI assistants. Claude Code (Anthropic
 | L3b | log-loss drop at 2k steps ≥ 1.5 × | 1.73 | Pass |
 | L3d | code-length saving ≥ 1.5 × | 1.27 | Fail |
 | L4 | same-world − natural agreement ≥ 0.2 on overlap items | +0.115, +0.120 (ceiling 0.123) | Fail |
-| L5 | E_K same > different world | +0.34, +0.76 | Pass |
+| L5 | E~K~ same > different world | +0.34, +0.76 | Pass |
 | L6 | same-world advantage after abandonment < 0.05 | −0.002, −0.002 | Pass |
 | L8a, partly trained (preregistered) | extra edge-accuracy fall at width 4 ≥ 0.10; against if < 0.03 | 0.094 (wear), 0.114 (shaping by eye) | Wear: inconclusive. Shaping by eye: passes by the letter, but it is withheld learning, not forgetting |
 | L8a, fully trained (D3, an added confirmatory arm) | same criterion | 0.012 (wear), 0.019 (shaping by eye) | Against |
@@ -320,7 +322,7 @@ This study was designed in discussion with AI assistants. Claude Code (Anthropic
   - shaping by eye: step s~u~ = 0.3 in appearance and κ·s~u~·20° in angle, along the sign of the actor's own logit gradient, with κ = 1 or 0.25;
   - six builders on one body, 30,000-step warm-up, then frozen copies keep acting with a fixed policy.
 - **Natural test set:** 3,000 fresh items; decisive sets of 300 items inside and 300 outside each action's edge (within 10°).
-- **Representational agreement (E_K):** for two agents, the share of each item's 6 nearest neighbours (cosine distance on hidden-layer activations, 600 items) that are also among its 6 nearest for the other agent, as excess over the permutation-null mean, E = (K − K~0~)/(1 − K~0~). Code from an earlier project, copied unchanged (`src/metrics.py`).
+- **Representational agreement (E~K~):** for two agents, the share of each item's 6 nearest neighbours (cosine distance on hidden-layer activations, 600 items) that are also among its 6 nearest for the other agent, as excess over the permutation-null mean K~0~: E~K~ = (K − K~0~)/(1 − K~0~). Code from an earlier project, copied unchanged (`src/metrics.py`).
 - **Ensembles:** five members trained by Thompson sampling with a bootstrap mask; diverse widths 6–64; randomized priors with β = 10.
 
 ## Appendix C. Deviations
