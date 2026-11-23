@@ -403,6 +403,20 @@ def e10_arm(seed, arm, kind, cond, n_ag, eps_r=0.0):
     return out
 
 
+def e10_body(seed, kind, cond, body, n_ag):
+    """DEVIATIONS D5 (exploratory): as e10_arm at the primary cell, but newcomers and wild agents use `body`."""
+    nat, B, test = setup(seed, "unequal")
+    worlds = {kind: build(nat, B, C.RULES[kind], seed, ("lc", kind))[:2]} if kind != "wild" else {}
+    world, fr, rule = _kind_world(nat, worlds, kind)
+    out = {"raised": []}
+    for j in range(n_ag):
+        key = (seed, "e10body", body, kind, cond, j)
+        rows, _, _ = raise_scored(world, B, fr, rule, test, W.make_agents(rng(*key), 1, C.BASE_WIDTH, body), key, cond,
+                                  budgets=(C.BUDGETS[-1],))
+        out["raised"].append(dict(seed=seed, kind=kind, cond=cond, arm="body", body=body, width=C.BASE_WIDTH, j=j, **rows[0]))
+    return out
+
+
 def e10_ens(seed, kind, cond):
     nat, B, test = setup(seed, "unequal")
     worlds = lifecycle_worlds(nat, B, seed, rules=(kind,)) if kind != "wild" else {}
@@ -472,6 +486,8 @@ def tasks(exp, seeds):
             T += [(s, wd) for wd in C.WIDTH_LADDER]
         elif exp == "e8_fixed":   # DEVIATIONS D3
             T += [(s, wd, 60000) for wd in C.WIDTH_LADDER]
+        elif exp == "e10_outsider":   # DEVIATIONS D5 (exploratory): outsider body 4; builders are on body 0
+            T += [("body", s, k, c, 4, C.N_AG_PRIMARY) for k in ("wild", "wear", "eye1") for c in ("skip", "passive")]
         elif exp == "e10_matched_v2":   # DEVIATIONS D4
             T += [("arm", s, "matched", r, "passive", C.N_AG_PRIMARY, C.EPS_R_V2[r]) for r in ("wear", "eye1")]
         elif exp == "e10":
@@ -498,9 +514,9 @@ def run_task(exp, t):
         return e6(*t)
     if exp in ("e8", "e8_fixed"):
         return e8(*t)
-    if exp in ("e10", "e10_matched_v2"):
+    if exp in ("e10", "e10_matched_v2", "e10_outsider"):
         kind, rest = t[0], t[1:]
-        return {"grid": e10_grid, "arm": e10_arm, "ens": e10_ens, "sym": e10_sym}[kind](*rest)
+        return {"grid": e10_grid, "arm": e10_arm, "ens": e10_ens, "sym": e10_sym, "body": e10_body}[kind](*rest)
     raise ValueError(exp)
 
 

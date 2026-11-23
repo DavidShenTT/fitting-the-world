@@ -55,3 +55,18 @@ Runs as `python runs/run.py e8_fixed 0-9`, analysed by `python analysis/e8.py e8
 **Rerun.** The passive matched arm only (both rules, seeds 0–9, 4 agents per seed, primary cell) with the new ε_r, into `results/e10_matched_v2/`. The binning rule is unchanged (tertiles; ≥ 10 agents of each kind per bin; fewer than 3 qualifying bins means not runnable). The skip-rule matched arm isn't rerun; it stays reported as not runnable (2 bins).
 
 **D4 tuning result (logged before the rerun).** Wild passive home log loss over 20 seeds × 2 agents: 0.0196 (`results/tuning/epsr_passive_summary.txt`). Closest ε_r is 0.01 for both rules. Wear: built ÷ wild 0.835, within ±20%: matched. Shaping by eye: 0.791, just outside ±20%, so by the preregistered rule that arm is **unmatched**. It is still run at ε_r = 0.01 and its bins are reported descriptively, labelled unmatched.
+
+## D5 (24 Nov 2026): exploratory outsider-body newcomers in E10 (post hoc, after review; logged before it runs)
+
+**Status.** Exploratory and post hoc: proposed after the results were seen, in review. It is not part of the preregistered analysis, it changes no preregistered result, and it is reported either way.
+
+**Why.** Under shaping by eye the builders move the appearance coordinate their body reads, so in a built world appearance comes to predict acceptance. Same-body newcomers read that coordinate and could learn it as a shortcut instead of the angle rule, which would be a second route to confident error at unbuilt edges, besides the emptied margin (L10m). Newcomers with an outsider body (the other body type) can't read the moved coordinate, so they can't take the shortcut; they still see the emptied margin, because building also moves angle.
+
+**The arm.** E10 primary cell (unequal world, width 32, 60,000 steps, ε_min 0.02), seeds 0–9, the same built worlds as E10 (same build keys), frozen builders on body 0 keep acting. Newcomers and wild agents use body 4 (an outsider: type 2, while the builders are type 1), 4 agents per world and kind, under the skip rule and passive feedback. Kinds: wild (natural world), shaping by eye (κ = 1) and wear as a control (wear moves angle only, so the body shouldn't matter). The frozen code is unchanged; one new task function (`e10_body` in `src/exps.py`) mirrors `e10_arm` with the newcomers' body as a parameter. Runs as `python runs/run.py e10_outsider 0-9`.
+
+**Comparison, stated in advance.** For each body, the confident-error ratio built ÷ wild (geometric mean of paired per-world ratios, as L10a; same-body values from the existing E10 grid agents at the primary cell). Then the per-world ratio of ratios, same-body ÷ outsider, with a 95% bootstrap interval over worlds.
+- **Shortcut reading:** under shaping by eye the same-body ratio exceeds the outsider ratio (interval of the ratio of ratios above 1), while under wear the interval includes 1.
+- **No-shortcut reading:** under shaping by eye the interval includes 1 (or lies below it).
+- Also reported: home log loss, edge log loss and unsigned shift for outsider newcomers.
+
+**D5 result (added after the run, 24 Nov).** `python analysis/e10_extra.py` → `results/e10_outsider/summary_D5.csv`. Confident-error ratio built ÷ wild, same body vs outsider body: shaping by eye, skip rule 4.02 vs 3.22, ratio of ratios 1.25 [1.09, 1.44]; passive 2.65 vs 2.11, 1.26 [1.05, 1.51]. Wear control: 0.99 [0.84, 1.16] (skip), 0.86 [0.64, 1.14] (passive). The shortcut reading, as stated above, is supported; outsider-body newcomers still show most of the effect.

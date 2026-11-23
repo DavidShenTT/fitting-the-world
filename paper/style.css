@@ -27,3 +27,4 @@ h3 { clear: both; }
 h2, h3 { break-after: avoid; page-break-after: avoid; }
 p:has(+ ul), p:has(+ ol) { break-after: avoid; page-break-after: avoid; }
 li > ul, li > ol { break-before: avoid; page-break-before: avoid; }
+header#title-block-header p.author, header#title-block-header p.date { text-align: center; }

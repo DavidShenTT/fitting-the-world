@@ -120,8 +120,14 @@ Abstracts read on arxiv.org on 21 Nov 2026. Constant et al. (2018) isn't on arXi
 - **D2:** E2 fits all eligible cells, with an s_u covariate and a sensitivity subset.
 - **D3:** the E8 confirmatory arm with fixed 60k pretraining.
 - **D4:** passive ε_r retuned on 20 more tuning seeds and the matched arm rerun.
+- **D5 (exploratory, post hoc, after review; 24 Nov):** outsider-body newcomers in the E10 worlds (section 5a).
 
 Before the freeze, PREREGISTRATION §1 recorded the REVIEW_1 changes (symmetric world for E1/E2/E4–E6, version 1's built share and agreement measures, L10-dose levels) and the fixed builders' policy.
+
+### 5a. Post hoc analyses after review (24 Nov; not preregistered)
+Neither changes a preregistered verdict. `python runs/run.py e10_outsider 0-9`, then `python analysis/e10_extra.py`.
+- **L10m extras** (`results/e10/summary_L10m_extra.csv`, same agents as L10m): as ε_min rises 0.02 → 0.1 → 0.3, the confident-error ratio (built ÷ wild) falls 2.70 → 1.65 → 1.49 (wear) and 4.02 → 2.83 → 2.52 (shaping by eye); payoff per decisive edge turn at the moment of snap-back is 51% → 32% → 26% (wear) and 90% → 66% → 53% (shaping by eye) below wild. That payoff is the zero-step point of the E9 measure; the 500-step E9 run exists only at ε_min 0.02 (42%, 73%). The stretch nearly vanishes, but the confident error doesn't.
+- **D5, outsider-body newcomers** (`results/e10_outsider/summary_D5.csv`): confident-error ratio built ÷ wild, same body vs outsider body, shaping by eye: 4.02 vs 3.22 (skip), ratio of ratios 1.25 [1.09, 1.44]; 2.65 vs 2.11 (passive), 1.26 [1.05, 1.51]. Wear control 0.99 [0.84, 1.16] and 0.86 [0.64, 1.14]. The appearance-shortcut reading stated in D5 is supported; most of the effect remains for outsiders.
 
 ## 6. Not done, and limits
 - **E7 was not run.** It is optional in the brief and wasn't approved.

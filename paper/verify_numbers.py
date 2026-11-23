@@ -11,6 +11,8 @@ import sys
 import numpy as np
 import pandas as pd
 
+sys.stdout.reconfigure(encoding="utf-8")   # failure messages contain non-ASCII text
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 R = lambda *p: os.path.join(ROOT, "results", *p)
@@ -123,7 +125,7 @@ s8f = pd.read_csv(R("e8_fixed", "summary_E8.csv"))
 ef_w, ef_e = row(s8f, rule="wear", width=4), row(s8f, rule="eye1", width=4)
 check("D3 extra falls", "0.012 [0.003, 0.019] and 0.019 [0.007, 0.031]",
       f"{f3(ef_w.extra_fall)} [{f3(ef_w.extra_lo)}, {f3(ef_w.extra_hi)}] and {f3(ef_e.extra_fall)} [{f3(ef_e.extra_lo)}, {f3(ef_e.extra_hi)}]")
-check("D3 appendix", "| same criterion | 0.012 (wear), 0.019 (shaping by eye) | Against |", f"| same criterion | {f3(ef_w.extra_fall)} (wear), {f3(ef_e.extra_fall)} (shaping by eye) | Against |")
+check("D3 appendix", "| same criterion | 0.012 (wear), 0.019 (shaping by eye); at width 32: 0.002, 0.003 | Against |", f"| same criterion | {f3(ef_w.extra_fall)} (wear), {f3(ef_e.extra_fall)} (shaping by eye); at width 32: {f3(row(s8f, rule='wear', width=32).extra_fall)}, {f3(row(s8f, rule='eye1', width=32).extra_fall)} | Against |")
 pw = se("e8 treat_wear edge accuracy start/end of T2 (width 4)"); pe = se("e8 treat_eye1 edge accuracy start/end of T2 (width 4)")
 pn = se("e8 natural edge accuracy start/end of T2 (width 4)")
 check("E8 partly trained start", "at edge accuracy 0.704", f"at edge accuracy {f3(pw[0])}")
@@ -131,7 +133,7 @@ check("E8 partly trained ends", "rose only to 0.762 (wear) and 0.742 (shaping by
       f"rose only to {f3(pw[1])} (wear) and {f3(pe[1])} (shaping by eye), while the same agents in the natural world rose to {f3(pn[1])}")
 s8 = pd.read_csv(R("e8", "summary_E8.csv"))
 check("L8a primary eye", "(0.114 ≥ 0.10)", f"({f3(row(s8, rule='eye1', width=4).extra_fall)} ≥ 0.10)")
-check("L8a primary, appendix", "against if < 0.03 | 0.094 (wear), 0.114 (shaping by eye) |", f"against if < 0.03 | {f3(row(s8, rule='wear', width=4).extra_fall)} (wear), {f3(row(s8, rule='eye1', width=4).extra_fall)} (shaping by eye) |")
+check("L8a primary, appendix", "against if < 0.03 | 0.094 (wear), 0.114 (shaping by eye); at width 32: 0.064, 0.078 |", f"against if < 0.03 | {f3(row(s8, rule='wear', width=4).extra_fall)} (wear), {f3(row(s8, rule='eye1', width=4).extra_fall)} (shaping by eye); at width 32: {f3(row(s8, rule='wear', width=32).extra_fall)}, {f3(row(s8, rule='eye1', width=32).extra_fall)} |")
 assert 0.03 <= row(s8, rule="wear", width=4).extra_fall < 0.10 <= row(s8, rule="eye1", width=4).extra_fall  # "inconclusive" / "passes by the letter"
 check("L8b", "(ratios 1.11 and 1.30 against 2)", f"(ratios {f2(row(s8, rule='wear', width=4).L8b_ratio)} and {f2(row(s8, rule='eye1', width=4).L8b_ratio)} against 2)")
 un_w = fv("untrained newcomers raised in wear world, edge accuracy (width 4, 60k)")
@@ -198,8 +200,8 @@ check("near-side refusals built", "24% (wear) and 11% (shaping by eye) of newcom
       f"{pct(mw.wide_near_share_built.iloc[0])} (wear) and {pct(me.wide_near_share_built.iloc[0])} (shaping by eye) of newcomers' refusals")
 
 # ---------------- E4 / L5
-check("same-world agreement", "(Cohen's κ 0.99–1.00)", f"(Cohen's κ {f2(e45.k_ov_same.min())}–{f2(e45.k_ov_same.max())})")
-check("natural agreement", "already agree at κ = 0.88", f"already agree at κ = {f2(e45.k_ov_nat.mean())}")
+check("same-world agreement", "(Cohen's kappa 0.99–1.00)", f"(Cohen's kappa {f2(e45.k_ov_same.min())}–{f2(e45.k_ov_same.max())})")
+check("natural agreement", "already agree at kappa 0.88", f"already agree at kappa {f2(e45.k_ov_nat.mean())}")
 check("L5", "E~K~ is +0.34 under wear and +0.76 under shaping by eye", f"E~K~ is +{f2(e45.loc["wear", "L5_diff"])} under wear and +{f2(e45.loc["eye1", "L5_diff"])} under shaping by eye")
 check("L4 appendix", "+0.115, +0.120 (ceiling 0.123)",
       f"+{f3(e45.loc['wear', 'same_minus_nat'])}, +{f3(e45.loc['eye1', 'same_minus_nat'])} (ceiling {f3(1 - e45.k_ov_nat.mean())})")
@@ -208,6 +210,29 @@ check("L4 appendix", "+0.115, +0.120 (ceiling 0.123)",
 dg = pd.read_csv(R("tuning", "leg_diag", "diag.csv")); dg = dg[(dg.lam == 0.4) & (dg.steps == 60000)]
 means = [dg[dg.geom == g][c].mean() for g in ("symmetric", "unequal") for c in ("wide_edge_acc", "narrow_edge_acc")]
 check("D1 edge accuracy range", "mean edge accuracy 0.84–0.90", f"mean edge accuracy {f2(min(means))}–{f2(max(means))}")
+
+
+# ---------------- review pass (24 Nov): L10m extras and D5 (exploratory)
+LX = pd.read_csv(R("e10", "summary_L10m_extra.csv"))
+for rule, nm in (("wear", "under wear"), ("eye1", "under shaping by eye")):
+    g = LX[LX.rule == rule].sort_values("eps_min")
+    check(f"L10m extra conf {rule}", "from 2.70 to 1.65 to 1.49 under wear" if rule == "wear" else "from 4.02 to 2.83 to 2.52 under shaping by eye",
+          "from " + " to ".join(f2(v) for v in g.conf_ratio) + f" {nm}")
+pw_, pe_ = LX[LX.rule == "wear"].sort_values("eps_min"), LX[LX.rule == "eye1"].sort_values("eps_min")
+check("L10m extra pay", "51%, 32% and 26% less under wear, and 90%, 66% and 53% less under shaping by eye",
+      ", ".join(pct(v) for v in pw_.pay_at_snap_gap[:2]) + f" and {pct(pw_.pay_at_snap_gap.iloc[2])} less under wear, and "
+      + ", ".join(pct(v) for v in pe_.pay_at_snap_gap[:2]) + f" and {pct(pe_.pay_at_snap_gap.iloc[2])} less under shaping by eye")
+e9s = pd.read_csv(R("e10", "summary_E9.csv"))
+check("L10m extra E9 ref", "which gives 42% and 73%", f"which gives {pct(row(e9s, cond='skip', rule='wear').rel_gap)} and {pct(row(e9s, cond='skip', rule='eye1').rel_gap)}")
+D5 = pd.read_csv(R("e10_outsider", "summary_D5.csv"))
+se_, pe5, sw_, pw5 = (row(D5, cond=c, rule=r) for c, r in (("skip", "eye1"), ("passive", "eye1"), ("skip", "wear"), ("passive", "wear")))
+check("D5 outsider skip", "their confident error is 3.22× [2.88, 3.57] that of their wild counterparts, against 4.02×",
+      f"their confident error is {f2(se_.out_conf_ratio)}× [{f2(se_.out_lo)}, {f2(se_.out_hi)}] that of their wild counterparts, against {f2(se_.same_conf_ratio)}×")
+check("D5 ratio of ratios", "the same-body ratio is 1.25× [1.09, 1.44] the outsider ratio (passive feedback: 2.11× against 2.65×; 1.26× [1.05, 1.51])",
+      f"the same-body ratio is {f2(se_.ratio_of_ratios)}× [{f2(se_.ror_lo)}, {f2(se_.ror_hi)}] the outsider ratio (passive feedback: {f2(pe5.out_conf_ratio)}× against {f2(pe5.same_conf_ratio)}×; {f2(pe5.ratio_of_ratios)}× [{f2(pe5.ror_lo)}, {f2(pe5.ror_hi)}])")
+check("D5 wear control", "(0.99× [0.84, 1.16]; passive 0.86× [0.64, 1.14])",
+      f"({f2(sw_.ratio_of_ratios)}× [{f2(sw_.ror_lo)}, {f2(sw_.ror_hi)}]; passive {f2(pw5.ratio_of_ratios)}× [{f2(pw5.ror_lo)}, {f2(pw5.ror_hi)}])")
+assert se_.ror_lo > 1 and pe5.ror_lo > 1 and sw_.ror_lo < 1 < sw_.ror_hi and pw5.ror_lo < 1 < pw5.ror_hi   # "shortcut reading" as stated in D5
 
 print(f"{N} checks; {len(FAIL)} failed")
 for f in FAIL:
