@@ -106,3 +106,14 @@
 - §4.2 "Useful but illegible to outsiders" (93% key-specific compression, 78% shared code length). §4.3 "kept what they knew but largely stopped improving": "largely" added because they still rose 0.017 and 0.010 against the control's 0.029. D3 labelled "an added confirmatory arm" throughout. §3 notes the bootstrap intervals over 10 worlds are approximate. Appendix A's L8a split into two rows.
 - §6 cut to one paragraph. Alpöge's quote re-checked against the extracted note text: the quote is exact, but the old paraphrase was off (the note says producing such a document is routine, not that a readable account is impossible); now corrected. Future work: four items.
 - Layout: Fig. 1 moved after "The gate" so page 2 fills; headings and list lead-in lines kept with what follows (CSS). verify_numbers.py: 72 checks, 0 failed. PDF 15 pages; main text ends on page 12.
+
+## 23 Nov: release preparation (author's decisions)
+- §4.2: one sentence offering language or musical notation as an everyday analogy for the builders' key, marked as an analogy, not a result. Acknowledgments: the author's text.
+- Citations kept (Risko & Gilbert 2016; Lakkaraju et al. 2017, KDD), confirmed by the author. Title kept. Main text of 10–12 pages accepted (now ends on page 12).
+- Publishing route: the author will push this repository's real history, so the preregistration commits stay verifiable. Prepared, not pushed:
+  - local paths replaced with generic placeholders in BRIEF.md, PLAN.md and the provenance comment of src/metrics.py (the copied code is unchanged);
+  - CLAUDE.md, STATUS.md, PAPER_BRIEF.md, paper/OUTLINE.md, paper/reading_notes.md and logs/ untracked and git-ignored (kept on disk), matching tools/make_export.py; the tracked tree now equals the export list plus .gitignore;
+  - first names left in the decision records, as decided; make_export.py now scans only for local paths and emails;
+  - history check: commits use a GitHub no-reply address; no credential-like strings; earlier commits still contain local paths (2 user-folder paths, 29 project paths) and the now-untracked files, which only a history rewrite could remove.
+- tools/set_author.py fills the "[Author]" placeholders (paper, summary, README, licences) and rebuilds the PDF; the name is still to be given.
+- verify_numbers.py: 72 checks, 0 failed. PDF 15 pages.

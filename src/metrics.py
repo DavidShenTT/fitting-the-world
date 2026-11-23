@@ -1,4 +1,4 @@
-# Copied verbatim from D:\ML\AGENTS\Research\Convergence Experiments\src\metrics.py at commit 9c7dd7d
+# Copied verbatim from the Convergence Experiments project's src/metrics.py at commit 9c7dd7d
 # (BRIEF.md: for E_K, so this project reproduces even if that folder changes). Do not edit; wrap it instead.
 """Distance-chain statistics (R1-R4, G, K), permutation nulls and item bootstrap weights.
 

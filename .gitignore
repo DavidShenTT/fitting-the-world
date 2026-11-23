@@ -15,3 +15,11 @@ _incoming_layer2.zip
 # per-task pickles (merged CSVs are kept)
 results/**/parts/
 export/
+# kept locally, not published (same exclusions as tools/make_export.py, 23 Nov):
+# working notes, agent instructions and run logs
+CLAUDE.md
+STATUS.md
+PAPER_BRIEF.md
+paper/OUTLINE.md
+paper/reading_notes.md
+logs/

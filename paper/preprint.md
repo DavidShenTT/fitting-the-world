@@ -127,7 +127,7 @@ Builders on one body built a world under shaping by eye at κ = 0.25, so most of
 
 The split has a simple source. At κ = 0.25 the angle still moves a little (the built share is 0.60), which every reader can use. The appearance changes compress the world only for readers of that axis.
 
-**Useful but illegible to outsiders.** The perceptual and the functional gains split. Outsiders see almost none of the builders' compression (93% of it is key-specific), yet they keep most of the code-length saving (78% of it is shared). The built world is useful to outsiders but illegible to them.
+**Useful but illegible to outsiders.** The perceptual and the functional gains split. Outsiders see almost none of the builders' compression (93% of it is key-specific), yet they keep most of the code-length saving (78% of it is shared). The built world is useful to outsiders but illegible to them. As an everyday analogy, not a result: a language or a musical notation is effortless to read for those raised in it and near-noise to outsiders, yet outsiders can still use much of what it carries.
 
 ![Figure 3. **The builders' key (E3; shaping by eye at κ = 0.25, unequal world).** (A) Entropy drop of the built state under each reader's body. (B) Code-length saving over 8,000 item–action offers. Bars are means over 10 worlds with 95% bootstrap intervals; dashed marks show the wear control, where nothing depends on the reader.](figures/fig3_key.png)
 
@@ -258,7 +258,7 @@ All code, preregistration documents, results tables and figures are in the accom
 
 ## Acknowledgments
 
-[To be completed by the author, including a statement on AI assistance in running the study and drafting this text.]
+This study was designed in discussion with AI assistants. Claude Code (Anthropic) wrote and ran the code and drafted the text under the author's direction; the author made all design decisions and is responsible for the content.
 
 ## References
 

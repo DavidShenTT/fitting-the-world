@@ -27,7 +27,8 @@ EXCLUDE = [  # never exported, even if a pattern above matches
     "CLAUDE.md",          # instructions for the coding agent; machine-specific
     "STATUS.md", "PAPER_BRIEF.md", "paper/OUTLINE.md", "paper/reading_notes.md",   # internal working notes
 ]
-SCAN = [r"\bDavid\b", r"C:\\Users\\", r"/c/Users/", r"[\w.+-]+@[\w-]+\.[\w.]+", r"REDACTED-HANDLE"]
+# First names in the decision records are kept by the author's decision (23 Nov); local paths and emails are scanned.
+SCAN = [r"C:\\Users\\", r"/c/Users/", r"[A-Za-z]:\\ML\\", r"/[a-z]/ML/", r"AppData", r"[\w.+-]+@[\w-]+\.[\w.]+"]
 
 
 def match(rel, pats):

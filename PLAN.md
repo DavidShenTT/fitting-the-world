@@ -7,7 +7,7 @@ Written 20 Nov 2026 against BRIEF.md version 7.2 (frozen). This is deliverable 1
 ## 1. Environment (done, verified 20 Nov)
 
 Set up exactly as BRIEF.md prescribes; nothing outside this folder was written.
-- `.venv` made from `C:\Users\David\AppData\Local\Programs\Python\Python312\python.exe` (Python 3.12.10).
+- `.venv` made from `<path to Python 3.12>\python.exe` (Python 3.12.10).
 - `.venv\Lib\site-packages\convergence_env.pth` holds the single `site.addsitedir(...)` line pointing at the Convergence venv's site-packages.
 - `pip install --dry-run --no-cache-dir numba` wanted only `numba-0.68.1` and `llvmlite-0.50.0`, and reported numpy 2.5.4 as already satisfied (numba requires numpy < 2.6). It did not touch numpy, scipy, pandas or torch, so I installed it for real into `.venv`, with pip's cache in `.cache\pip`.
 - `pip check`: "No broken requirements found."
