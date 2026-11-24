@@ -9,3 +9,4 @@ matplotlib==3.11.2
 pytest==9.2.0
 pypdf                  # PDF page count in paper/render.py
 pypandoc_binary==1.17  # only to rebuild the PDF
+typst==0.15.2          # PDF build (paper/render_typst.py); fonts via tools/get_fonts.py

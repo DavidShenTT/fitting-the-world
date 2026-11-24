@@ -22,4 +22,11 @@ STATUS.md
 PAPER_BRIEF.md
 paper/OUTLINE.md
 paper/reading_notes.md
+paper/TYPST_BRIEF.md
 logs/
+# Typst build (24 Nov): fonts are fetched by tools/get_fonts.py, .typ files are intermediate,
+# page previews are local
+paper/typst/fonts/
+paper/*.typ
+paper/preview/
+paper/preprint_html.pdf

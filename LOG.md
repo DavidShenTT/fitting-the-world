@@ -163,3 +163,13 @@
 - Section 6 cut to four sentences on artifacts built for a different kind of reader, without the Riemann Hypothesis example (my choice, offered by the author); the Alpöge and Lean-community references and summary.md's machine-checked-mathematics sentence went with it.
 - Layout: Table 2 caption and new column header shortened, and a CSS rule keeps tables of four rows or fewer whole, so Table 2 no longer splits across pages 8-9.
 - verify_numbers.py: 89 checks pass. PDF 17 pages; main text pages 1-13.
+
+## 24 Nov: Typst render (paper/TYPST_BRIEF.md)
+
+- Installed `typst` 0.15.2 into this folder's .venv (PyPI, --no-cache-dir); pandoc (pypandoc_binary) is 3.9. Added to requirements.txt.
+- `python tools/get_fonts.py` fetched Inter 4.1 and Source Serif 4.005 (SIL OFL) from their GitHub releases into paper/typst/fonts/ (gitignored, with paper/*.typ, paper/preview/, paper/preprint_html.pdf and paper/TYPST_BRIEF.md). Export manifest (tools/make_export.py) updated to match.
+- `python paper/render_typst.py` builds preprint.pdf (16 pages) and summary.pdf (1 page). paper/render.py is now the HTML fallback (preprint.html; its Edge PDF goes to preprint_html.pdf). tools/set_author.py runs both. README build lines updated.
+- Figures restyled from saved results only: Inter, drawn at final size (6.2 in; Figs 2 and 6 at 3.85 in), page neutrals, titles that repeated captions removed (Figs 2, 5, 6), Fig 1 titles on one baseline with B and C no longer touching, Fig 4 legend moved below the panels (it covered data at 7 pt). SVG (text as paths) and 200-dpi PNG. paper/figures/figure_numbers.csv regenerates byte-identical.
+- Two outright bugs fixed in paper/typst/style.typ: (1) `show emph: set text(style: "italic")` made every emphasis upright (emph toggles italic, so the rule cancelled it); removed. (2) the list bullet ● isn't in Source Serif 4 and was drawn from the system's Georgia; it is now set in Inter. preprint.lua unchanged.
+- Not fixed: code text (commit hashes, paths in section 7) uses the design's fallback "Cascadia Mono" from the system, since JetBrains Mono isn't fetched.
+- verify_numbers.py: 89 checks pass. Every page checked at 60 ppi: no overlaps, captions with their tables, no missing glyphs (no U+FFFD; only the fetched fonts plus Cascadia Mono embedded). No wording or number changed in preprint.md or summary.md.

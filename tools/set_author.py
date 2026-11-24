@@ -1,4 +1,4 @@
-"""Fill the author name into the paper, summary, README and licence files, then rebuild the PDF.
+"""Fill the author name into the paper, summary, README and licence files, then rebuild the PDFs and the HTML.
 
 Replaces every "[Author]" placeholder in the files below with the given name. Run once, before publishing:
     python tools/set_author.py "Firstname Lastname"
@@ -22,7 +22,8 @@ def main():
         n = raw.count(PLACEHOLDER)
         open(path, "w", encoding="utf-8", newline="").write(raw.replace(PLACEHOLDER, name))
         print(f"{rel}: {n} replaced")
-    subprocess.run([sys.executable, os.path.join(ROOT, "paper", "render.py")], check=True)
+    subprocess.run([sys.executable, os.path.join(ROOT, "paper", "render_typst.py")], check=True)   # preprint.pdf, summary.pdf
+    subprocess.run([sys.executable, os.path.join(ROOT, "paper", "render.py")], check=True)          # preprint.html
 
 
 if __name__ == "__main__":

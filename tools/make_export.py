@@ -21,11 +21,13 @@ INCLUDE = [
     "pilot*/*.py", "pilot*/results/*",
     "paper/preprint.md", "paper/preprint.pdf", "paper/preprint.html", "paper/summary.md", "paper/style.css",
     "paper/render.py", "paper/verify_numbers.py", "paper/figures/*",
+    "paper/summary.pdf", "paper/render_typst.py", "paper/typst/*.typ", "paper/typst/*.lua",
 ]
 EXCLUDE = [  # never exported, even if a pattern above matches
     ".venv/*", ".cache/*", "export/*", "logs/*", "results/**/parts/*", "**/__pycache__/*",
     "CLAUDE.md",          # instructions for the coding agent; machine-specific
     "STATUS.md", "PAPER_BRIEF.md", "paper/OUTLINE.md", "paper/reading_notes.md",   # internal working notes
+    "paper/TYPST_BRIEF.md", "paper/typst/fonts/*", "paper/preview/*",   # build brief; fetched fonts; local previews
 ]
 # First names in the decision records are kept by the author's decision (23 Nov); local paths and emails are scanned.
 SCAN = [r"C:\\Users\\", r"/c/Users/", r"[A-Za-z]:\\ML\\", r"/[a-z]/ML/", r"AppData", r"[\w.+-]+@[\w-]+\.[\w.]+"]
