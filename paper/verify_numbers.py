@@ -162,7 +162,7 @@ for cond, rule, nm in (("skip", "wear", "wear"), ("skip", "eye1", "shaping by ey
           f"| {lab} | {nm} | {f2(r.conf_ratio)} [{f2(r.conf_lo)}, {f2(r.conf_hi)}] | {f2(r.edge_ll_ratio)} [{f2(r.ll_lo)}, {f2(r.ll_hi)}] |")
     assert r.verdict == "pass"
 rng1 = lambda c: f"{min(row(L, cond=c, rule=r).conf_ratio for r in ('wear', 'eye1')):.1f}–{max(row(L, cond=c, rule=r).conf_ratio for r in ('wear', 'eye1')):.1f}×"
-check("bridge: passive range", "removing the edge items alone gives 1.8–2.7× confident error", f"removing the edge items alone gives {rng1('passive')} confident error")
+check("bridge: passive range", "removing the edge items (with, under shaping by eye, the appearance shortcut) gives 1.8–2.7× confident error", f"removing the edge items (with, under shaping by eye, the appearance shortcut) gives {rng1('passive')} confident error")
 check("bridge: skip range", "raise it to 2.7–4.0×", f"raise it to {rng1('skip')}")
 check("objection: passive range", "still leaves 1.8–2.7× confident error", f"still leaves {rng1('passive')} confident error")
 rw, re_ = row(L, cond="skip", rule="wear"), row(L, cond="skip", rule="eye1")
@@ -205,6 +205,11 @@ check("natural agreement", "already agree at kappa 0.88", f"already agree at kap
 check("L5", "E~K~ is +0.34 under wear and +0.76 under shaping by eye", f"E~K~ is +{f2(e45.loc["wear", "L5_diff"])} under wear and +{f2(e45.loc["eye1", "L5_diff"])} under shaping by eye")
 check("L4 appendix", "+0.115, +0.120 (ceiling 0.123)",
       f"+{f3(e45.loc['wear', 'same_minus_nat'])}, +{f3(e45.loc['eye1', 'same_minus_nat'])} (ceiling {f3(1 - e45.k_ov_nat.mean())})")
+
+# ---------------- E6 (no prediction; natural world)
+e6x = row(pd.read_csv(R("e6", "summary_E6.csv")), kind="cross_type")
+check("E6 cross-type agreement", "pairs with different body types agree at Cohen's kappa 0.83 [0.81, 0.85]",
+      f"pairs with different body types agree at Cohen's kappa {f2(e6x.kappa_overlap)} [{f2(e6x.lo)}, {f2(e6x.hi)}]")
 
 # ---------------- D1 (legibility)
 dg = pd.read_csv(R("tuning", "leg_diag", "diag.csv")); dg = dg[(dg.lam == 0.4) & (dg.steps == 60000)]

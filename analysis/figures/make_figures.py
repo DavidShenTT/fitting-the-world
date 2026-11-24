@@ -233,7 +233,7 @@ def fig6():
         ax.plot(g.eps_min, g.stretch_diff, color=col, marker="o", ms=5, mec="white")
         ax.text(g.eps_min.iloc[-1] * 1.1, g.stretch_diff.iloc[-1], nm, fontsize=7, va="center")
     ax.axhline(0, color=MUTED, lw=0.8)
-    ax.set_xscale("log"); ax.set_xticks([0.02, 0.1, 0.3]); ax.set_xticklabels(["0.02", "0.1", "0.3"]); ax.set_xlim(0.015, 0.75)
+    ax.set_xscale("log"); ax.set_xticks([0.02, 0.1, 0.3]); ax.set_xticklabels(["0.02", "0.1", "0.3"]); ax.set_xlim(0.015, 1.3)   # room for the "shaping by eye" label
     ax.minorticks_off()
     ax.set_xlabel(r"learner's random-act floor $\varepsilon_{\min}$"); ax.set_ylabel("extra arc stretch, built − wild (deg)")
     ax.text(0.98, 0.98, "builders' policy fixed\n" r"($\varepsilon_{\min}$ 0.02) in every arm", transform=ax.transAxes, ha="right", va="top",

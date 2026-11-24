@@ -3,7 +3,7 @@
 Code, preregistration, results and paper for a small simulation study of **persistent world-fitting**: learning agents that reshape their world to suit what they already do, and what that costs in upkeep, readability and newcomers' learning.
 
 - **Paper:** `paper/preprint.pdf` (source `paper/preprint.md`); one-page summary `paper/summary.md`.
-- **Preregistration:** `PREREGISTRATION.md`, committed before any real run (commit `063329b`); frozen settings in its section 11 (`032ba80`); frozen code `de619a5`. Deviations are logged in `DEVIATIONS.md` (D1–D4).
+- **Preregistration:** `PREREGISTRATION.md`, committed before any real run (commit `063329b`); frozen settings in its section 11 (`032ba80`); frozen code `de619a5`. Deviations are logged in `DEVIATIONS.md` (D1–D5).
 - **Full results:** `REPORT.md`, one row per preregistered prediction, with the command that regenerates each number.
 
 ## Requirements
@@ -41,8 +41,10 @@ bash runs/stage2_smoke.sh           # smoke test, seed 7010
 python runs/run.py e1 0-9           # E1
 bash runs/stage3.sh                 # E10 (with E9), E8
 bash runs/stage4.sh                 # E2-E6, E8 fixed-pretraining arm, matched rerun
+python runs/run.py e10_outsider 0-9 # D5 (exploratory); task added after the frozen code, commit 146977c
 python analysis/e10.py; python analysis/e8.py; python analysis/e8.py e8_fixed
 python analysis/e2.py; python analysis/e3.py; python analysis/e4.py; python analysis/e10_matched_v2.py
+python analysis/e10_extra.py        # D5 and the eps_min extras (post hoc)
 python analysis/figures/make_figures.py
 python paper/verify_numbers.py
 python -m pytest tests/test_world.py
