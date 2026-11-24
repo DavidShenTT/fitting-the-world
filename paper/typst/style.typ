@@ -9,7 +9,8 @@
 #let faint  = rgb("#8a93a3")
 #let hair   = rgb("#dfe3ea")
 #let tint   = rgb("#f4f6f9")
-#let accent = rgb("#2a78d6")   // the figures' "wild" blue
+#let accent = rgb("#4b5160")   // dark slate grey: labels, numbers, bullets
+#let rule-c = rgb("#c3c8d0")   // pale grey: heading rules, box borders
 #let spec-ink  = rgb("#8a6a12")
 #let spec-tint = rgb("#fbf7ec")
 #let spec-bar  = rgb("#d4a62a")
@@ -59,7 +60,7 @@
   show heading.where(level: 1): it => {
     v(1.6em, weak: true)
     block(below: 0.9em, {
-      line(length: 18pt, stroke: 1.6pt + accent)
+      line(length: 18pt, stroke: 1.6pt + rule-c)
       v(5pt)
       set text(font: sans, size: 13pt, weight: 600, fill: ink, tracking: -0.005em)
       it.body
@@ -73,13 +74,13 @@
 
   // lists
   set list(indent: 0.2em, body-indent: 0.6em, spacing: 0.55em,
-           marker: (text(font: sans, fill: accent, size: 0.85em, baseline: -0.05em)[●], text(fill: faint)[–]))   // ● is in Inter, not in Source Serif 4
+           marker: (text(font: sans, fill: faint, size: 0.85em, baseline: -0.05em)[●], text(fill: faint)[–]))   // ● is in Inter, not in Source Serif 4
   set enum(indent: 0.2em, body-indent: 0.6em, spacing: 0.55em,
            numbering: n => text(font: sans, size: 0.88em, weight: 600, fill: accent)[#n.])
 
   // code, links
   show raw: set text(font: mono, size: 0.84em, fill: muted)
-  show link: set text(fill: accent)
+  show link: set text(fill: ink)
 
   // figures: float to page top or bottom, captions small, sans, left-aligned
   set figure(placement: auto, gap: 0.7em)
@@ -109,7 +110,7 @@
   show table.cell.where(y: 0): set text(weight: 600)
 
   // ---------- title block ----------
-  block(width: 100%, below: 1.4em, {
+  block(width: 100%, below: 1.4em, align(center, {
     set par(justify: false)
     text(font: sans, size: 7.5pt, weight: 600, fill: accent, tracking: 0.12em, upper(kicker))
     v(10pt)
@@ -125,7 +126,7 @@
     }
     v(12pt)
     line(length: 100%, stroke: 0.5pt + hair)
-  })
+  }))
 
   body
 }
@@ -141,16 +142,15 @@
   body
 })
 
-// The abstract's list of costs, as a 2 × 2 grid of cards. Cards in a row share a height.
+// The abstract's list of costs, as boxes stacked one below the other.
 // Each card: (label, body). The text is exactly the abstract's list item, so no number is duplicated.
-#let costs(..cards) = block(above: 1.1em, below: 1.1em, grid(
-  columns: (1fr, 1fr), column-gutter: 8pt, row-gutter: 8pt,
-  ..cards.pos().map(c => grid.cell(
-    fill: tint, inset: (x: 11pt, top: 10pt, bottom: 11pt), stroke: (left: 2.4pt + accent),
+#let costs(..cards) = block(above: 1.1em, below: 1.1em, stack(spacing: 6pt,
+  ..cards.pos().map(c => block(
+    width: 100%, fill: tint, inset: (x: 11pt, top: 8pt, bottom: 9pt), stroke: 0.6pt + rule-c, radius: 3pt,
     {
       set par(justify: false, leading: 0.55em)
       text(font: sans, size: 7pt, weight: 600, fill: accent, tracking: 0.1em, upper(c.at(0)))
-      v(5pt)
+      v(4pt)
       text(font: sans, size: 8.6pt, fill: ink, c.at(1))
     },
   )),

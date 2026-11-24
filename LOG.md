@@ -173,3 +173,7 @@
 - Two outright bugs fixed in paper/typst/style.typ: (1) `show emph: set text(style: "italic")` made every emphasis upright (emph toggles italic, so the rule cancelled it); removed. (2) the list bullet ● isn't in Source Serif 4 and was drawn from the system's Georgia; it is now set in Inter. preprint.lua unchanged.
 - Not fixed: code text (commit hashes, paths in section 7) uses the design's fallback "Cascadia Mono" from the system, since JetBrains Mono isn't fetched.
 - verify_numbers.py: 89 checks pass. Every page checked at 60 ppi: no overlaps, captions with their tables, no missing glyphs (no U+FFFD; only the fetched fonts plus Cascadia Mono embedded). No wording or number changed in preprint.md or summary.md.
+
+## 24 Nov: Typst style tweaks (author's request)
+
+- style.typ only: title block centred; the abstract's four costs are now boxes stacked one below the other (thin pale-grey border, rounded) instead of a 2 x 2 grid with a blue left bar; the blue accent is replaced by greys (dark slate #4b5160 for labels and list numbers, pale grey #c3c8d0 for heading rules and box borders, the muted grey for bullets; links in ink). Figures keep their data colours. preprint.pdf still 16 pages, summary.pdf 1 page.
