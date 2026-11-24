@@ -5,9 +5,13 @@
    raising, i.e. the zero-step point of the E9 snap-back measure; the 500-step E9 run exists only at eps_min 0.02.
 2. DEVIATIONS D5 (exploratory): outsider-body newcomers (body 4) against same-body newcomers (body 0) at the E10
    primary cell, from results/e10_outsider/raised.csv and results/e10/raised.csv.
+3. Absolute confident-error rates (final review, 24 Nov): built and wild rates for the L10-dose arms, and the share of
+   the skip-rule excess over wild (built rate - wild rate) that remains once refusals are restored (passive feedback;
+   eps_min 0.1 and 0.3), plus the same share for outsider-body newcomers (D5), who can't use the appearance shortcut.
 
     python analysis/e10_extra.py
-Writes results/e10/summary_L10m_extra.csv and results/e10_outsider/summary_D5.csv.
+Writes results/e10/summary_L10m_extra.csv, results/e10_outsider/summary_D5.csv,
+results/e10/summary_dose_rates.csv and results/e10/summary_excess_share.csv.
 """
 import os
 import sys
@@ -79,3 +83,37 @@ if os.path.exists(os.path.join(PO, "raised.csv")):
     D5 = pd.DataFrame(rows); save(D5, PO, "summary_D5.csv"); show(D5, "D5: same-body vs outsider-body newcomers")
 else:
     print("results/e10_outsider/raised.csv not found: run python runs/run.py e10_outsider 0-9")
+
+
+# ---------------- 3. Absolute rates: dose arms, and the share of the excess left once refusals are restored
+rows = []
+for lvl, arm in (("eye1_su003", "dose"), ("eye1_su01", "dose"), ("eye1", "grid")):
+    b, w = cell(WM, lvl, "skip", arm), cell(WM, "wild", "skip")
+    rows.append(dict(level=lvl, conf_built=b.conf_err.mean(), conf_wild=w.conf_err.mean(),
+                     conf_ratio=paired_ratio(b, w, "conf_err", CONF_ITEMS)[0], n_worlds=len(b)))
+DR = pd.DataFrame(rows)
+DO = pd.read_csv(os.path.join(P10, "summary_L10dose.csv")).set_index("level")
+assert np.allclose(DR.set_index("level").conf_ratio, DO.loc[DR.level, "conf_ratio"])   # same agents as L10-dose
+save(DR, P10, "summary_dose_rates.csv"); show(DR, "L10-dose: absolute confident-error rates (skip rule)")
+
+L10A = pd.read_csv(os.path.join(P10, "summary_L10a.csv"))
+rows = []
+for rule in ("wear", "eye1"):
+    sk = L10A[(L10A.cond == "skip") & (L10A.rule == rule)].iloc[0]
+    ex_skip = sk.conf_built - sk.conf_wild
+    pa = L10A[(L10A.cond == "passive") & (L10A.rule == rule)].iloc[0]
+    arms = [("passive", pa.conf_built, pa.conf_wild)]
+    for eps in (0.1, 0.3):
+        r = LX[(LX.rule == rule) & np.isclose(LX.eps_min, eps)].iloc[0]
+        arms.append((f"eps_min {eps}", r.conf_built, r.conf_wild))
+    for arm, b, w in arms:
+        rows.append(dict(body="same", rule=rule, arm=arm, conf_built=b, conf_wild=w, excess=b - w,
+                         skip_built=sk.conf_built, skip_wild=sk.conf_wild, skip_excess=ex_skip, share=(b - w) / ex_skip))
+if os.path.exists(os.path.join(PO, "raised.csv")):
+    for rule in ("wear", "eye1"):
+        so, po = (D5[(D5.cond == c) & (D5.rule == rule)].iloc[0] for c in ("skip", "passive"))
+        ex_skip = so.out_conf_built - so.out_conf_wild
+        rows.append(dict(body="outsider", rule=rule, arm="passive", conf_built=po.out_conf_built, conf_wild=po.out_conf_wild,
+                         excess=po.out_conf_built - po.out_conf_wild, skip_built=so.out_conf_built, skip_wild=so.out_conf_wild,
+                         skip_excess=ex_skip, share=(po.out_conf_built - po.out_conf_wild) / ex_skip))
+XS = pd.DataFrame(rows); save(XS, P10, "summary_excess_share.csv"); show(XS, "Excess over wild left once refusals are restored (absolute rates)")

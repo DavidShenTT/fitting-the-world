@@ -25,6 +25,6 @@
 - one planned test that matched home surprise directly couldn't be run;
 - the design can't say anything about arbitrary social conventions, because agents never choose between options.
 
-**Why it might matter.** Artifacts built for a different kind of reader can leave people as outsiders who can use them but not read them, and as newcomers who never learn what they hide. Machine-checked mathematics too long for anyone to read is a current case. This study didn't test capacity directly; we describe the experiment that would.
+**Why it might matter.** Artifacts built for a different kind of reader can leave people as outsiders who can use them but not read them, and as newcomers who never learn what they hide. This study didn't test capacity directly; we describe the experiment that would.
 
 **Open materials.** The predictions, code and every number are public: code under the MIT licence, text under CC BY 4.0.

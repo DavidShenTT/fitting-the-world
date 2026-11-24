@@ -24,6 +24,7 @@ FAIL, N = [], 0
 def f2(v): return f"{v:.2f}"
 def f3(v): return f"{v:.3f}"
 def pct(v): return f"{100 * v:.0f}%"
+def pc1(v): return f"{100 * v:.1f}%"
 def neg(s): return s.replace("-", "−")   # the text uses the Unicode minus sign
 
 
@@ -158,8 +159,8 @@ L = pd.read_csv(R("e10", "summary_L10a.csv"))
 for cond, rule, nm in (("skip", "wear", "wear"), ("skip", "eye1", "shaping by eye"), ("passive", "wear", "wear"), ("passive", "eye1", "shaping by eye")):
     r = row(L, cond=cond, rule=rule)
     lab = "Skip rule" if cond == "skip" else "Passive"
-    check(f"Table 2 {cond} {rule}", f"| {lab} | {nm} | {f2(r.conf_ratio)} [{f2(r.conf_lo)}, {f2(r.conf_hi)}] | {f2(r.edge_ll_ratio)} [{f2(r.ll_lo)}, {f2(r.ll_hi)}] |",
-          f"| {lab} | {nm} | {f2(r.conf_ratio)} [{f2(r.conf_lo)}, {f2(r.conf_hi)}] | {f2(r.edge_ll_ratio)} [{f2(r.ll_lo)}, {f2(r.ll_hi)}] |")
+    check(f"Table 2 {cond} {rule}", f"| {lab} | {nm} | {f2(r.conf_ratio)} [{f2(r.conf_lo)}, {f2(r.conf_hi)}] | {pc1(r.conf_built)} vs {pc1(r.conf_wild)} | {f2(r.edge_ll_ratio)} [{f2(r.ll_lo)}, {f2(r.ll_hi)}] |",
+          f"| {lab} | {nm} | {f2(r.conf_ratio)} [{f2(r.conf_lo)}, {f2(r.conf_hi)}] | {pc1(r.conf_built)} vs {pc1(r.conf_wild)} | {f2(r.edge_ll_ratio)} [{f2(r.ll_lo)}, {f2(r.ll_hi)}] |")
     assert r.verdict == "pass"
 rng1 = lambda c: f"{min(row(L, cond=c, rule=r).conf_ratio for r in ('wear', 'eye1')):.1f}–{max(row(L, cond=c, rule=r).conf_ratio for r in ('wear', 'eye1')):.1f}×"
 check("bridge: passive range", "removing the edge items (with, under shaping by eye, the appearance shortcut) gives 1.8–2.7× confident error", f"removing the edge items (with, under shaping by eye, the appearance shortcut) gives {rng1('passive')} confident error")
@@ -172,10 +173,10 @@ cells_ = pd.read_csv(R("e10", "summary_L10a_cells.csv"))
 check("L10a cells", "holds in 34 of 40 width × budget cells", f"holds in {(cells_.verdict == 'pass').sum()} of {len(cells_)} width × budget cells")
 assert set(cells_[cells_.verdict != "pass"].budget) == {30000}
 U = pd.read_csv(R("e10", "summary_update_control.csv")).set_index("rule")
-check("update control", "(ratios 2.53 and 1.89 for wear, 3.88 and 2.52 for shaping by eye)",
-      f"(ratios {f2(U.loc['wear', 'conf_ratio'])} and {f2(U.loc['wear', 'edge_ll_ratio'])} for wear, {f2(U.loc['eye1', 'conf_ratio'])} and {f2(U.loc['eye1', 'edge_ll_ratio'])} for shaping by eye)")
+check("update control", "(ratios 2.53 and 1.89 for wear, 3.88 and 2.52 for shaping by eye;",
+      f"(ratios {f2(U.loc['wear', 'conf_ratio'])} and {f2(U.loc['wear', 'edge_ll_ratio'])} for wear, {f2(U.loc['eye1', 'conf_ratio'])} and {f2(U.loc['eye1', 'edge_ll_ratio'])} for shaping by eye;")
 EN = pd.read_csv(R("e10", "summary_L10a_ens.csv"))
-check("ensembles conf range", "(confident-error ratios 2.26–4.18)", f"(confident-error ratios {f2(EN.conf_ratio.min())}–{f2(EN.conf_ratio.max())})")
+check("ensembles conf range", "(confident-error ratios 2.26–4.18;", f"(confident-error ratios {f2(EN.conf_ratio.min())}–{f2(EN.conf_ratio.max())};")
 assert (EN.verdict == "pass").all()
 E = pd.read_csv(R("e10", "ens.csv")); p = E[(E.variant == "prior") & (E.kind != "wild")]   # newcomers in built worlds
 rm = p.groupby("kind").spread_edges.mean() / p.groupby("kind").spread_centres.mean()
@@ -231,13 +232,50 @@ e9s = pd.read_csv(R("e10", "summary_E9.csv"))
 check("L10m extra E9 ref", "which gives 42% and 73%", f"which gives {pct(row(e9s, cond='skip', rule='wear').rel_gap)} and {pct(row(e9s, cond='skip', rule='eye1').rel_gap)}")
 D5 = pd.read_csv(R("e10_outsider", "summary_D5.csv"))
 se_, pe5, sw_, pw5 = (row(D5, cond=c, rule=r) for c, r in (("skip", "eye1"), ("passive", "eye1"), ("skip", "wear"), ("passive", "wear")))
-check("D5 outsider skip", "their confident error is 3.22× [2.88, 3.57] that of their wild counterparts, against 4.02×",
-      f"their confident error is {f2(se_.out_conf_ratio)}× [{f2(se_.out_lo)}, {f2(se_.out_hi)}] that of their wild counterparts, against {f2(se_.same_conf_ratio)}×")
-check("D5 ratio of ratios", "the same-body ratio is 1.25× [1.09, 1.44] the outsider ratio (passive feedback: 2.11× against 2.65×; 1.26× [1.05, 1.51])",
-      f"the same-body ratio is {f2(se_.ratio_of_ratios)}× [{f2(se_.ror_lo)}, {f2(se_.ror_hi)}] the outsider ratio (passive feedback: {f2(pe5.out_conf_ratio)}× against {f2(pe5.same_conf_ratio)}×; {f2(pe5.ratio_of_ratios)}× [{f2(pe5.ror_lo)}, {f2(pe5.ror_hi)}])")
+LS, LP = row(L, cond="skip", rule="eye1"), row(L, cond="passive", rule="eye1")
+check("D5 outsider skip", "their confident error is 3.22× [2.88, 3.57] that of their wild counterparts (19.2% against 6.0%), against 4.02× for same-body newcomers (21.3% against 5.4%)",
+      f"their confident error is {f2(se_.out_conf_ratio)}× [{f2(se_.out_lo)}, {f2(se_.out_hi)}] that of their wild counterparts ({pc1(se_.out_conf_built)} against {pc1(se_.out_conf_wild)}), "
+      f"against {f2(se_.same_conf_ratio)}× for same-body newcomers ({pc1(LS.conf_built)} against {pc1(LS.conf_wild)})")
+check("D5 ratio of ratios", "the same-body ratio is 1.25× [1.09, 1.44] the outsider ratio (passive feedback: 2.11× against 2.65×, from rates of 12.7% against 6.1% and 14.9% against 5.6%; 1.26× [1.05, 1.51])",
+      f"the same-body ratio is {f2(se_.ratio_of_ratios)}× [{f2(se_.ror_lo)}, {f2(se_.ror_hi)}] the outsider ratio (passive feedback: {f2(pe5.out_conf_ratio)}× against {f2(pe5.same_conf_ratio)}×, "
+      f"from rates of {pc1(pe5.out_conf_built)} against {pc1(pe5.out_conf_wild)} and {pc1(LP.conf_built)} against {pc1(LP.conf_wild)}; {f2(pe5.ratio_of_ratios)}× [{f2(pe5.ror_lo)}, {f2(pe5.ror_hi)}])")
 check("D5 wear control", "(0.99× [0.84, 1.16]; passive 0.86× [0.64, 1.14])",
       f"({f2(sw_.ratio_of_ratios)}× [{f2(sw_.ror_lo)}, {f2(sw_.ror_hi)}]; passive {f2(pw5.ratio_of_ratios)}× [{f2(pw5.ror_lo)}, {f2(pw5.ror_hi)}])")
 assert se_.ror_lo > 1 and pe5.ror_lo > 1 and sw_.ror_lo < 1 < sw_.ror_hi and pw5.ror_lo < 1 < pw5.ror_hi   # "shortcut reading" as stated in D5
+
+# ---------------- final pass (24 Nov): absolute confident-error rates, L3/L3b intervals, wear vs shaping by eye
+assert a.ratio_same_over_out >= 1.5 > a.ci_lo and b.ratio_same_over_out >= 1.5 > b.ci_lo   # pass on point estimates, intervals include 1.5
+check("L3/L3b intervals", "Both pass on point estimates, as preregistered, but both intervals include the 1.5 bar.",
+      "Both pass on point estimates, as preregistered, but both intervals include the 1.5 bar.")
+check("wear beats eye for builders' body", "That includes the builders' own body (565 against 531 bits).",
+      f"That includes the builders' own body ({wc.same_body:.0f} against {cd_.same_body:.0f} bits).")
+uw = {pc1(U.loc[r, "conf_wild"]) for r in ("wear", "eye1")}; assert len(uw) == 1
+check("update control rates", "confident-error rates 14.5% and 21.3% against 5.8%)",
+      f"confident-error rates {pc1(U.loc['wear', 'conf_built'])} and {pc1(U.loc['eye1', 'conf_built'])} against {uw.pop()})")
+check("ensemble rates", "rates 9.7–27.3% against 3.6–6.7% for wild ensembles",
+      f"rates {pc1(EN.conf_built.min())[:-1]}–{pc1(EN.conf_built.max())} against {pc1(EN.conf_wild.min())[:-1]}–{pc1(EN.conf_wild.max())} for wild ensembles")
+DR = pd.read_csv(R("e10", "summary_dose_rates.csv"))
+assert list(DR.level) == list(DO.level) and DR.conf_wild.nunique() == 1
+check("dose rates", "(rates 5.7%, 8.9% and 21.3% against 5.4%; L10-dose, pass)",
+      f"(rates {pc1(DR.conf_built.iloc[0])}, {pc1(DR.conf_built.iloc[1])} and {pc1(DR.conf_built.iloc[2])} against {pc1(DR.conf_wild.iloc[0])}; L10-dose, pass)")
+for cond, txt in (("passive", "gives 1.8–2.7× confident error (10.4–14.9% against 5.6%)"), ("skip", "raise it to 2.7–4.0× (14.5–21.3% against 5.4%)")):
+    rr = [row(L, cond=cond, rule=r_) for r_ in ("wear", "eye1")]
+    assert len({pc1(x.conf_wild) for x in rr}) == 1
+    lead = f"gives {rng1('passive')} confident error" if cond == "passive" else f"raise it to {rng1('skip')}"
+    check(f"bridge rates {cond}", txt, f"{lead} ({pc1(min(x.conf_built for x in rr))[:-1]}–{pc1(max(x.conf_built for x in rr))} against {pc1(rr[0].conf_wild)})")
+gw, ge = LX[LX.rule == "wear"].sort_values("eps_min"), LX[LX.rule == "eye1"].sort_values("eps_min")
+assert list(gw.conf_wild) == list(ge.conf_wild)
+check("L10m extra rates", "(newcomers' rates 14.5%, 10.6% and 9.4%, and 21.3%, 17.5% and 15.1%, against 5.4%, 6.2% and 6.0% for wild agents)",
+      "(newcomers' rates " + ", ".join(pc1(v) for v in gw.conf_built[:2]) + f" and {pc1(gw.conf_built.iloc[2])}, and "
+      + ", ".join(pc1(v) for v in ge.conf_built[:2]) + f" and {pc1(ge.conf_built.iloc[2])}, against "
+      + ", ".join(pc1(v) for v in gw.conf_wild[:2]) + f" and {pc1(gw.conf_wild.iloc[2])} for wild agents)")
+XS = pd.read_csv(R("e10", "summary_excess_share.csv"))
+xs = lambda body, rule, arm: pct(row(XS, body=body, rule=rule, arm=arm).share)
+check("excess share", "remains under passive feedback is 53% (wear) and 58% (shaping by eye) of the skip-rule excess, and 37% and 57% at ε~min~ = 0.3. "
+      "For outsider-body newcomers (D5, below), who can't use the appearance shortcut, it is 66% and 50% of their own skip-rule excess.",
+      f"remains under passive feedback is {xs('same', 'wear', 'passive')} (wear) and {xs('same', 'eye1', 'passive')} (shaping by eye) of the skip-rule excess, "
+      f"and {xs('same', 'wear', 'eps_min 0.3')} and {xs('same', 'eye1', 'eps_min 0.3')} at ε~min~ = 0.3. "
+      f"For outsider-body newcomers (D5, below), who can't use the appearance shortcut, it is {xs('outsider', 'wear', 'passive')} and {xs('outsider', 'eye1', 'passive')} of their own skip-rule excess.")
 
 print(f"{N} checks; {len(FAIL)} failed")
 for f in FAIL:

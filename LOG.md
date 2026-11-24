@@ -153,3 +153,13 @@
 - Table captions (Tables 1, 2, B1) moved above their tables; style.css keeps a caption paragraph on the same page as the table that follows it.
 - Checked at 200 dpi: page 1's two "shaping by eye" quotes have curly opening and closing marks; the bracketed payoff note opens at the foot of page 9 and closes "= 0.02.)" on page 10.
 - verify_numbers.py: 80 checks pass. PDF 17 pages; main text pages 1-13.
+
+## 24 Nov: final pass (5 points)
+
+- Absolute confident-error rates (share of edge test items answered with confident error, newcomers vs wild) added next to every confident-error ratio in Table 2 and section 4.4: L10a cells, equal-update control, ensembles, L10-dose, the passive/skip bridge, the eps_min sweep and D5. Dose rates and excess shares are new outputs of analysis/e10_extra.py (results/e10/summary_dose_rates.csv, summary_excess_share.csv; the dose ratios match summary_L10dose.csv by assertion; existing outputs regenerate unchanged).
+- Claim check on absolute rates: the skip-rule excess over wild is 9.1 points (wear) and 15.9 (shaping by eye). The share left once refusals are restored is 53% / 58% (passive), 47% / 71% (eps_min 0.1), 37% / 57% (eps_min 0.3); for outsider-body newcomers (no shortcut) 66% / 50% under passive feedback. "Much of this error comes from the removed edge items" holds; "most" would not in every arm. Stated in section 4.4 with the numbers.
+- Section 4.2: L3 and L3b pass on point estimates, but both intervals include 1.5 (asserted in verify_numbers.py); wear beats shaping by eye in code length even for the builders' own body (565 vs 531 bits).
+- Abstract and section 4.3: "snaps back instantly", with gradual decay as future work. Abstract trimmed back to 210 words.
+- Section 6 cut to four sentences on artifacts built for a different kind of reader, without the Riemann Hypothesis example (my choice, offered by the author); the Alpöge and Lean-community references and summary.md's machine-checked-mathematics sentence went with it.
+- Layout: Table 2 caption and new column header shortened, and a CSS rule keeps tables of four rows or fewer whole, so Table 2 no longer splits across pages 8-9.
+- verify_numbers.py: 89 checks pass. PDF 17 pages; main text pages 1-13.

@@ -29,5 +29,7 @@ p:has(+ ul), p:has(+ ol) { break-after: avoid; page-break-after: avoid; }
 /* table captions sit above their tables and stay with them */
 p:has(+ table) { break-after: avoid; page-break-after: avoid; margin-bottom: 0.2em; }
 p:has(+ table) + table { margin-top: 0.2em; }
+/* short tables (four body rows or fewer) never split across pages */
+table:not(:has(tbody tr:nth-child(5))) { break-inside: avoid; page-break-inside: avoid; }
 li > ul, li > ol { break-before: avoid; page-break-before: avoid; }
 header#title-block-header p.author, header#title-block-header p.date { text-align: center; }

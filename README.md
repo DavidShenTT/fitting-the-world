@@ -44,7 +44,7 @@ bash runs/stage4.sh                 # E2-E6, E8 fixed-pretraining arm, matched r
 python runs/run.py e10_outsider 0-9 # D5 (exploratory); task added after the frozen code, commit 146977c
 python analysis/e10.py; python analysis/e8.py; python analysis/e8.py e8_fixed
 python analysis/e2.py; python analysis/e3.py; python analysis/e4.py; python analysis/e10_matched_v2.py
-python analysis/e10_extra.py        # D5 and the eps_min extras (post hoc)
+python analysis/e10_extra.py        # D5, eps_min extras, absolute confident-error rates (post hoc)
 python analysis/figures/make_figures.py
 python paper/verify_numbers.py
 python -m pytest tests/test_world.py

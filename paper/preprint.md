@@ -7,16 +7,16 @@ date: "Preprint, November 2026"
 
 ## Abstract
 
-Agents don't only adapt to their world; they also reshape it to suit what they already do. Persistent changes leave the world fitted to its users. Active-inference work on niche construction shows that this happens. We ask what it costs, and who pays.
+Agents don't only adapt to their world; they also reshape it to suit what they already do. Active-inference work on niche construction shows that persistent changes leave the world fitted to its users. We ask what it costs, and who pays.
 
-In a small preregistered simulation, learning agents act on items on a ring, learning only whether each act was refused. Acting reshapes items, by wear or by "shaping by eye" (nudging each item toward what its user predicts).
+In a small preregistered simulation, agents act on items on a ring, learning only whether each act was refused. Acting reshapes items, by wear or by "shaping by eye" (nudging each item toward what its user predicts).
 
 Four costs appear:
 
 - **Upkeep:** the amount built follows builders × shaping strength ÷ decay, and fades without upkeep.
 - **The builders' key:** a built world is 0.63 bits simpler for the builders' body, 0.52 for its type and 0.045 for outsiders; code-length savings are mostly shared.
 - **Newcomers:** a built world doesn't erase prior knowledge, but nobody learning there acquires what it no longer shows.
-- **A trap:** newcomers are less surprised at home, yet confidently wrong beyond the built region, and earn 42–73% less when the world snaps back. Much of this error comes from the edge cases building removes; missing refusals beyond the edge stretch learned boundaries on top, and under shaping by eye newcomers also learn the builders' marks as a shortcut.
+- **A trap:** newcomers are less surprised at home, yet confidently wrong beyond the built region, and earn 42–73% less when the world snaps back instantly (gradual decay: future work). Much of this error comes from the edge cases building removes; missing refusals beyond the edge stretch learned boundaries on top, and under shaping by eye newcomers also learn the builders' marks as a shortcut.
 
 Several predictions failed; we report them plainly.
 
@@ -127,7 +127,7 @@ Builders on one body built a world under shaping by eye at κ = 0.25, so most of
 
 **Code length is mostly shared.** The prequential code length of the frozen world is how many bits a newcomer needs to encode the verdicts on 8,000 item–action offers while learning. It falls by 531 bits for the builders' body, 497 for the same type and 416 for outsiders. Only 22% of the builders' saving is key-specific, so the 1.5 × criterion fails (1.27 [1.20, 1.34]; L3d).
 
-**Learning measures fall in between.** Same-body newcomers' early learning gain is 1.56 [1.39, 1.73] times outsiders' (L3, pass, narrowly), and their home log loss after 2,000 steps drops 1.73 [1.31, 2.25] times as much (L3b, pass). Under wear, which every body sees alike, all readers gain alike (entropy drops 0.27, 0.25 and 0.24 bits). Wear also saves more code length than shaping by eye, for every reader (565, 580 and 574 bits; dashed marks in Fig. 3B). Wear pulls angles straight to arc centres, which helps every reader, whereas at κ = 0.25 shaping by eye moves mostly appearance.
+**Learning measures fall in between.** Same-body newcomers' early learning gain is 1.56 [1.39, 1.73] times outsiders' (L3, pass, narrowly), and their home log loss after 2,000 steps drops 1.73 [1.31, 2.25] times as much (L3b, pass). Both pass on point estimates, as preregistered, but both intervals include the 1.5 bar. Under wear, which every body sees alike, all readers gain alike (entropy drops 0.27, 0.25 and 0.24 bits). Wear also saves more code length than shaping by eye, for every reader (565, 580 and 574 bits; dashed marks in Fig. 3B). That includes the builders' own body (565 against 531 bits). Wear pulls angles straight to arc centres, which helps every reader, whereas at κ = 0.25 shaping by eye moves mostly appearance.
 
 **Useful but illegible to outsiders.** The perceptual and the functional gains split. Outsiders see almost none of the builders' compression (93% of it is key-specific), yet they keep most of the code-length saving (78% of it is shared). The built world is useful to outsiders but illegible to them. The split has a simple source. At κ = 0.25 the angle still moves a little (the built share is 0.60), and every reader can use that; the appearance changes compress the world only for readers of that axis. For the illegibility only, an everyday analogy (not a result): a language or a musical notation is effortless for those raised in it and near-noise to outsiders.
 
@@ -145,7 +145,7 @@ We place agents into a built world at three levels of prior knowledge and measur
 
 **Untrained newcomers never learn the edges.** Agents raised from scratch for 60,000 steps inside the built world reach edge accuracy 0.761 (wear) and 0.699 (shaping by eye), against 0.887 for agents raised wild (width 4).
 
-**Fragility.** When upkeep stops at once and every item snaps back home, newcomers raised in the built world earn 42% (wear) and 73% (shaping by eye) less per decisive edge turn than wild agents over the first 500 steps (0.204 and 0.097 against 0.353; L9, pass). Under passive feedback the gap is 31% and 53%. The jump in surprise at the snap is smaller than predicted, 0.056 and 0.095 nats against a 0.1 bar (L9b, fail). Whether that jump is concentrated on edge items is untested, because only whole-world surprise was recorded.
+**Fragility.** When upkeep stops and every item snaps back home instantly, newcomers raised in the built world earn 42% (wear) and 73% (shaping by eye) less per decisive edge turn than wild agents over the first 500 steps (0.204 and 0.097 against 0.353; L9, pass). Under passive feedback the gap is 31% and 53%. The jump in surprise at the snap is smaller than predicted, 0.056 and 0.095 nats against a 0.1 bar (L9b, fail). Whether that jump is concentrated on edge items is untested, because only whole-world surprise was recorded. Only an instant snap-back was tested; a world that decays gradually is future work (section 5).
 
 ### 4.4 Silent home, confident error (E10)
 
@@ -153,20 +153,20 @@ We place agents into a built world at three levels of prior knowledge and measur
 
 ![Figure 5. **Less surprise at home, more confident error away from it (E10).** Home log loss (log scale) against confident error on unbuilt edge items, one point per world, for agents raised wild (blue) and newcomers raised in the built world (orange: wear; green: shaping by eye), under the skip rule (filled circles) and passive feedback (open triangles). Width 32, 60,000 steps.](figures/fig5_silent_home.png)
 
-*Table 2. The primary test (L10a) passes in all four cells: both ratios ≥ 1.5, home log loss no higher.*
+*Table 2. The primary test (L10a) passes in all four cells: both ratios ≥ 1.5, home log loss no higher. Rates: share of edge test items answered with confident error.*
 
-| Feedback | Building rule | Confident error, ratio to wild | Edge log loss, ratio to wild |
-| --- | --- | --- | --- |
-| Skip rule | wear | 2.70 [2.46, 2.93] | 1.95 [1.89, 2.02] |
-| Skip rule | shaping by eye | 4.02 [3.58, 4.50] | 2.58 [2.42, 2.76] |
-| Passive | wear | 1.83 [1.59, 2.11] | 1.78 [1.68, 1.90] |
-| Passive | shaping by eye | 2.65 [2.33, 3.04] | 2.52 [2.28, 2.77] |
+| Feedback | Building rule | Confident error, ratio to wild | Rate, newcomers vs wild | Edge log loss, ratio to wild |
+| --- | --- | --- | --- | --- |
+| Skip rule | wear | 2.70 [2.46, 2.93] | 14.5% vs 5.4% | 1.95 [1.89, 2.02] |
+| Skip rule | shaping by eye | 4.02 [3.58, 4.50] | 21.3% vs 5.4% | 2.58 [2.42, 2.76] |
+| Passive | wear | 1.83 [1.59, 2.11] | 10.4% vs 5.6% | 1.78 [1.68, 1.90] |
+| Passive | shaping by eye | 2.65 [2.33, 3.04] | 14.9% vs 5.6% | 2.52 [2.28, 2.77] |
 
 How robust this is:
 
 - **Other cells:** the pattern holds in 34 of 40 width × budget cells; the six misses are all at the shorter budget.
-- **Equal updates:** it also holds against wild agents given as many learning updates as the newcomers (ratios 2.53 and 1.89 for wear, 3.88 and 2.52 for shaping by eye).
-- **Ensembles:** five-network ensembles of three kinds show it too (confident-error ratios 2.26–4.18). That includes ensembles with randomized prior functions (Osband et al., 2018), whose members disagree about inputs they have no data for (their spread is 3.7–6.2× larger at edges than at arc centres).
+- **Equal updates:** it also holds against wild agents given as many learning updates as the newcomers (ratios 2.53 and 1.89 for wear, 3.88 and 2.52 for shaping by eye; confident-error rates 14.5% and 21.3% against 5.8%).
+- **Ensembles:** five-network ensembles of three kinds show it too (confident-error ratios 2.26–4.18; rates 9.7–27.3% against 3.6–6.7% for wild ensembles). That includes ensembles with randomized prior functions (Osband et al., 2018), whose members disagree about inputs they have no data for (their spread is 3.7–6.2× larger at edges than at arc centres).
 
 So it isn't specific to single networks. Hein et al. (2019) showed that ReLU networks are confident far from their training data. Their argument is about ReLU networks and these agents use tanh, but the behaviour is alike: the agents are confident where their data have no support. What is new here is that their own world, built by their predecessors, removed that support, and that low surprise at home gives no warning.
 
@@ -174,15 +174,15 @@ So it isn't specific to single networks. Hein et al. (2019) showed that ReLU net
 ![Figure 6. **More random acts undo the stretch (L10m).** Extra arc stretch of newcomers over wild agents (degrees) against the learner's floor of random acts ε~min~, under the skip rule, with 95% bands over 10 worlds. The builders' policy is the same in every arm.](figures/fig6_mechanism.png)
 :::
 
-**Boundaries move.** Under the skip rule, newcomers' learned arc edges sit 3.69° [3.26, 4.14] (wear) and 5.17° [4.59, 5.72] (shaping by eye) further from the truth than wild agents' (L10-shift, pass). This is the **unsigned shift**: how far each learned edge lies from the true one, in either direction. The displacement grows with how much building erased. For shaping strengths removing 7%, 22% and 28% of edge items, the extra shift is 0.18°, 1.53° and 5.17°, and the confident-error ratio 1.03, 1.63 and 4.02 (L10-dose, pass). Under passive feedback the extra shift is small (1.41° and 0.88°), while the confident error remains. So under passive feedback, removing the edge items (with, under shaping by eye, the appearance shortcut) gives 1.8–2.7× confident error; under the skip rule, the missing refusals add the stretch and raise it to 2.7–4.0×.
+**Boundaries move.** Under the skip rule, newcomers' learned arc edges sit 3.69° [3.26, 4.14] (wear) and 5.17° [4.59, 5.72] (shaping by eye) further from the truth than wild agents' (L10-shift, pass). This is the **unsigned shift**: how far each learned edge lies from the true one, in either direction. The displacement grows with how much building erased. For shaping strengths removing 7%, 22% and 28% of edge items, the extra shift is 0.18°, 1.53° and 5.17°, and the confident-error ratio 1.03, 1.63 and 4.02 (rates 5.7%, 8.9% and 21.3% against 5.4%; L10-dose, pass). Under passive feedback the extra shift is small (1.41° and 0.88°), while the confident error remains. So under passive feedback, removing the edge items (with, under shaping by eye, the appearance shortcut) gives 1.8–2.7× confident error (10.4–14.9% against 5.6%); under the skip rule, the missing refusals add the stretch and raise it to 2.7–4.0× (14.5–21.3% against 5.4%).
 
 **One mechanism: building empties the margin where agents test themselves (Fig. 6).** Under the skip rule an agent collects verdicts only where it acts. Wild agents keep testing just beyond their own edge: 55% of their refusals on wide actions come from within 20° beyond the edge. In a built world those items are gone, and so are those refusals: 24% (wear) and 11% (shaping by eye) of newcomers' refusals come from that margin. Without refusals from beyond the edge, newcomers' arcs stretch.
 
 We raised the learner's floor of random acts (ε~min~) from 0.02 to 0.1 to 0.3, which brings back refusals from beyond the edge. This test uses a different measure, the **signed outward stretch**: how far learned edges extend outward past the true ones, averaged over the wide and narrow arcs, and negative if the arcs shrink. It is not the unsigned shift above, so 3.98° here and 3.69° there are different quantities. The extra stretch then falls from 3.98° to 1.83° to 0.16° under wear, and from 5.44° to 2.89° to 0.93° under shaping by eye (L10m, pass). Only the learner's ε~min~ changes: the builders keep the same fixed policy in every arm, so the built world doesn't change with the condition. (In a pilot, the builders had inherited the learner's setting, which confounded this test.)
 
-**The stretch is not the whole effect.** Raising ε~min~ removes most of the stretch but not the confident error. The confident-error ratio falls from 2.70 to 1.65 to 1.49 under wear and from 4.02 to 2.83 to 2.52 under shaping by eye. Payoff per decisive edge turn at the moment of snap-back stays below wild agents': 51%, 32% and 26% less under wear, and 90%, 66% and 53% less under shaping by eye. (These payoffs are the first point of the E9 measure, scored before any learning after the snap; the 500-step E9 run, which gives 42% and 73%, was made only at ε~min~ = 0.02.) So the missing refusals account for the stretch and part of the error. The rest comes from the missing edge items themselves, as under passive feedback, and under shaping by eye partly from a second mechanism.
+**The stretch is not the whole effect.** Raising ε~min~ removes most of the stretch but not the confident error. The confident-error ratio falls from 2.70 to 1.65 to 1.49 under wear and from 4.02 to 2.83 to 2.52 under shaping by eye (newcomers' rates 14.5%, 10.6% and 9.4%, and 21.3%, 17.5% and 15.1%, against 5.4%, 6.2% and 6.0% for wild agents). Payoff per decisive edge turn at the moment of snap-back stays below wild agents': 51%, 32% and 26% less under wear, and 90%, 66% and 53% less under shaping by eye. (These payoffs are the first point of the E9 measure, scored before any learning after the snap; the 500-step E9 run, which gives 42% and 73%, was made only at ε~min~ = 0.02.) On absolute rates, the newcomers' excess over wild agents that remains under passive feedback is 53% (wear) and 58% (shaping by eye) of the skip-rule excess, and 37% and 57% at ε~min~ = 0.3. For outsider-body newcomers (D5, below), who can't use the appearance shortcut, it is 66% and 50% of their own skip-rule excess. So the missing refusals account for the stretch and part of the error. The rest comes from the missing edge items themselves, as under passive feedback, and under shaping by eye partly from a second mechanism.
 
-**A second mechanism: an appearance shortcut (exploratory, post hoc; D5).** Under shaping by eye the builders move the appearance coordinate their body reads, so in the built world appearance comes to predict acceptance. Same-body newcomers read that coordinate and can learn it as a shortcut: a rule that works in the built world and fails when the world changes (Geirhos et al., 2020). Newcomers with an outsider body can't read it. We raised outsider-body newcomers in the same shaping-by-eye worlds (seeds 0–9, E10 primary cell, unchanged code apart from the body), and wild agents with the same body for comparison. Under the skip rule their confident error is 3.22× [2.88, 3.57] that of their wild counterparts, against 4.02× for same-body newcomers. Per world, the same-body ratio is 1.25× [1.09, 1.44] the outsider ratio (passive feedback: 2.11× against 2.65×; 1.26× [1.05, 1.51]). Under wear, which moves only angle, the body makes no difference (0.99× [0.84, 1.16]; passive 0.86× [0.64, 1.14]). So under shaping by eye an appearance shortcut adds about a quarter to same-body newcomers' confident-error ratio, and most of the effect remains without it.
+**A second mechanism: an appearance shortcut (exploratory, post hoc; D5).** Under shaping by eye the builders move the appearance coordinate their body reads, so in the built world appearance comes to predict acceptance. Same-body newcomers read that coordinate and can learn it as a shortcut: a rule that works in the built world and fails when the world changes (Geirhos et al., 2020). Newcomers with an outsider body can't read it. We raised outsider-body newcomers in the same shaping-by-eye worlds (seeds 0–9, E10 primary cell, unchanged code apart from the body), and wild agents with the same body for comparison. Under the skip rule their confident error is 3.22× [2.88, 3.57] that of their wild counterparts (19.2% against 6.0%), against 4.02× for same-body newcomers (21.3% against 5.4%). Per world, the same-body ratio is 1.25× [1.09, 1.44] the outsider ratio (passive feedback: 2.11× against 2.65×, from rates of 12.7% against 6.1% and 14.9% against 5.6%; 1.26× [1.05, 1.51]). Under wear, which moves only angle, the body makes no difference (0.99× [0.84, 1.16]; passive 0.86× [0.64, 1.14]). So under shaping by eye an appearance shortcut adds about a quarter to same-body newcomers' confident-error ratio, and most of the effect remains without it.
 
 ### 4.5 What failed or couldn't be tested
 
@@ -242,7 +242,7 @@ One reading of Constant et al. is that the niche comes to model its constructors
 
 ## 6. Where this points (speculation)
 
-Nothing here tests capacity; this motivates the next experiment. The ledger has an uncomfortable reading for representations that people can't read. E3's outsiders were outsiders because their bodies didn't match the builders', not because they had less capacity, and the built world stayed useful to them although they couldn't read it. Systems that build artifacts for their own kind of reader could leave people in that position, and as newcomers inside a world they didn't build. By analogy, on 21 November 2026 the Lean and Mathlib communities certified that a 17-million-line Lean library compiles and proves Mathlib's statement of the Riemann Hypothesis (Lean and Mathlib communities, 2026). Its author, who found the proof working with Claude, writes that the formalization is finished and that it is routine to produce "a huge, unreadable document containing sufficient detail", while he intends to understand the argument and explain it properly (Alpöge, 2026). Like E3's built world for outsiders, such a result is useful but, for now, illegible to its human readers. Whether a gap in capacity, rather than a mismatch of bodies, produces the same costs is the untested next question. In our simulation network width barely mattered; the experiment that would test capacity asks when agents build instead of keeping a regularity internal, with builders and readers of different capacity (E7 plus a capacity sweep).
+Nothing here tests capacity. E3's outsiders were outsiders because their bodies didn't match the builders', and the built world stayed useful to them although they couldn't read it. Artifacts built for a different kind of reader, such as machine-made representations that people can't read, could leave people in the same two positions: as outsiders who can use them but not read them, and as newcomers who never learn what they no longer show. Whether a gap in capacity, rather than a mismatch of bodies, carries the same costs is the next question; the experiment that would test it asks when agents build instead of keeping a regularity internal, with builders and readers of different capacity (E7 plus a capacity sweep).
 
 ## 7. Reproducibility
 
@@ -265,7 +265,7 @@ All code, preregistration documents, results tables and figures are in the accom
   - `bash runs/stage3.sh`
   - `bash runs/stage4.sh`
   - `python runs/run.py e10_outsider 0-9` (D5; this task was added to `src/exps.py` after the frozen code, in commit `146977c`)
-  - then the analysis scripts, including `analysis/e10_extra.py` for D5 and the ε~min~ extras (section 4.4).
+  - then the analysis scripts, including `analysis/e10_extra.py` for D5, the ε~min~ extras and the absolute confident-error rates (section 4.4).
 - **Cost:** the whole study runs in a few hours on a 16-core desktop CPU, with no GPU.
 
 ## Acknowledgments
@@ -274,7 +274,6 @@ This study was designed in discussion with AI assistants. Claude Code (Anthropic
 
 ## References
 
-- Alpöge, L. (2026). Announcement note on the Riemann Hypothesis. https://alpo.ge/remark.pdf
 - Bruineberg, J., Rietveld, E., Parr, T., van Maanen, L. & Friston, K. J. (2018). Free-energy minimization in joint agent-environment systems: A niche construction perspective. *Journal of Theoretical Biology* 455, 161–178.
 - Constant, A., Ramstead, M. J. D., Veissière, S. P. L., Campbell, J. O. & Friston, K. J. (2018). A variational approach to niche construction. *Journal of the Royal Society Interface* 15, 20170685.
 - Cook, J., Lu, C., Hughes, E., Leibo, J. Z. & Foerster, J. (2024). Artificial generational intelligence: cultural accumulation in reinforcement learning. arXiv:2406.00392.
@@ -283,7 +282,6 @@ This study was designed in discussion with AI assistants. Claude Code (Anthropic
 - Hein, M., Andriushchenko, M. & Bitterwolf, J. (2019). Why ReLU networks yield high-confidence predictions far away from the training data and how to mitigate the problem. CVPR 2019; arXiv:1812.05720.
 - Hu, H., Lerer, A., Peysakhovich, A. & Foerster, J. (2020). "Other-play" for zero-shot coordination. arXiv:2003.02979.
 - Lakkaraju, H., Kleinberg, J., Leskovec, J., Ludwig, J. & Mullainathan, S. (2017). The selective labels problem: Evaluating algorithmic predictions in the presence of unobservables. *Proceedings of KDD 2017*.
-- Lean and Mathlib communities (2026). Lean verification of the Riemann Hypothesis. Lean community blog, 21 November 2026. https://leanprover-community.github.io/blog/posts/riemann-hypothesis/
 - Osband, I., Aslanides, J. & Cassirer, A. (2018). Randomized prior functions for deep reinforcement learning. arXiv:1806.03335.
 - Parisi, G. I., Kemker, R., Part, J. L., Kanan, C. & Wermter, S. (2019). Continual lifelong learning with neural networks: a review. *Neural Networks* 113, 54–71; arXiv:1802.07569.
 - Perdomo, J. C., Zrnic, T., Mendler-Dünner, C. & Hardt, M. (2020). Performative prediction. ICML 2020; arXiv:2002.06673.
