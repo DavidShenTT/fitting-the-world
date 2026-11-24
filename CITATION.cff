@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite the preprint as below."
+title: "Fitting the World to the Model: What It Costs, and Who It Serves"
+authors:
+  - family-names: Shen
+    given-names: David
+version: "1.0"
+date-released: "2026-11-24"
+license:
+  - MIT
+  - CC-BY-4.0
+repository-code: "https://github.com/DavidShenTT/fitting-the-world"
+type: software
+preferred-citation:
+  type: report
+  title: "Fitting the World to the Model: What It Costs, and Who It Serves"
+  authors:
+    - family-names: Shen
+      given-names: David
+  year: 2026
+  notes: "Preprint"

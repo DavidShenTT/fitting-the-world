@@ -23,6 +23,9 @@ PAPER_BRIEF.md
 paper/OUTLINE.md
 paper/reading_notes.md
 paper/TYPST_BRIEF.md
+PUBLISH_BRIEF.md
+# pre-rewrite backup bundle and copies of local files (24 Nov)
+_backup/
 logs/
 # Typst build (24 Nov): fonts are fetched by tools/get_fonts.py, .typ files are intermediate,
 # page previews are local

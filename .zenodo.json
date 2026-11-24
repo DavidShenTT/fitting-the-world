@@ -1,0 +1,19 @@
+{
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "title": "Fitting the World to the Model: What It Costs, and Who It Serves",
+  "creators": [
+    {
+      "name": "Shen, David"
+    }
+  ],
+  "description": "Agents don't only adapt to their world; they also reshape it to suit what they already do. Active-inference work on niche construction shows that persistent changes leave the world fitted to its users. We ask what it costs, and who pays.",
+  "license": "cc-by-4.0",
+  "keywords": [
+    "niche construction",
+    "active inference",
+    "performative prediction",
+    "selective labels",
+    "preregistered simulation"
+  ]
+}

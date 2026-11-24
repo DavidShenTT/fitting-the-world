@@ -81,7 +81,7 @@ Figure 1 shows the set-up; Appendix B lists every parameter.
 
 ## 3. Preregistration and analysis
 
-**Preregistration.** The predictions, thresholds and analysis were committed before any real run, at commit `063329b` (PREREGISTRATION.md). Tuned settings and the frozen code followed at `032ba80` (its section 11) and `de619a5` (code).
+**Preregistration.** The predictions, thresholds and analysis were committed before any real run, at commit `47da90e` (PREREGISTRATION.md). Tuned settings and the frozen code followed at `1433ed6` (its section 11) and `404476d` (code). The repository was private until this preprint was released, so these commit times rest on the author's local record; before release the history was rewritten only to change the author name and remove local working files (HISTORY.md).
 
 **Statistics.**
 
@@ -249,7 +249,7 @@ Nothing here tests capacity. E3's outsiders were outsiders because their bodies 
 All code, preregistration documents, results tables and figures are in the accompanying repository.
 
 - **Licences:** code MIT; text CC BY 4.0.
-- **Commits:** preregistration `063329b`; frozen settings `032ba80`; frozen code `de619a5`.
+- **Commits:** preregistration `47da90e`; frozen settings `1433ed6`; frozen code `404476d`.
 - **Layout:**
   - `src/world.py`: the world, agents and measures (numba);
   - `src/exps.py`: experiment tasks;
@@ -264,7 +264,7 @@ All code, preregistration documents, results tables and figures are in the accom
   - `python runs/run.py e1 0-9`
   - `bash runs/stage3.sh`
   - `bash runs/stage4.sh`
-  - `python runs/run.py e10_outsider 0-9` (D5; this task was added to `src/exps.py` after the frozen code, in commit `146977c`)
+  - `python runs/run.py e10_outsider 0-9` (D5; this task was added to `src/exps.py` after the frozen code, in commit `62af047`)
   - then the analysis scripts, including `analysis/e10_extra.py` for D5, the ε~min~ extras and the absolute confident-error rates (section 4.4).
 - **Cost:** the whole study runs in a few hours on a 16-core desktop CPU, with no GPU.
 

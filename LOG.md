@@ -182,3 +182,13 @@
 
 - The author ran `python tools/set_author.py "David Shen"` (pen name). The replacements worked (LICENSE, LICENSE-text.md, README.md, preprint.md x3, summary.md); the rebuild step failed because the script ran under the system Python, which lacks pypandoc. Rebuilt with .venv: preprint.pdf 16 pages, summary.pdf 1 page, preprint.html; 89 checks pass.
 - Reference entry formatted like the others and sorted ("Shen, D. (in preparation). *Shannon's Zero*.", before Shumailov); the section 4.2 pointer reads "in preparation: Shen, *Shannon's Zero*".
+
+## 24 Nov: publish prep (PUBLISH_BRIEF.md)
+
+- Backup: `_backup/pre-rewrite.bundle` (verified) plus copies of the local working files; `_backup/` and PUBLISH_BRIEF.md gitignored.
+- History rewritten once with git-filter-repo (installed into .venv): author and committer identity -> David Shen <davidshen.tt@proton.me>; removed CLAUDE.md, STATUS.md, PAPER_BRIEF.md, paper/OUTLINE.md, paper/reading_notes.md, logs/ and results/**/parts/*.pkl from every commit; the literal old handle in four early versions of tools/make_export.py replaced by REDACTED-HANDLE. 35 commits before and after (none emptied). Local working files and the 1,716 pickles stayed on disk.
+- Repository-only identity set (git config user.name/user.email, no --global).
+- New hashes: preregistration 063329b -> 47da90e; frozen settings 032ba80 -> 1433ed6; frozen code de619a5 -> 404476d; D5 task 146977c -> 62af047. Updated in README.md, REPORT.md and paper/preprint.md; the historical records keep the old hashes, translated by the new HISTORY.md.
+- Section 3 of the preprint and the README preregistration line now note that the repository was private until release and that the history was rewritten only for the author name and local working files.
+- README opens with links, Figure 1, the summary's four findings and the section 7 commands; adds a guide to the notes (with the Neon sentence) and "How to cite". CITATION.cff (validated with cffconvert) and .zenodo.json (json.load) added; export manifest updated.
+- Rebuilt: preprint.pdf 16 pages, summary.pdf 1 page; 89 checks pass.

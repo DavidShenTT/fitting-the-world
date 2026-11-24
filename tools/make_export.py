@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "export")
 
 INCLUDE = [
-    "README.md", "LICENSE", "LICENSE-text.md", "requirements.txt", "env.sh",
+    "README.md", "LICENSE", "LICENSE-text.md", "requirements.txt", "env.sh", "HISTORY.md", "CITATION.cff", ".zenodo.json",
     "BRIEF.md", "BRIEF_v2_OLD.md", "PLAN.md", "PREREGISTRATION.md", "DEVIATIONS.md", "REPORT.md", "REVIEW_1.md",
     "CHECKIN_3.md", "LOG.md", "PILOT*.md", "PILOT_GIT_LOG.txt",
     "src/*.py", "runs/*.py", "runs/*.sh", "analysis/*.py", "analysis/figures/*.py", "tests/*.py", "tools/*.py",
@@ -27,7 +27,7 @@ EXCLUDE = [  # never exported, even if a pattern above matches
     ".venv/*", ".cache/*", "export/*", "logs/*", "results/**/parts/*", "**/__pycache__/*",
     "CLAUDE.md",          # instructions for the coding agent; machine-specific
     "STATUS.md", "PAPER_BRIEF.md", "paper/OUTLINE.md", "paper/reading_notes.md",   # internal working notes
-    "paper/TYPST_BRIEF.md", "paper/typst/fonts/*", "paper/preview/*",   # build brief; fetched fonts; local previews
+    "paper/TYPST_BRIEF.md", "paper/typst/fonts/*", "paper/preview/*", "PUBLISH_BRIEF.md", "_backup/*",   # build brief; fetched fonts; local previews
 ]
 # First names in the decision records are kept by the author's decision (23 Nov); local paths and emails are scanned.
 SCAN = [r"C:\\Users\\", r"/c/Users/", r"[A-Za-z]:\\ML\\", r"/[a-z]/ML/", r"AppData", r"[\w.+-]+@[\w-]+\.[\w.]+"]
@@ -43,7 +43,7 @@ def main():
         shutil.rmtree(OUT)
     files = []
     for dp, dn, fn in os.walk(ROOT):
-        dn[:] = [d for d in dn if d not in (".git", ".venv", ".cache", "export", "__pycache__")]
+        dn[:] = [d for d in dn if d not in (".git", ".venv", ".cache", "export", "__pycache__", "_backup")]
         for f in fn:
             rel = os.path.relpath(os.path.join(dp, f), ROOT).replace("\\", "/")
             if match(rel, INCLUDE) and not match(rel, EXCLUDE):
