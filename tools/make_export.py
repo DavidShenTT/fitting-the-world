@@ -14,8 +14,8 @@ OUT = os.path.join(ROOT, "export")
 
 INCLUDE = [
     "README.md", "LICENSE", "LICENSE-text.md", "requirements.txt", "env.sh", "HISTORY.md", "CITATION.cff", ".zenodo.json",
-    "BRIEF.md", "BRIEF_v2_OLD.md", "PLAN.md", "PREREGISTRATION.md", "DEVIATIONS.md", "REPORT.md", "REVIEW_1.md",
-    "CHECKIN_3.md", "LOG.md", "PILOT*.md", "PILOT_GIT_LOG.txt",
+    "PREREGISTRATION.md", "DEVIATIONS.md", "REPORT.md",
+    "notes/*.md", "notes/PILOT_GIT_LOG.txt",   # process notes, moved here on 24 Nov
     "src/*.py", "runs/*.py", "runs/*.sh", "analysis/*.py", "analysis/figures/*.py", "tests/*.py", "tools/*.py",
     "results/**/*.csv", "results/**/*.txt", "results/**/*.json",
     "pilot*/*.py", "pilot*/results/*",

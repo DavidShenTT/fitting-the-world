@@ -192,3 +192,8 @@
 - Section 3 of the preprint and the README preregistration line now note that the repository was private until release and that the history was rewritten only for the author name and local working files.
 - README opens with links, Figure 1, the summary's four findings and the section 7 commands; adds a guide to the notes (with the Neon sentence) and "How to cite". CITATION.cff (validated with cffconvert) and .zenodo.json (json.load) added; export manifest updated.
 - Rebuilt: preprint.pdf 16 pages, summary.pdf 1 page; 89 checks pass.
+
+## 24 Nov: notes moved to notes/
+
+- `git mv` of BRIEF.md, BRIEF_v2_OLD.md, PLAN.md, REVIEW_1.md, CHECKIN_3.md, LOG.md, every PILOT*.md and PILOT_GIT_LOG.txt into notes/ (pilot code folders stay at the root; their scripts use relative paths). Paths updated in README.md, REPORT.md, DEVIATIONS.md, HISTORY.md (its paragraph; commit subjects left as written), paper/preprint.md (Appendix D) and the export list in tools/make_export.py; the README's guide to the notes says bare names in PREREGISTRATION.md and older notes refer to notes/. Code docstrings (pilot*/, src/, tests/, requirements.txt) and PREREGISTRATION.md keep bare names. Local CLAUDE.md points at notes/.
+- Rebuilt: preprint.pdf 16 pages, summary.pdf 1 page; 89 checks pass.

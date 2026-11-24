@@ -356,4 +356,4 @@ This study was designed in discussion with AI assistants. Claude Code (Anthropic
 
 ## Appendix D. Pilots
 
-Six small pilots (seeds 1000–6005, never reused) shaped the design: legible structured bodies, unequal arcs, the skip rule, passive feedback, the refusal-starvation mechanism and the preregistered thresholds. They are design checks, not evidence, and are documented in PILOT.md to PILOT6.md in the repository.
+Six small pilots (seeds 1000–6005, never reused) shaped the design: legible structured bodies, unequal arcs, the skip rule, passive feedback, the refusal-starvation mechanism and the preregistered thresholds. They are design checks, not evidence, and are documented in notes/PILOT.md to notes/PILOT6.md in the repository.

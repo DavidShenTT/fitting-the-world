@@ -63,8 +63,8 @@ pip install -r requirements.txt
   - `render.py` builds the HTML fallback;
   - `verify_numbers.py` checks every reported number against `results/`.
 - **`tests/`:** unit tests for the world (`test_world.py`) and an end-to-end smoke check of every task (`test_exps_quick.py`).
-- **`pilot*/`, `PILOT*.md`:** the six design pilots (design checks, not evidence).
-- **Design history:** `BRIEF.md`, `PLAN.md`, `REVIEW_1.md`, `CHECKIN_3.md`, `LOG.md`.
+- **`pilot*/`, `notes/PILOT*.md`:** the six design pilots (design checks, not evidence).
+- **Design history:** `notes/BRIEF.md`, `notes/PLAN.md`, `notes/REVIEW_1.md`, `notes/CHECKIN_3.md`, `notes/LOG.md`.
 
 ## Reproducing
 
@@ -95,16 +95,18 @@ The whole study takes a few hours on a 16-core desktop CPU. `env.sh` sets cache 
 
 ## Guide to the notes
 
-- **`BRIEF.md`:** the frozen experiment brief (version 7.2).
-- **`BRIEF_v2_OLD.md`:** version 2 of the brief, kept for reference because version 7.2 cites parts of it.
-- **`PLAN.md`:** the implementation plan, as amended by REVIEW_1.md.
-- **`PILOT*.md`:** the six design pilots: each pilot's spec (written before its code), log and report. Design checks, not evidence.
-- **`REVIEW_1.md`:** the author's decisions on PLAN.md before the preregistration.
-- **`CHECKIN_3.md`:** the stage-3 check-in on E8, E9 and E10.
-- **`LOG.md`:** a running log of what was run, why, and what happened.
+- **`notes/BRIEF.md`:** the frozen experiment brief (version 7.2).
+- **`notes/BRIEF_v2_OLD.md`:** version 2 of the brief, kept for reference because version 7.2 cites parts of it.
+- **`notes/PLAN.md`:** the implementation plan, as amended by notes/REVIEW_1.md.
+- **`notes/PILOT*.md`:** the six design pilots: each pilot's spec (written before its code), log and report. Design checks, not evidence.
+- **`notes/REVIEW_1.md`:** the author's decisions on notes/PLAN.md before the preregistration.
+- **`notes/CHECKIN_3.md`:** the stage-3 check-in on E8, E9 and E10.
+- **`notes/LOG.md`:** a running log of what was run, why, and what happened.
 - **`DEVIATIONS.md`:** every deviation from the preregistration, logged before the runs it affects (D1–D5).
 - **`REPORT.md`:** the full results, one row per preregistered prediction, with the command that regenerates each number.
 - **`HISTORY.md`:** how the git history was prepared for publication, with a table from old to new commit hashes.
+
+On 24 Nov 2026 the process notes moved into `notes/`, so bare file names in PREREGISTRATION.md and in the older notes (BRIEF.md, LOG.md, PILOT*.md and so on) refer to the files there.
 
 *Neon*, in the briefs and pilot notes, is the name used for an AI model that reviewed the briefs and drafts; the experiments were run by Claude Code (Anthropic) under the author's direction.
 

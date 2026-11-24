@@ -34,7 +34,7 @@ Each entry is logged before the runs it affects.
 
 ## D3 (21 Nov 2026): E8 confirmatory arm with fixed 60k-step pretraining (David's decision; logged before it runs)
 
-**Why.** In the preregistered E8, the plateau rule (edge-accuracy change < 0.01 between successive 2,000-step checks) ended pretraining at a median of 11k–16k steps, at edge accuracy 0.70–0.80. Every arm then kept improving during T2, so the preregistered result shows **stopped edge learning, not forgetting** (CHECKIN_3.md). The preregistered E8 stays the primary result and is described that way.
+**Why.** In the preregistered E8, the plateau rule (edge-accuracy change < 0.01 between successive 2,000-step checks) ended pretraining at a median of 11k–16k steps, at edge accuracy 0.70–0.80. Every arm then kept improving during T2, so the preregistered result shows **stopped edge learning, not forgetting** (notes/CHECKIN_3.md). The preregistered E8 stays the primary result and is described that way.
 
 **The arm.** It is identical to E8 (same seeds 0–9, same 3 agents per width with the same initial weights, widths 4–64, both rules, the same five T2 arms of 30,000 steps, the same built worlds and the same scoring), except that pretraining is a fixed 60,000 steps in the natural world. Wild agents reach edge accuracy 0.88–0.89 there (E10).
 
