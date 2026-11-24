@@ -63,4 +63,4 @@ The whole study takes a few hours on a 16-core desktop CPU. `env.sh` sets cache 
 
 ## Citation
 
-[Author] (2026). *Fitting the World to the Model: What It Costs, and Who It Serves.* Preprint. [DOI to be added at the Zenodo release.]
+David Shen (2026). *Fitting the World to the Model: What It Costs, and Who It Serves.* Preprint. [DOI to be added at the Zenodo release.]

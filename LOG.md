@@ -177,3 +177,8 @@
 ## 24 Nov: Typst style tweaks (author's request)
 
 - style.typ only: title block centred; the abstract's four costs are now boxes stacked one below the other (thin pale-grey border, rounded) instead of a 2 x 2 grid with a blue left bar; the blue accent is replaced by greys (dark slate #4b5160 for labels and list numbers, pale grey #c3c8d0 for heading rules and box borders, the muted grey for bullets; links in ink). Figures keep their data colours. preprint.pdf still 16 pages, summary.pdf 1 page.
+
+## 24 Nov: author name
+
+- The author ran `python tools/set_author.py "David Shen"` (pen name). The replacements worked (LICENSE, LICENSE-text.md, README.md, preprint.md x3, summary.md); the rebuild step failed because the script ran under the system Python, which lacks pypandoc. Rebuilt with .venv: preprint.pdf 16 pages, summary.pdf 1 page, preprint.html; 89 checks pass.
+- Reference entry formatted like the others and sorted ("Shen, D. (in preparation). *Shannon's Zero*.", before Shumailov); the section 4.2 pointer reads "in preparation: Shen, *Shannon's Zero*".

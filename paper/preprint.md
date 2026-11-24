@@ -1,7 +1,7 @@
 ---
 title: "Fitting the World to the Model:<br>What It Costs, and Who It Serves"
 pagetitle: "Fitting the World to the Model: What It Costs, and Who It Serves"
-author: "[Author]"
+author: "David Shen"
 date: "Preprint, November 2026"
 ---
 
@@ -121,7 +121,7 @@ Four deviations were logged before the runs they affect, and one exploratory arm
 
 ### 4.2 The builders' key (E3)
 
-Builders on one body built a world under shaping by eye at κ = 0.25, so most of the change is in appearance, along the builders' read axis. We then measured how much simpler the built world is for different readers (Fig. 3). By **reader-relative information** we mean how much structure a particular reader can find in a world, given the fixed map through which it sees the world: the same world state can be highly compressible for one reader and close to random for another. We measure it in two ways below: compression at the gate, from each reader's own view of the items, and the code length a learner with that body needs. (A fuller treatment is in preparation: [Author], *Shannon's Zero*.)
+Builders on one body built a world under shaping by eye at κ = 0.25, so most of the change is in appearance, along the builders' read axis. We then measured how much simpler the built world is for different readers (Fig. 3). By **reader-relative information** we mean how much structure a particular reader can find in a world, given the fixed map through which it sees the world: the same world state can be highly compressible for one reader and close to random for another. We measure it in two ways below: compression at the gate, from each reader's own view of the items, and the code length a learner with that body needs. (A fuller treatment is in preparation: Shen, *Shannon's Zero*.)
 
 **Compression at the gate is almost all key-specific.** We fit 32 clusters to each body's view of the natural world, then measure the entropy of a world state's items over those clusters. The built state's entropy drops by 0.63 bits for the builders' own body, 0.52 for other bodies of the same type, and 0.045 for outsiders (L3c, pass). So 93% of the builders' drop, and 91% of the same type's, disappears for outsiders.
 
@@ -286,8 +286,8 @@ This study was designed in discussion with AI assistants. Claude Code (Anthropic
 - Parisi, G. I., Kemker, R., Part, J. L., Kanan, C. & Wermter, S. (2019). Continual lifelong learning with neural networks: a review. *Neural Networks* 113, 54–71; arXiv:1802.07569.
 - Perdomo, J. C., Zrnic, T., Mendler-Dünner, C. & Hardt, M. (2020). Performative prediction. ICML 2020; arXiv:2002.06673.
 - Risko, E. F. & Gilbert, S. J. (2016). Cognitive offloading. *Trends in Cognitive Sciences* 20, 676–688.
+- Shen, D. (in preparation). *Shannon's Zero*.
 - Shumailov, I., Shumaylov, Z., Zhao, Y., Papernot, N., Anderson, R. & Gal, Y. (2024). AI models collapse when trained on recursively generated data. *Nature* 631, 755–759. Earlier version: arXiv:2305.17493.
-- [Author] (in preparation). *Shannon's Zero*.
 
 ## Appendix A. Every preregistered prediction
 

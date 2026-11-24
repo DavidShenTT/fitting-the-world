@@ -1,6 +1,6 @@
 # Fitting the world to the model: what it costs, and who it serves
 
-*A one-page summary of the preprint by [Author].*
+*A one-page summary of the preprint by David Shen.*
 
 **The idea.** People and animals don't only adapt to their world. They also change it to suit their habits: paths worn into grass, tools left where they are used, forms that only make sense to the office that designed them. The changes last only as long as someone keeps them up. Earlier work showed that this kind of world-fitting happens. This study asks what it costs, and who pays.
 
