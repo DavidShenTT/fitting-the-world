@@ -16,7 +16,7 @@ Four costs appear:
 - **Upkeep:** the amount built follows builders × shaping strength ÷ decay, and fades without upkeep.
 - **The builders' key:** a built world is 0.63 bits simpler for the builders' body, 0.52 for its type and 0.045 for outsiders; code-length savings are mostly shared.
 - **Newcomers:** a built world doesn't erase prior knowledge, but nobody learning there acquires what it no longer shows.
-- **A trap:** newcomers are less surprised at home, yet confidently wrong beyond the built region, and earn 42–73% less when the world snaps back. Most of this error comes from the edge cases building removes; missing refusals beyond the edge stretch learned boundaries on top, and under shaping by eye newcomers also learn the builders' marks as a shortcut.
+- **A trap:** newcomers are less surprised at home, yet confidently wrong beyond the built region, and earn 42–73% less when the world snaps back. Much of this error comes from the edge cases building removes; missing refusals beyond the edge stretch learned boundaries on top, and under shaping by eye newcomers also learn the builders' marks as a shortcut.
 
 Several predictions failed; we report them plainly.
 
@@ -46,7 +46,7 @@ A nearby idea is **cognitive offloading**: using the world to hold or process in
 - Building emerges and follows a simple upkeep law: the amount built scales with builders × shaping strength ÷ decay, and it fades when upkeep stops.
 - What is built is much simpler for readers built like the builders than for outsiders, though part of its value is shared.
 - A built world doesn't erase what was learned before entering it; it stops anyone learning there from acquiring what it no longer shows.
-- Agents raised in it are less surprised at home yet confidently wrong beyond the built region, and they fare much worse when the world snaps back. Most of this error comes from the edge cases building removes; missing refusals stretch learned boundaries on top, and under shaping by eye an appearance shortcut adds a smaller part.
+- Agents raised in it are less surprised at home yet confidently wrong beyond the built region, and they fare much worse when the world snaps back. Much of this error comes from the edge cases building removes; missing refusals stretch learned boundaries on top, and under shaping by eye an appearance shortcut adds a smaller part.
 - Several predictions failed (section 4.5), and one design limit rules out any claim about arbitrary conventions.
 
 ## 2. World and agents
@@ -93,6 +93,8 @@ Figure 1 shows the set-up; Appendix B lists every parameter.
 
 Four deviations were logged before the runs they affect, and one exploratory arm was added after review (Table 1).
 
+*Table 1. Deviations from the preregistration (full text in DEVIATIONS.md).*
+
 | | Deviation | Effect on this paper |
 | --- | --- | --- |
 | D1 | The legibility check (wild agents read arc edges well) wasn't met on every tuning seed. Lowering the appearance scale λ didn't help, so λ = 0.4 and 60k steps were kept. | Borderline edge legibility: mean edge accuracy 0.84–0.90 against a 0.85 target. Read E8–E10 with this in mind. Width ladder 4–64. |
@@ -100,8 +102,6 @@ Four deviations were logged before the runs they affect, and one exploratory arm
 | D3 | An added confirmatory arm: E8 with fixed 60k-step pretraining, run because the preregistered pretraining stopped early. | Gives the "fully trained" newcomer case. |
 | D4 | The passive-feedback noise level for the matched-surprise test was retuned on 20 more tuning seeds. | The test still couldn't be run (section 4.5). |
 | D5 | Exploratory and post hoc, after review: newcomers with an outsider body in the E10 worlds. Logged in DEVIATIONS.md before running, but committed together with its results, so git doesn't timestamp the order. | Tests an appearance shortcut (section 4.4); changes no preregistered result. |
-
-*Table 1. Deviations from the preregistration (full text in DEVIATIONS.md).*
 
 ## 4. Results
 
@@ -153,14 +153,14 @@ We place agents into a built world at three levels of prior knowledge and measur
 
 ![Figure 5. **Less surprise at home, more confident error away from it (E10).** Home log loss (log scale) against confident error on unbuilt edge items, one point per world, for agents raised wild (blue) and newcomers raised in the built world (orange: wear; green: shaping by eye), under the skip rule (filled circles) and passive feedback (open triangles). Width 32, 60,000 steps.](figures/fig5_silent_home.png)
 
+*Table 2. The primary test (L10a) passes in all four cells: both ratios ≥ 1.5, home log loss no higher.*
+
 | Feedback | Building rule | Confident error, ratio to wild | Edge log loss, ratio to wild |
 | --- | --- | --- | --- |
 | Skip rule | wear | 2.70 [2.46, 2.93] | 1.95 [1.89, 2.02] |
 | Skip rule | shaping by eye | 4.02 [3.58, 4.50] | 2.58 [2.42, 2.76] |
 | Passive | wear | 1.83 [1.59, 2.11] | 1.78 [1.68, 1.90] |
 | Passive | shaping by eye | 2.65 [2.33, 3.04] | 2.52 [2.28, 2.77] |
-
-*Table 2. The primary test (L10a) passes in all four cells: both ratios ≥ 1.5, home log loss no higher.*
 
 How robust this is:
 
@@ -205,7 +205,7 @@ We raised the learner's floor of random acts (ε~min~) from 0.02 to 0.1 to 0.3, 
 - **Upkeep:** a built world is held in place by labour, in proportion to builders × strength ÷ decay, and it decays at the drift rate when the labour stops.
 - **The builders' key:** most of what building does to a world's structure is readable only by readers built like the builders; outsiders get the shared part.
 - **Newcomers:** a built world stops anyone learning there from acquiring what it no longer shows. Those who learned elsewhere keep their knowledge.
-- **The trap:** newcomers are less surprised at home and more confidently wrong away from it, mostly because the edge cases are gone, and they pay when the world snaps back.
+- **The trap:** newcomers are less surprised at home and more confidently wrong away from it, much of it because the edge cases are gone, and they pay when the world snaps back.
 
 **Relation to active inference and niche construction.** Because our agents are simple learners, these are parallels to active-inference work, not tests of it. With that caveat, the results extend the agent–niche picture in three directions.
 
@@ -320,6 +320,8 @@ This study was designed in discussion with AI assistants. Claude Code (Anthropic
 
 ## Appendix B. World and agent parameters
 
+*Table B1. Settings by experiment. Unless varied by the experiment (E1, E2: number of builders) or absent (E6: natural world), six builders on one body warm up for 30,000 steps and frozen copies keep the world built.*
+
 | Experiment | Geometry | Building rule (κ) | Network width | Training steps, unless marked | Feedback |
 | --- | --- | --- | --- | --- | --- |
 | E1: building emerges | symmetric | shaping by eye (κ = 1 and 0.25); no-building control | builders 32 | 60,000 building steps; no newcomers | skip rule |
@@ -329,8 +331,6 @@ This study was designed in discussion with AI assistants. Claude Code (Anthropic
 | E6: agreement across bodies | symmetric | none (natural world) | 32 | 60,000 | skip rule |
 | E8: newcomers with prior training | unequal | wear; shaping by eye (κ = 1) | 4–64 (judged at 4) | pretraining, then 30,000 | skip rule |
 | E9, E10: snap-back, confident error | unequal | wear; shaping by eye (κ = 1) | 32 (grid 4–64) | 60,000 (grid also 30,000) | skip rule; passive |
-
-*Table B1. Settings by experiment. Unless varied by the experiment (E1, E2: number of builders) or absent (E6: natural world), six builders on one body warm up for 30,000 steps and frozen copies keep the world built.*
 
 - **Items:** 600 per world. Home angle uniform; home appearance standard normal.
 - **Drift:** δ = 0.0005 per step in every coordinate; angle noise 0.05° and appearance noise 0.002 per step.

@@ -146,3 +146,10 @@
 - References: arXiv pages give only DOIs for Geirhos and Parisi, and nothing about the Nature version for arXiv:2305.17493. With the author's one-time permission, read publisher metadata via the DOIs: nature.com for Geirhos (Nat. Mach. Intell. 2, 665-673) and Shumailov et al. (Nature 631, 755-759, "AI models collapse when trained on recursively generated data"; author order Shumailov, Shumaylov, Zhao, Papernot, Anderson, Gal); ScienceDirect returned a bot challenge, so Parisi's volume and pages (Neural Networks 113, 54-71) come from the DOI's registered metadata (doi.org redirected to api.crossref.org). The Nature abstract supports the sentence citing it.
 - Fig 6: x-axis extended to 1.3 so the "shaping by eye" label sits inside the axes.
 - Layout: Figure 4 moved after section 4.3's first paragraph and Fig 6's float before "Boundaries move", to close two page gaps. PDF 17 pages; main text pages 1-13 (Acknowledgments on 13); the appendix grew by a page.
+
+## 24 Nov: micro-pass (3 points)
+
+- "Most of this error" -> "Much of this error" (abstract, section 1 results in brief); section 5 ledger "much of it because the edge cases are gone"; summary.md "Much of this is because ...". Author's reason: measured as excess over wild, removing the edge cases accounts for 37-49% of it. Other uses of "most" (most of the stretch; most of the effect remains without the shortcut) make different claims and were left.
+- Table captions (Tables 1, 2, B1) moved above their tables; style.css keeps a caption paragraph on the same page as the table that follows it.
+- Checked at 200 dpi: page 1's two "shaping by eye" quotes have curly opening and closing marks; the bracketed payoff note opens at the foot of page 9 and closes "= 0.02.)" on page 10.
+- verify_numbers.py: 80 checks pass. PDF 17 pages; main text pages 1-13.

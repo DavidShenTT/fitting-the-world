@@ -52,6 +52,9 @@ a { color: #1c5cab; text-decoration: none; word-break: break-all; }
 h3 { clear: both; }
 h2, h3 { break-after: avoid; page-break-after: avoid; }
 p:has(+ ul), p:has(+ ol) { break-after: avoid; page-break-after: avoid; }
+
+p:has(+ table) { break-after: avoid; page-break-after: avoid; margin-bottom: 0.2em; }
+p:has(+ table) + table { margin-top: 0.2em; }
 li > ul, li > ol { break-before: avoid; page-break-before: avoid; }
 header#title-block-header p.author, header#title-block-header p.date { text-align: center; }
 </style>
@@ -84,7 +87,7 @@ knowledge, but nobody learning there acquires what it no longer
 shows.</li>
 <li><strong>A trap:</strong> newcomers are less surprised at home, yet
 confidently wrong beyond the built region, and earn 42–73% less when the
-world snaps back. Most of this error comes from the edge cases building
+world snaps back. Much of this error comes from the edge cases building
 removes; missing refusals beyond the edge stretch learned boundaries on
 top, and under shaping by eye newcomers also learn the builders’ marks
 as a shortcut.</li>
@@ -161,7 +164,7 @@ than for outsiders, though part of its value is shared.</li>
 stops anyone learning there from acquiring what it no longer shows.</li>
 <li>Agents raised in it are less surprised at home yet confidently wrong
 beyond the built region, and they fare much worse when the world snaps
-back. Most of this error comes from the edge cases building removes;
+back. Much of this error comes from the edge cases building removes;
 missing refusals stretch learned boundaries on top, and under shaping by
 eye an appearance shortcut adds a smaller part.</li>
 <li>Several predictions failed (section 4.5), and one design limit rules
@@ -265,6 +268,8 @@ width 32 and 60,000 training steps. Other widths (4–64) and a
 </ul>
 <p>Four deviations were logged before the runs they affect, and one
 exploratory arm was added after review (Table 1).</p>
+<p><em>Table 1. Deviations from the preregistration (full text in
+DEVIATIONS.md).</em></p>
 <table>
 <colgroup>
 <col style="width: 33%" />
@@ -317,8 +322,6 @@ result.</td>
 </tr>
 </tbody>
 </table>
-<p><em>Table 1. Deviations from the preregistration (full text in
-DEVIATIONS.md).</em></p>
 <h2 id="results">4. Results</h2>
 <h3 id="building-and-its-upkeep-e1-e2-e5">4.1 Building and its upkeep
 (E1, E2, E5)</h3>
@@ -496,6 +499,8 @@ world (orange: wear; green: shaping by eye), under the skip rule (filled
 circles) and passive feedback (open triangles). Width 32, 60,000
 steps.</figcaption>
 </figure>
+<p><em>Table 2. The primary test (L10a) passes in all four cells: both
+ratios ≥ 1.5, home log loss no higher.</em></p>
 <table>
 <colgroup>
 <col style="width: 25%" />
@@ -538,8 +543,6 @@ steps.</figcaption>
 </tr>
 </tbody>
 </table>
-<p><em>Table 2. The primary test (L10a) passes in all four cells: both
-ratios ≥ 1.5, home log loss no higher.</em></p>
 <p>How robust this is:</p>
 <ul>
 <li><strong>Other cells:</strong> the pattern holds in 34 of 40 width ×
@@ -689,8 +692,8 @@ outsiders get the shared part.</li>
 there from acquiring what it no longer shows. Those who learned
 elsewhere keep their knowledge.</li>
 <li><strong>The trap:</strong> newcomers are less surprised at home and
-more confidently wrong away from it, mostly because the edge cases are
-gone, and they pay when the world snaps back.</li>
+more confidently wrong away from it, much of it because the edge cases
+are gone, and they pay when the world snaps back.</li>
 </ul>
 <p><strong>Relation to active inference and niche construction.</strong>
 Because our agents are simple learners, these are parallels to
@@ -1055,6 +1058,10 @@ withheld learning, not forgetting</td>
 </table>
 <h2 id="appendix-b.-world-and-agent-parameters">Appendix B. World and
 agent parameters</h2>
+<p><em>Table B1. Settings by experiment. Unless varied by the experiment
+(E1, E2: number of builders) or absent (E6: natural world), six builders
+on one body warm up for 30,000 steps and frozen copies keep the world
+built.</em></p>
 <table style="width:100%;">
 <colgroup>
 <col style="width: 16%" />
@@ -1133,10 +1140,6 @@ agent parameters</h2>
 </tr>
 </tbody>
 </table>
-<p><em>Table B1. Settings by experiment. Unless varied by the experiment
-(E1, E2: number of builders) or absent (E6: natural world), six builders
-on one body warm up for 30,000 steps and frozen copies keep the world
-built.</em></p>
 <ul>
 <li><strong>Items:</strong> 600 per world. Home angle uniform; home
 appearance standard normal.</li>
