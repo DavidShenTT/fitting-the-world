@@ -197,3 +197,8 @@
 
 - `git mv` of BRIEF.md, BRIEF_v2_OLD.md, PLAN.md, REVIEW_1.md, CHECKIN_3.md, LOG.md, every PILOT*.md and PILOT_GIT_LOG.txt into notes/ (pilot code folders stay at the root; their scripts use relative paths). Paths updated in README.md, REPORT.md, DEVIATIONS.md, HISTORY.md (its paragraph; commit subjects left as written), paper/preprint.md (Appendix D) and the export list in tools/make_export.py; the README's guide to the notes says bare names in PREREGISTRATION.md and older notes refer to notes/. Code docstrings (pilot*/, src/, tests/, requirements.txt) and PREREGISTRATION.md keep bare names. Local CLAUDE.md points at notes/.
 - Rebuilt: preprint.pdf 16 pages, summary.pdf 1 page; 89 checks pass.
+
+## 24 Nov: DOI
+
+- DOI 10.5281/zenodo.24499347 added: README badge (in the commented spot), "How to cite" sentence and citation line; CITATION.cff (`doi:` at top level and in preferred-citation; cffconvert validates); a `doi` metadata field in preprint.md and summary.md, shown by the Typst title block as one line under the author (the summary has no author line in its title block, so it sits under the title). template.typ and style.typ pass and print the field.
+- Rebuilt: preprint.pdf 16 pages, summary.pdf 1 page; 89 checks pass.

@@ -3,6 +3,7 @@ title: "Fitting the World to the Model:<br>What It Costs, and Who It Serves"
 pagetitle: "Fitting the World to the Model: What It Costs, and Who It Serves"
 author: "David Shen"
 date: "Preprint, November 2026"
+doi: "10.5281/zenodo.24499347"
 ---
 
 ## Abstract

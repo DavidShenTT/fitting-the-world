@@ -1,3 +1,7 @@
+---
+doi: "10.5281/zenodo.24499347"
+---
+
 # Fitting the world to the model: what it costs, and who it serves
 
 *A one-page summary of the preprint by David Shen.*

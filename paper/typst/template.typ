@@ -12,6 +12,9 @@ $if(date)$
   kicker: [$date$],
 $endif$
   short-title: [$short-title$],
+$if(doi)$
+  doi: "$doi$",
+$endif$
 $if(compact)$
   compact: true,
 $endif$

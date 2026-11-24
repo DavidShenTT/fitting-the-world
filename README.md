@@ -2,7 +2,7 @@
 
 **[Read the paper (PDF)](paper/preprint.pdf)** · [One-page summary (PDF)](paper/summary.pdf) · [Preregistration](PREREGISTRATION.md) · [Report](REPORT.md)
 
-<!-- DOI badge: add after the Zenodo release, e.g. [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX) -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24499347.svg)](https://doi.org/10.5281/zenodo.24499347)
 
 ![Figure 1: the world, the two arc geometries, built vs natural item distribution, and the cycle studied](paper/figures/fig1_schematic.png)
 
@@ -112,6 +112,6 @@ On 24 Nov 2026 the process notes moved into `notes/`, so bare file names in PRER
 
 ## How to cite
 
-Citation metadata is in [`CITATION.cff`](CITATION.cff) (GitHub shows a "Cite this repository" button for it). The DOI will be added at the Zenodo release.
+Citation metadata is in [`CITATION.cff`](CITATION.cff) (GitHub shows a "Cite this repository" button for it). DOI: [10.5281/zenodo.24499347](https://doi.org/10.5281/zenodo.24499347).
 
-David Shen (2026). *Fitting the World to the Model: What It Costs, and Who It Serves.* Preprint. [DOI to be added at the Zenodo release.]
+David Shen (2026). *Fitting the World to the Model: What It Costs, and Who It Serves.* Preprint. https://doi.org/10.5281/zenodo.24499347

@@ -6,6 +6,7 @@ authors:
     given-names: David
 version: "1.0"
 date-released: "2026-11-24"
+doi: "10.5281/zenodo.24499347"
 license:
   - MIT
   - CC-BY-4.0
@@ -18,4 +19,5 @@ preferred-citation:
     - family-names: Shen
       given-names: David
   year: 2026
+  doi: "10.5281/zenodo.24499347"
   notes: "Preprint"

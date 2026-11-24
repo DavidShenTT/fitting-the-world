@@ -28,6 +28,7 @@
   short-title: [],
   meta-title: "Fitting the World to the Model",
   meta-author: (),
+  doi: none,        // shown under the author line
   compact: false,   // tighter page for the one-page summary
   body,
 ) = {
@@ -123,6 +124,10 @@
     if author != [] {
       v(14pt)
       text(font: sans, size: 9.5pt, weight: 500, fill: ink, author)
+    }
+    if doi != none {
+      v(if author != [] { 5pt } else { 10pt })
+      text(font: sans, size: 8pt, fill: muted, tracking: 0.01em)[DOI #link("https://doi.org/" + doi)[#doi]]
     }
     v(12pt)
     line(length: 100%, stroke: 0.5pt + hair)
